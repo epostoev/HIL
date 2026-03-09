@@ -16,9 +16,10 @@ class TestCarapiKill:
         TC-FAULT-CARAPI-001-PRE: Предусловие
         Нода /carapi_node присутствует в ROS graph перед тестом.
         """
+        input(f"carapi.node_name = {carapi.node_name} | for continue, to click ENTER") #TODO Убрать
+        input(f"carapi.is_alive() = {carapi.is_alive()} | for continue, to click ENTER") #TODO Убрать
         if not carapi.is_alive():
             pytest.skip("Нода /carapi_node не запущена — тест пропущен")
-
         assert carapi.is_alive() is True
 
     def test_02_kill_carapi_node(self, carapi_alive):
@@ -31,6 +32,7 @@ class TestCarapiKill:
         3. Ожидать DDS propagation (40 сек)
         4. Проверить что нода исчезла из ROS graph
         """
+        input("for continue, to click ENTER") #TODO delete
         nodes_before = carapi_alive.get_node_list()
         carapi_alive.logger.info(f"Нод до kill: {len(nodes_before)}")
 

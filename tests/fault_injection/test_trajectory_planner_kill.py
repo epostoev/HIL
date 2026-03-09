@@ -14,6 +14,10 @@ class TestTrajectoryPlannerKill:
 
     def test_01_precondition_node_running(self, trajectory_planner):
         """TC-FAULT-TRAJ-001-PRE: Предусловие"""
+        print(f"carapi.node_name = {trajectory_planner.node_name}")
+        input("for continue, to click ENTER") #TODO delete
+        print(f"trajectory_planner.is_alive = {trajectory_planner.is_alive()}")
+        input("for continue, to click ENTER") #TODO delete
         if not trajectory_planner.is_alive():
             pytest.skip("Нода не запущена — тест пропущен")
         assert trajectory_planner.is_alive() is True
