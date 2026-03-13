@@ -8,6 +8,10 @@ class TrajectoryPlannerNode(BaseHILTest):
     NODE_NAME = "/planning/trajectory_planner_node"
     PROCESS_NAME = "trajectory_planner_node"
     DOCKER_CONTAINER = "sda-f898b5d"  # ← уточни после docker ps
+    # Ошибки которые должны появиться в /control/system после kill
+    EXPECTED_ERRORS = {
+        "trajectory_has_error": "true",
+    }
 
     def __init__(self):
         super().__init__(node_name="trajectory_planner", timeout=15)

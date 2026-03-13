@@ -70,3 +70,40 @@ class TestTrajectoryPlannerKill:
                 "Нода trajectory_planner всё ещё в graph"
             assert result["other_planning_alive"], \
                 "Все ноды planning упали после kill"
+
+    def test_04_control_system_errors_after_kill(
+        self, trajectory_planner, control_monitor  # ← добавить
+    ):
+        """
+        TC-FAULT-TRAJ-004: Мониторинг /control/system после kill
+
+        После гибели trajectory_planner_node в топике /control/system
+        должен появиться флаг trajectory_has_error: true.
+
+        Это подтверждает что система корректно детектирует отказ ноды.
+        """
+        time.sleep(5)
+
+        results = trajectory_planner.check_control_system_errors(
+            trajectory_planner.EXPECTED_ERRORS,
+            control_monitor  # ← передаём монитор
+        )
+
+        trajectory_planner.logger.info(
+            f"control_state: {results.get('control_state')}, "
+            f"ad_active: {results.get('ad_active')}"
+        )
+
+        # Проверяем каждый ожидаемый флаг ошибки
+        for field, data in results.items():
+            if field in ("control_state", "ad_active"):
+                continue
+            assert data["ok"], (
+                f"Флаг '{field}' не выставился корректно: "
+                f"ожидалось='{data['expected']}', "
+                f"получено='{data['actual']}'"
+            )
+
+        trajectory_planner.logger.info(
+            "Все флаги ошибок выставлены корректно ✅"
+        )

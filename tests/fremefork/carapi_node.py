@@ -11,6 +11,9 @@ class CarapiNode(BaseHILTest):
 
     NODE_NAME = "/carapi_node"
     DOCKER_CONTAINER = "sda-f898b5d"
+    EXPECTED_ERRORS = {
+        "carapi_has_error": "true",
+    }
 
     def __init__(self):
         super().__init__(node_name="carapi_node", timeout=15)

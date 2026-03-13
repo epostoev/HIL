@@ -48,7 +48,192 @@ class BaseHILTest:
         raise NotImplementedError("Дочерний класс обязан реализовать is_alive()")
 
     def setup(self):
+        print(f"1.      Мы в базовой ноде методе setup")
         self.logger.info(f"=== Начало теста для {self.node_name} ===")
 
     def teardown(self):
         self.logger.info(f"=== Завершение теста для {self.node_name} ===")
+    
+    def run_ros_in_docker(self, cmd: str, timeout: int = None) -> subprocess.CompletedProcess:
+        """
+        Выполнить ROS 2 команду ВНУТРИ контейнера.
+        Использует UDP транспорт вместо SHM чтобы избежать
+        исчерпания SHM портов при многократных вызовах в сьюте.
+        """
+        _timeout = timeout or self.timeout
+
+        # XML профиль отключает Shared Memory, оставляет только UDP.
+        # Publisher (chassis_adapter_receiver) использует SHM+UDP,
+        # поэтому subscriber на чистом UDP всё равно получит данные.
+        xml = (
+            '<?xml version="1.0" encoding="UTF-8" ?>'
+            '<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">'
+            '<transport_descriptors>'
+            '<transport_descriptor>'
+            '<transport_id>udp</transport_id>'
+            '<type>UDPv4</type>'
+            '</transport_descriptor>'
+            '</transport_descriptors>'
+            '<participant profile_name="no_shm" is_default_profile="true">'
+            '<rtps>'
+            '<userTransports><transport_id>udp</transport_id></userTransports>'
+            '<useBuiltinTransports>false</useBuiltinTransports>'
+            '</rtps>'
+            '</participant>'
+            '</profiles>'
+        )
+
+        inner = (
+            f"source /rep/ros2/install/setup.bash && "
+            f"export ROS_DOMAIN_ID=1 && "
+            f"export FASTRTPS_DEFAULT_PROFILES_FILE=/tmp/fastdds_no_shm.xml && "
+            f"{cmd}"
+        )
+
+        full_cmd = [
+            "docker", "exec", self.DOCKER_CONTAINER,
+            "bash", "-c",
+            f"echo '{xml}' > /tmp/fastdds_no_shm.xml && {inner}"
+        ]
+
+        return subprocess.run(
+            full_cmd,
+            capture_output=True,
+            text=True,
+            timeout=_timeout
+        )
+    
+    def get_topic_field(self, topic: str, field: str, timeout: int = 5) -> str | None:
+        """
+        Получить значение конкретного поля из топика.
+        Поддерживает вложенные поля через точку.
+
+        Примеры:
+            get_topic_field("/control/system", "control_state")
+            → "0"
+
+            get_topic_field("/control/system", "imu_has_error")
+            → "true"
+        """
+        self.logger.info(f"Читаем поле '{field}' из топика {topic}")
+
+        result = self.run_ros_in_docker(
+            f"timeout {timeout} ros2 topic echo {topic} --once 2>/dev/null",
+            timeout=timeout + 3
+        )
+
+        for line in result.stdout.split('\n'):
+            # Ищем строку вида "  field: value"
+            stripped = line.strip()
+            if stripped.startswith(f"{field}:"):
+                try:
+                    value = stripped.split(':', 1)[1].strip()
+                    self.logger.info(f"  {field}: {value}")
+                    return value
+                except IndexError:
+                    pass
+
+        self.logger.warning(f"Поле '{field}' не найдено в топике {topic}")
+        return None
+
+    # def get_topic_fields(self, topic: str, fields: list[str], timeout: int = 5) -> dict:
+        # """
+        # Получить несколько полей из одного топика за один вызов ros2 topic echo.
+
+        # Пример:
+        #     get_topic_fields("/control/system", [
+        #         "control_state",
+        #         "ad_active",
+        #         "imu_has_error",
+        #     ])
+        #     → {"control_state": "0", "ad_active": "false", "imu_has_error": "true"}
+        # """
+        # self.logger.info(f"Читаем топик {topic}, поля: {fields}")
+
+        # result = self.run_ros_in_docker(
+        #     f"timeout {timeout} ros2 topic echo {topic} --once 2>/dev/null",
+        #     timeout=timeout + 3
+        # )
+        # # DEBUG — временно, удалим после отладки
+        # self.logger.info(f"=== STDOUT ===\n{result.stdout[:500]}")
+        # self.logger.info(f"=== STDERR ===\n{result.stderr[:300]}")
+
+        # parsed = {field: None for field in fields}
+
+        # parsed = {field: None for field in fields}
+
+        # for line in result.stdout.split('\n'):
+        #     stripped = line.strip()
+        #     for field in fields:
+        #         if stripped.startswith(f"{field}:"):
+        #             try:
+        #                 value = stripped.split(':', 1)[1].strip()
+        #                 parsed[field] = value
+        #                 self.logger.info(f"  {field}: {value}")
+        #             except IndexError:
+        #                 pass
+
+        # # Логируем поля которые не нашли
+        # for field, value in parsed.items():
+        #     if value is None:
+        #         self.logger.warning(f"  {field}: не найдено")
+
+        # return parsed
+    
+    def get_topic_fields(self, topic: str, fields: list[str], timeout: int = 10) -> dict:
+        self.logger.info(f"Читаем топик {topic}, поля: {fields}")
+
+        result = self.run_ros_in_docker(
+            f"timeout {timeout} ros2 topic echo {topic} --once 2>/dev/null",
+            timeout=timeout + 5
+        )
+        self.logger.info(f"STDOUT len={len(result.stdout)}: {result.stdout[:200]}")
+        self.logger.warning(f"STDERR: {result.stderr[:300]}")
+        self.logger.info(f"returncode: {result.returncode}")
+
+        if not result.stdout.strip():
+            self.logger.warning(f"Пустой ответ от топика {topic}")
+            return {field: None for field in fields}
+
+        parsed = {field: None for field in fields}
+
+        for line in result.stdout.split('\n'):
+            stripped = line.strip()
+            for field in fields:
+                if stripped.startswith(f"{field}:"):
+                    try:
+                        value = stripped.split(':', 1)[1].strip()
+                        parsed[field] = value
+                        self.logger.info(f"  {field}: {value}")
+                    except IndexError:
+                        pass
+
+        for field, value in parsed.items():
+            if value is None:
+                self.logger.warning(f"  {field}: не найдено")
+
+        return parsed
+
+    def check_control_system_errors(
+        self,
+        expected_errors: dict,
+        monitor  # ControlSystemMonitor из фикстуры
+    ) -> dict:
+        self.logger.info("Проверяем флаги ошибок в /control/system")
+
+        fields = list(expected_errors.keys()) + ["control_state", "ad_active"]
+        actual = monitor.get_fields(fields)  # читаем из кэша — нет docker exec
+
+        results = {}
+        for field, expected_value in expected_errors.items():
+            actual_value = actual.get(field)
+            ok = actual_value == expected_value
+            results[field] = {"expected": expected_value, "actual": actual_value, "ok": ok}
+            status = "✅" if ok else "❌"
+            self.logger.info(
+                f"  {status} {field}: ожидалось='{expected_value}', получено='{actual_value}'"
+            )
+
+        results["control_state"] = actual.get("control_state")
+        results["ad_active"] = actual.get("ad_active")
+        return results
