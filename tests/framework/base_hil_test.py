@@ -27,15 +27,16 @@ class BaseHILTest:
         return logger
 
     def run_ros(self, cmd: str, timeout: int = None) -> subprocess.CompletedProcess:
-        """Выполнить команду в ROS 2 окружении"""
+        """Выполнить команду в ROS 2 окружении через docker exec"""
         _timeout = timeout or self.timeout
-        full = (
-            f"bash -c 'source /opt/ros/humble/setup.bash && "
-            f"export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp && "
-            f"export ROS_DOMAIN_ID=1 && {cmd}'"
-        )
+        full_cmd = [
+            "docker", "exec", self.DOCKER_CONTAINER,
+            "bash", "-c",
+            f"source /rep/ros2/install/setup.bash && "
+            f"export ROS_DOMAIN_ID=1 && {cmd}"
+        ]
         return subprocess.run(
-            full, shell=True, capture_output=True, text=True, timeout=_timeout
+            full_cmd, capture_output=True, text=True, timeout=_timeout
         )
 
     def get_node_list(self) -> list[str]:
