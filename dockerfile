@@ -35,8 +35,8 @@ RUN pip3 install \
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
-COPY project/ /workspace/project/
+COPY tests/ /workspace/tests/
 
 WORKDIR /workspace
 
-CMD ["pytest", "project/ros2_control/tests/fault_injection/", "-v", "-s"]
+CMD ["pytest", "tests/fault_injection/", "-v", "-s"]
