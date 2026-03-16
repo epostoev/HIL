@@ -1,13 +1,14 @@
 import time
 import subprocess
 from framework.base_hil_test import BaseHILTest
+from framework.base_hil_test import DOCKER_CONTAINER
 
 
 class TrajectoryPlannerNode(BaseHILTest):
 
     NODE_NAME = "/planning/trajectory_planner_node"
     PROCESS_NAME = "trajectory_planner_node"
-    DOCKER_CONTAINER = "sda-f898b5d"  # ← уточни после docker ps
+    # DOCKER_CONTAINER = "sda-f898b5d"  # ← уточни после docker ps
     # Ошибки которые должны появиться в /control/system после kill
     EXPECTED_ERRORS = {
         "trajectory_has_error": "true",

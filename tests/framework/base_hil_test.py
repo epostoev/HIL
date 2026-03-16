@@ -2,12 +2,35 @@ import logging
 import subprocess
 import os
 
+def _detect_container() -> str:
+    """Автоматически определить имя контейнера стенда."""
+    candidates = ["sda-f898b5d", "sda_drive"]
+    
+    result = subprocess.run(
+        ["docker", "ps", "--format", "{{.Names}}"],
+        capture_output=True, text=True
+    )
+    running = result.stdout.strip().split('\n')
+    
+    for name in candidates:
+        if name in running:
+            return name
+    
+    raise RuntimeError(
+        f"Контейнер стенда не найден. "
+        f"Искали: {candidates}. "
+        f"Запущены: {running}"
+    )
+
+DOCKER_CONTAINER = _detect_container()
+
 os.environ['RMW_IMPLEMENTATION'] = 'rmw_cyclonedds_cpp'
 os.environ['ROS_DOMAIN_ID'] = '1'
 
 
 class BaseHILTest:
     """Базовый класс для всех HIL тестов"""
+    DOCKER_CONTAINER = DOCKER_CONTAINER
 
     def __init__(self, node_name: str, timeout: int = 15):
         self.node_name = node_name

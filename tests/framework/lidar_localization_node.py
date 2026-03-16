@@ -1,13 +1,14 @@
 import time
 import subprocess
 from framework.base_hil_test import BaseHILTest
+from framework.base_hil_test import DOCKER_CONTAINER
 
 
 class LidarLocalizationNode(BaseHILTest):
 
     NODE_NAME = "/lidar_localization"
     PROCESS_NAME = "lidar_localization"
-    DOCKER_CONTAINER = "sda-f898b5d"  # ← уточни после docker ps
+    # DOCKER_CONTAINER = "sda-f898b5d"  # ← уточни после docker ps
 
     def __init__(self):
         super().__init__(node_name="imulidar_localization_node", timeout=15)

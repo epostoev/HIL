@@ -1,6 +1,7 @@
 import subprocess
 import time
 from framework.base_hil_test import BaseHILTest
+from framework.base_hil_test import DOCKER_CONTAINER
 
 
 class CarapiNode(BaseHILTest):
@@ -10,7 +11,7 @@ class CarapiNode(BaseHILTest):
     """
 
     NODE_NAME = "/carapi_node"
-    DOCKER_CONTAINER = "sda-f898b5d"
+    # DOCKER_CONTAINER = "sda-f898b5d"
     EXPECTED_ERRORS = {
         "carapi_has_error": "true",
     }

@@ -1,13 +1,14 @@
 import time
 import subprocess
 from framework.base_hil_test import BaseHILTest
+from framework.base_hil_test import DOCKER_CONTAINER
 
 
 class ImuNode(BaseHILTest):
 
     NODE_NAME = "/sensing/imu1/imu_node"
     PROCESS_NAME = "imu_node"
-    DOCKER_CONTAINER = "sda-f898b5d"  # ← уточни после docker ps
+    # DOCKER_CONTAINER = "sda-f898b5d"  # ← уточни после docker ps
 
     def __init__(self):
         super().__init__(node_name="imu_node", timeout=15)

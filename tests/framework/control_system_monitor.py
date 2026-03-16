@@ -1,5 +1,6 @@
 import subprocess
 import threading
+from framework.base_hil_test import DOCKER_CONTAINER
 
 
 class ControlSystemMonitor:
@@ -8,7 +9,7 @@ class ControlSystemMonitor:
     Один docker exec на весь сьют — нет SHM исчерпания.
     Паттерн взят из TopicWatcher коллеги.
     """
-    CONTAINER = "sda-f898b5d"
+    CONTAINER = DOCKER_CONTAINER
 
     def __init__(self):
         self._latest_raw: str = ""
