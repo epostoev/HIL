@@ -34,8 +34,6 @@ class BaseHILTest:
 
     def __init__(self, node_name: str, timeout: int = 15):
         self.node_name = node_name
-        input(f"\n WE ARE IN TO \"BaseHILTEST\" | for continue, to click ENTER") #TODO delete
-        input(f"В классе BaseHILL {node_name} | for continue, to click ENTER")
         self.timeout = timeout
         self.logger = self._setup_logger()
 

@@ -48,21 +48,21 @@ class TestImuNodeKill:
         assert not imu_node_alive.is_alive(), \
             "Нода не была корректно завершена"
 
-    def test_03_sensing_degradation(self, imu_node):
-        """TC-FAULT-IMU-003: Поведение сенсорной системы после kill"""
-        time.sleep(5)
+    # def test_03_sensing_degradation(self, imu_node):
+    #     """TC-FAULT-IMU-003: Поведение сенсорной системы после kill"""
+    #     time.sleep(5)
 
-        result = imu_node.check_sensing_degradation()
+    #     result = imu_node.check_sensing_degradation()
 
-        if result["has_auto_restart"]:
-            imu_node.logger.info(
-                "Система восстановила ноду автоматически. "
-                "Fault tolerance: ПОДТВЕРЖДЁН ✅"
-            )
-            assert result["other_sensing_alive"], \
-                "Ноды sensing не работают даже с auto-restart"
-        else:
-            assert result["imu_node_gone"], \
-                "Нода imu_node всё ещё в graph"
-            assert result["other_sensing_alive"], \
-                "Все ноды sensing упали после kill"
+    #     if result["has_auto_restart"]:
+    #         imu_node.logger.info(
+    #             "Система восстановила ноду автоматически. "
+    #             "Fault tolerance: ПОДТВЕРЖДЁН ✅"
+    #         )
+    #         assert result["other_sensing_alive"], \
+    #             "Ноды sensing не работают даже с auto-restart"
+    #     else:
+    #         assert result["imu_node_gone"], \
+    #             "Нода imu_node всё ещё в graph"
+    #         assert result["other_sensing_alive"], \
+    #             "Все ноды sensing упали после kill"

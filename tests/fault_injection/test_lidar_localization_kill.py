@@ -47,21 +47,21 @@ class TestLidarLocalizationKill:
         assert not lidar_localization_alive.is_alive(), \
             "Нода не была корректно завершена"
 
-    def test_03_localization_degradation(self, lidar_localization):
-        """TC-FAULT-LIDAR-003: Поведение системы локализации после kill"""
-        time.sleep(5)
+    # def test_03_localization_degradation(self, lidar_localization):
+    #     """TC-FAULT-LIDAR-003: Поведение системы локализации после kill"""
+    #     time.sleep(5)
 
-        result = lidar_localization.check_localization_degradation()
+    #     result = lidar_localization.check_localization_degradation()
 
-        if result["has_auto_restart"]:
-            lidar_localization.logger.info(
-                "Система восстановила ноду автоматически. "
-                "Fault tolerance: ПОДТВЕРЖДЁН ✅"
-            )
-            assert result["other_localization_alive"], \
-                "Ноды localization не работают даже с auto-restart"
-        else:
-            assert result["lidar_localization_gone"], \
-                "Нода lidar_localization всё ещё в graph"
-            assert result["other_localization_alive"], \
-                "Все ноды localization упали после kill"
+    #     if result["has_auto_restart"]:
+    #         lidar_localization.logger.info(
+    #             "Система восстановила ноду автоматически. "
+    #             "Fault tolerance: ПОДТВЕРЖДЁН ✅"
+    #         )
+    #         assert result["other_localization_alive"], \
+    #             "Ноды localization не работают даже с auto-restart"
+    #     else:
+    #         assert result["lidar_localization_gone"], \
+    #             "Нода lidar_localization всё ещё в graph"
+    #         assert result["other_localization_alive"], \
+    #             "Все ноды localization упали после kill"

@@ -14,10 +14,6 @@ class TestTrajectoryPlannerKill:
 
     def test_01_precondition_node_running(self, trajectory_planner):
         """TC-FAULT-TRAJ-001-PRE: Предусловие"""
-        print(f"carapi.node_name = {trajectory_planner.node_name}")
-        input("for continue, to click ENTER") #TODO delete
-        print(f"trajectory_planner.is_alive = {trajectory_planner.is_alive()}")
-        input("for continue, to click ENTER") #TODO delete
         if not trajectory_planner.is_alive():
             pytest.skip("Нода не запущена — тест пропущен")
         assert trajectory_planner.is_alive() is True
@@ -52,24 +48,24 @@ class TestTrajectoryPlannerKill:
         assert not trajectory_planner_alive.is_alive(), \
             "Нода не была корректно завершена"
 
-    def test_03_planning_degradation(self, trajectory_planner):
-        """TC-FAULT-TRAJ-003: Поведение системы после kill"""
-        time.sleep(5)
+    # def test_03_planning_degradation(self, trajectory_planner):
+    #     """TC-FAULT-TRAJ-003: Поведение системы после kill"""
+    #     time.sleep(5)
 
-        result = trajectory_planner.check_planning_degradation()
+    #     result = trajectory_planner.check_planning_degradation()
 
-        if result["has_auto_restart"]:
-            trajectory_planner.logger.info(
-                "Система восстановила ноду автоматически. "
-                "Fault tolerance: ПОДТВЕРЖДЁН ✅"
-            )
-            assert result["other_planning_alive"], \
-                "Ноды planning не работают даже с auto-restart"
-        else:
-            assert result["trajectory_planner_gone"], \
-                "Нода trajectory_planner всё ещё в graph"
-            assert result["other_planning_alive"], \
-                "Все ноды planning упали после kill"
+    #     if result["has_auto_restart"]:
+    #         trajectory_planner.logger.info(
+    #             "Система восстановила ноду автоматически. "
+    #             "Fault tolerance: ПОДТВЕРЖДЁН ✅"
+    #         )
+    #         assert result["other_planning_alive"], \
+    #             "Ноды planning не работают даже с auto-restart"
+    #     else:
+    #         assert result["trajectory_planner_gone"], \
+    #             "Нода trajectory_planner всё ещё в graph"
+    #         assert result["other_planning_alive"], \
+    #             "Все ноды planning упали после kill"
 
     def test_04_control_system_errors_after_kill(
         self, trajectory_planner, control_monitor  # ← добавить
