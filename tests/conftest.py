@@ -1,4 +1,5 @@
 import pytest
+from framework.control_system_monitor import ControlSystemMonitor
 from framework.carapi_node import CarapiNode
 from framework.trajectory_planner_node import TrajectoryPlannerNode
 from framework.imu_node import ImuNode
@@ -17,6 +18,21 @@ def carapi():
     yield node
     node.teardown()
 
+
+@pytest.fixture(scope="session", autouse=True)  # ← добавить autouse=True
+def control_monitor():
+    """
+    Запускается автоматически в начале сессии — ДО любых тестов.
+    Один persistent мониторинг /control/system на весь сьют.
+    """
+    monitor = ControlSystemMonitor()
+    monitor.start()
+
+    if not monitor.wait_ready(timeout=15):
+        pytest.fail("Топик /control/system не публикует сообщения")
+
+    yield monitor
+    monitor.stop()
 
 @pytest.fixture(scope="module")
 def carapi_alive(carapi):
