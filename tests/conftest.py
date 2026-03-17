@@ -5,6 +5,7 @@ from framework.trajectory_planner_node import TrajectoryPlannerNode
 from framework.imu_node import ImuNode
 from framework.lidar_localization_node import LidarLocalizationNode
 from framework.xviz_node import XvizNode
+from framework.vinx_node import VinxNode
 
 
 @pytest.fixture(scope="module")
@@ -107,3 +108,17 @@ def xviz_node_alive(xviz_node):
     if not xviz_node.is_alive():
         pytest.skip("Нода /visualization/xviz не запущена")
     return xviz_node
+
+
+@pytest.fixture(scope="module")
+def vinx_node():
+    node = VinxNode()
+    node.setup()
+    yield node
+    node.teardown()
+
+@pytest.fixture(scope="module")
+def vinx_node_alive(vinx_node):
+    if not vinx_node.is_alive():
+        pytest.skip("Нода /visualization/vinx не запущена")
+    return vinx_node
