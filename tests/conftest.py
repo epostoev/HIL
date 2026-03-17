@@ -6,6 +6,7 @@ from framework.imu_node import ImuNode
 from framework.lidar_localization_node import LidarLocalizationNode
 from framework.xviz_node import XvizNode
 from framework.vinx_node import VinxNode
+from framework.text_overlay import TextOverlay
 
 
 @pytest.fixture(scope="module")
@@ -122,3 +123,16 @@ def vinx_node_alive(vinx_node):
     if not vinx_node.is_alive():
         pytest.skip("Нода /visualization/vinx не запущена")
     return vinx_node
+
+@pytest.fixture(scope="module")
+def text_overlay():
+    node = TextOverlay()
+    node.setup()
+    yield node
+    node.teardown()
+
+@pytest.fixture(scope="module")
+def text_overlay_alive(text_overlay):
+    if not text_overlay.is_alive():
+        pytest.skip("Нода visualization/text_overlay не запущена")
+    return text_overlay
