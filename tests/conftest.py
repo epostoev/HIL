@@ -7,7 +7,7 @@ from framework.lidar_localization_node import LidarLocalizationNode
 from framework.xviz_node import XvizNode
 from framework.vinx_node import VinxNode
 from framework.text_overlay import TextOverlay
-
+from framework.radar_driver_node import RadarDriverNode
 
 @pytest.fixture(scope="module")
 def carapi():
@@ -136,3 +136,17 @@ def text_overlay_alive(text_overlay):
     if not text_overlay.is_alive():
         pytest.skip("Нода visualization/text_overlay не запущена")
     return text_overlay
+
+
+@pytest.fixture(scope="module")
+def radar_driver_node():
+    node = RadarDriverNode()
+    node.setup()
+    yield node
+    node.teardown()
+
+@pytest.fixture(scope="module")
+def radar_driver_node_alive(radar_driver_node):
+    if not radar_driver_node.is_alive():
+        pytest.skip("Нода /sensing/radar_driver_node не запущена")
+    return radar_driver_node

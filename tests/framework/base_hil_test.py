@@ -70,7 +70,7 @@ class BaseHILTest:
         raise NotImplementedError("Дочерний класс обязан реализовать is_alive()")
 
     def setup(self):
-        print(f"1.      Мы в базовой ноде методе setup")
+        input(f"\nself = {type(self).__name__}\nPlease pass Enter")
         self.logger.info(f"=== Начало теста для {self.node_name} ===")
 
     def teardown(self):
