@@ -31,7 +31,9 @@ RUN pip3 install \
     pytest-timeout \
     pytest-rerunfailures \
     pyyaml \
-    psutil
+    psutil \
+    --index-url https://artifactory.sberautotech.ru/artifactory/api/pypi/pypi/simple/ \
+    --trusted-host artifactory.sberautotech.ru
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
