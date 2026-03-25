@@ -149,15 +149,16 @@ def radar_driver_node():
     node.teardown()
 
 @pytest.fixture(scope="module")
-def radar_driver_node_alive(radar_driver_node):
-    if not radar_driver_node.is_alive():
-        pytest.skip("Нода /sensing/radar_driver_node не запущена")
-    return radar_driver_node
-
-
-@pytest.fixture(scope="module")
 def auto_cleaning_node():
-    node = AutoCleaningNode(); node.setup(); yield node; node.teardown()
+    print("\n\n 1 шаг - Выполнить node = AutoCleaningNode() - создал объект класса\n")
+    node = AutoCleaningNode()
+    print(f"\nID = {id(node)}\n")
+    print(f"\nnode.__dict__ {node.__dict__}\n")
+    print("\n3 шаг - Вызов node.setup()\n")
+    node.setup() 
+    print("\n4 шаг - Перешли в yeld, тест получил готовый обьект auto_cleaning_node\n")
+    yield node 
+    node.teardown()
 
 @pytest.fixture(scope="module")
 def odometry_node():
@@ -174,3 +175,9 @@ def ublox_driver_node():
 @pytest.fixture(scope="module")
 def radar_visualization_node():
     node = RadarVisualizationNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def radar_driver_node_alive(radar_driver_node):
+    if not radar_driver_node.is_alive():
+        pytest.skip("Нода /sensing/radar_driver_node не запущена")
+    return radar_driver_node

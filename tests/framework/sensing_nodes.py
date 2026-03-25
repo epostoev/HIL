@@ -4,10 +4,14 @@ class AutoCleaningNode(BaseHILTest):
     NODE_NAME = "/sensing/auto_cleaning"
 
     def __init__(self):
+        print(f"\nI in self = {id(self)}\n")
+        print(f"\nsuper = {super()}\n")
         super().__init__(node_name="auto_cleaning", timeout=15)
+        print("\n2 шаг - Вызвал super().__init__() из BaseHILTest. \n {type(self).__name__}",{type(self).__name__})
 
     def is_alive(self) -> bool:
         alive = self.NODE_NAME in self.get_node_list()
+        print(f"\nSELF in class AutoCleaningNode {id(self)}\n")
         self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
         return alive
 

@@ -63,14 +63,18 @@ class BaseHILTest:
     def get_node_list(self) -> list[str]:
         """Получить список активных нод из ROS graph"""
         result = self.run_ros("ros2 node list 2>/dev/null")
-        return [n.strip() for n in result.stdout.split('\n') if n.strip()]
+        result_list = []
+        for n in result.stdout.split('\n'):
+            if n.strip():
+                result_list.append(n.strip())
+        return result_list
 
     def is_alive(self) -> bool:
         """Проверить что нода присутствует в ROS graph — переопределяется в дочернем классе"""
         raise NotImplementedError("Дочерний класс обязан реализовать is_alive()")
 
     def setup(self):
-        # input(f"\nself = {type(self).__name__}\nPlease pass Enter")
+        print(f"self = \n{type(self).__name__}\n")
         self.logger.info(f"=== Начало теста для {self.node_name} ===")
 
     def teardown(self):
