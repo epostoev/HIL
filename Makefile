@@ -23,6 +23,15 @@ run:
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		$(IMAGE):$(TAG)
 
+run-sensing:
+	docker run --rm \
+		--name evgeny_tests \
+		--network host \
+		--pid=container:$(SDA_CONTAINER) \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		$(IMAGE):$(TAG) \
+		pytest tests/fault_injection/test_sensing_nodes_running.py -v -s
+
 test:
 	docker run --rm \
 		--name evgeny_tests \
@@ -58,4 +67,4 @@ clean:
 	docker rm -f evgeny_tests || true
 	docker rmi $(IMAGE):$(TAG) || true
 
-.PHONY: build rebuild run test dev debug stop clean
+.PHONY: build rebuild run run-sensing test dev debug stop clean

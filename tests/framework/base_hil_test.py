@@ -70,7 +70,7 @@ class BaseHILTest:
         raise NotImplementedError("Дочерний класс обязан реализовать is_alive()")
 
     def setup(self):
-        input(f"\nself = {type(self).__name__}\nPlease pass Enter")
+        # input(f"\nself = {type(self).__name__}\nPlease pass Enter")
         self.logger.info(f"=== Начало теста для {self.node_name} ===")
 
     def teardown(self):

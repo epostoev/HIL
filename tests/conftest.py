@@ -8,6 +8,9 @@ from framework.xviz_node import XvizNode
 from framework.vinx_node import VinxNode
 from framework.text_overlay import TextOverlay
 from framework.radar_driver_node import RadarDriverNode
+from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode
+from framework.ublox_driver_node import UbloxDriverNode
+from framework.radar_visualization_node import RadarVisualizationNode
 
 @pytest.fixture(scope="module")
 def carapi():
@@ -150,3 +153,24 @@ def radar_driver_node_alive(radar_driver_node):
     if not radar_driver_node.is_alive():
         pytest.skip("Нода /sensing/radar_driver_node не запущена")
     return radar_driver_node
+
+
+@pytest.fixture(scope="module")
+def auto_cleaning_node():
+    node = AutoCleaningNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def odometry_node():
+    node = OdometryNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def odometry_velocity_node():
+    node = OdometryVelocityNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def ublox_driver_node():
+    node = UbloxDriverNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def radar_visualization_node():
+    node = RadarVisualizationNode(); node.setup(); yield node; node.teardown()
