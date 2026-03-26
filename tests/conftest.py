@@ -11,6 +11,8 @@ from framework.radar_driver_node import RadarDriverNode
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode
 from framework.ublox_driver_node import UbloxDriverNode
 from framework.radar_visualization_node import RadarVisualizationNode
+from framework.mrm_request_monitor import MrmRequestMonitor
+from framework.base_hil_test import DOCKER_CONTAINER
 
 @pytest.fixture(scope="module")
 def carapi():
@@ -181,3 +183,18 @@ def radar_driver_node_alive(radar_driver_node):
     if not radar_driver_node.is_alive():
         pytest.skip("Нода /sensing/radar_driver_node не запущена")
     return radar_driver_node
+
+@pytest.fixture(scope="session", autouse=True)
+def mrm_monitor():
+    monitor = MrmRequestMonitor(container=DOCKER_CONTAINER)
+    monitor.start()
+    if not monitor.wait_ready(timeout=15):
+        pytest.fail("Топик /safety/mrm_request не публикует сообщения")
+    yield monitor
+    monitor.stop()
+
+@pytest.fixture(scope="module")
+def auto_cleaning_node_alive(auto_cleaning_node):
+    if not auto_cleaning_node.is_alive():
+        pytest.skip("Нода /sensing/auto_cleaning не запущена")
+    return auto_cleaning_node

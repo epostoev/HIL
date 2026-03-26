@@ -2,6 +2,7 @@ from framework.base_hil_test import BaseHILTest
 
 class AutoCleaningNode(BaseHILTest):
     NODE_NAME = "/sensing/auto_cleaning"
+    PROCESS_NAME = "auto_cleaning/lib/auto_cleaning/auto_cleaning_node"
 
     def __init__(self):
         print(f"\nI in self = {id(self)}\n")
