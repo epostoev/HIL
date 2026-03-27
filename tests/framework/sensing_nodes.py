@@ -19,6 +19,7 @@ class AutoCleaningNode(BaseHILTest):
 
 class OdometryNode(BaseHILTest):
     NODE_NAME = "/sensing/odometry_node"
+    PROCESS_NAME = "odometry_driver/lib/odometry_driver/odometry_node"
 
     def __init__(self):
         super().__init__(node_name="odometry_node", timeout=15)
@@ -31,6 +32,7 @@ class OdometryNode(BaseHILTest):
 
 class OdometryVelocityNode(BaseHILTest):
     NODE_NAME = "/sensing/odometry_velocity_node"
+    PROCESS_NAME = "odometry_velocity/lib/odometry_velocity/odometry_velocity_node"
 
     def __init__(self):
         super().__init__(node_name="odometry_velocity_node", timeout=15)
