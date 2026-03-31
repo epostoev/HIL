@@ -198,3 +198,26 @@ def auto_cleaning_node_alive(auto_cleaning_node):
     if not auto_cleaning_node.is_alive():
         pytest.skip("Нода /sensing/auto_cleaning не запущена")
     return auto_cleaning_node
+
+
+
+
+def pytest_html_report_title(report):
+    report.title = "HIL Fault Injection — Sensing Component"
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    # Добавляем дополнительные колонки
+    report.expected = getattr(item, 'expected', '—')
+    report.actual = getattr(item, 'actual', '—')
+
+def pytest_html_results_table_header(cells):
+    cells.insert(2, '<th>Ожидаемый результат</th>')
+    cells.insert(3, '<th>Фактический результат</th>')
+
+def pytest_html_results_table_row(report, cells):
+    cells.insert(2, f'<td>{getattr(report, "expected", "—")}</td>')
+    cells.insert(3, f'<td>{getattr(report, "actual", "—")}</td>')

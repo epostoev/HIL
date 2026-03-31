@@ -67,4 +67,17 @@ clean:
 	docker rm -f evgeny_tests || true
 	docker rmi $(IMAGE):$(TAG) || true
 
-.PHONY: build rebuild run run-sensing test dev debug stop clean
+report-sensing:
+	docker run --rm \
+		--name evgeny_tests \
+		--network host \
+		--pid=container:$(SDA_CONTAINER) \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v $(PROJECT_DIR)/reports:/workspace/reports \
+		-v $(PROJECT_DIR)/tests:/workspace/tests \
+		$(IMAGE):$(TAG) \
+		pytest tests/fault_injection/test_sensing_nodes_running.py -v -s \
+		--html=reports/sensing_nodes_running.html \
+		--self-contained-html
+
+.PHONY: build rebuild run run-sensing test dev debug stop clean report-sensing

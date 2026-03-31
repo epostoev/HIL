@@ -30,6 +30,7 @@ RUN pip3 install \
     pytest \
     pytest-timeout \
     pytest-rerunfailures \
+    pytest-html \
     pyyaml \
     psutil \
     --index-url https://artifactory.sberautotech.ru/artifactory/api/pypi/pypi/simple/ \
