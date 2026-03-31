@@ -16,10 +16,22 @@ class AutoCleaningNode(BaseHILTest):
         self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
         return alive
 
+class ImuNode(BaseHILTest):
+    NODE_NAME = "/sensing/imu1/imu_node"
+    PROCESS_NAME = "auto_cleaning/lib/auto_cleaning/auto_cleaning_node"
+
+    def __init__(self):
+        super().__init__(node_name="imu_node", timeout=15)
+
+    def is_alive(self) -> bool:
+        alive = self.NODE_NAME in self.get_node_list()
+        self.logger.info(f"Нода {self.NODE_NAME} жива {alive}")
+        return alive
+
 
 class OdometryNode(BaseHILTest):
     NODE_NAME = "/sensing/odometry_node"
-    PROCESS_NAME = "odometry_driver/lib/odometry_driver/odometry_node"
+    PROCESS_NAME = "odometry_velocity/lib/odometry_velocity/odometry_velocity_node"
 
     def __init__(self):
         super().__init__(node_name="odometry_node", timeout=15)
