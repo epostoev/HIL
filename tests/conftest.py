@@ -6,10 +6,7 @@ from framework.lidar_localization_node import LidarLocalizationNode
 from framework.xviz_node import XvizNode
 from framework.vinx_node import VinxNode
 from framework.text_overlay import TextOverlay
-from framework.radar_driver_node import RadarDriverNode
-from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode
-from framework.ublox_driver_node import UbloxDriverNode
-from framework.radar_visualization_node import RadarVisualizationNode
+from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
 

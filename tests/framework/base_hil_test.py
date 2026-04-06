@@ -33,6 +33,12 @@ class BaseHILTest:
     """Базовый класс для всех HIL тестов"""
     DOCKER_CONTAINER = DOCKER_CONTAINER
 
+    def is_alive(self) -> bool:
+        """Проверить что нода присутствует в ROS graph"""
+        alive = self.NODE_NAME in self.get_node_list()
+        self.logger.info(f"Нода {self.NODE_NAME} жива {alive}")
+        return alive
+    
     def __init__(self, node_name: str, timeout: int = 15):
         self.node_name = node_name
         self.timeout = timeout
@@ -47,6 +53,7 @@ class BaseHILTest:
         ))
         logger.addHandler(handler)
         return logger
+    
 
     def run_ros(self, cmd: str, timeout: int = None) -> subprocess.CompletedProcess:
         """Выполнить команду в ROS 2 окружении через docker exec"""
@@ -70,9 +77,9 @@ class BaseHILTest:
                 result_list.append(n.strip())
         return result_list
 
-    def is_alive(self) -> bool:
-        """Проверить что нода присутствует в ROS graph — переопределяется в дочернем классе"""
-        raise NotImplementedError("Дочерний класс обязан реализовать is_alive()")
+    # def is_alive(self) -> bool:
+    #     """Проверить что нода присутствует в ROS graph — переопределяется в дочернем классе"""
+    #     raise NotImplementedError("Дочерний класс обязан реализовать is_alive()")
 
     def setup(self):
         print(f"self = \n{type(self).__name__}\n")
