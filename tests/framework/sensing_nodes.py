@@ -10,11 +10,6 @@ class AutoCleaningNode(BaseHILTest):
         super().__init__(node_name="auto_cleaning", timeout=15)
         print("\n2 шаг - Вызвал super().__init__() из BaseHILTest. \n {type(self).__name__}",{type(self).__name__})
 
-    # def is_alive(self) -> bool:
-    #     alive = self.NODE_NAME in self.get_node_list()
-    #     print(f"\nSELF in class AutoCleaningNode {id(self)}\n")
-    #     self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
-    #     return alive
 
 class ImuNode(BaseHILTest):
     NODE_NAME = "/sensing/imu1/imu_node"
@@ -23,10 +18,6 @@ class ImuNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="imu_node", timeout=15)
 
-    # def is_alive(self) -> bool:
-    #     alive = self.NODE_NAME in self.get_node_list()
-    #     self.logger.info(f"Нода {self.NODE_NAME} жива {alive}")
-    #     return alive
 
 class OdometryNode(BaseHILTest):
     NODE_NAME = "/sensing/odometry_node"
@@ -35,10 +26,6 @@ class OdometryNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="odometry_node", timeout=15)
 
-    # def is_alive(self) -> bool:
-    #     alive = self.NODE_NAME in self.get_node_list()
-    #     self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
-    #     return alive
 
 class OdometryVelocityNode(BaseHILTest):
     NODE_NAME = "/sensing/odometry_velocity_node"
@@ -47,10 +34,6 @@ class OdometryVelocityNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="odometry_velocity_node", timeout=15)
 
-    # def is_alive(self) -> bool:
-    #     alive = self.NODE_NAME in self.get_node_list()
-    #     self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
-    #     return alive
 
 class RadarDriverNode(BaseHILTest):
     NODE_NAME = "/sensing/radar_driver_node"
@@ -59,10 +42,6 @@ class RadarDriverNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="radar_driver_node", timeout=15)
 
-    # def is_alive(self) -> bool:
-    #     alive = self.NODE_NAME in self.get_node_list()
-    #     self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
-    #     return alive
 
 class UbloxDriverNode(BaseHILTest):
     NODE_NAME = "/sensing/ublox1/ublox_driver_node"
@@ -71,10 +50,6 @@ class UbloxDriverNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="ublox_driver_node", timeout=15)
 
-    # def is_alive(self) -> bool:
-    #     alive = self.NODE_NAME in self.get_node_list()
-    #     self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
-    #     return alive
 
 class RadarVisualizationNode(BaseHILTest):
     NODE_NAME = "/sensing/visualization/radar_visualization_node"
@@ -82,9 +57,3 @@ class RadarVisualizationNode(BaseHILTest):
 
     def __init__(self):
         super().__init__(node_name="radar_visualization_node", timeout=15)
-
-    # def is_alive(self) -> bool:
-    #     alive = self.NODE_NAME in self.get_node_list()
-    #     self.logger.info(f"Нода {self.NODE_NAME} жива: {alive}")
-    #     return alive
-

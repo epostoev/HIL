@@ -77,10 +77,6 @@ class BaseHILTest:
                 result_list.append(n.strip())
         return result_list
 
-    # def is_alive(self) -> bool:
-    #     """Проверить что нода присутствует в ROS graph — переопределяется в дочернем классе"""
-    #     raise NotImplementedError("Дочерний класс обязан реализовать is_alive()")
-
     def setup(self):
         print(f"self = \n{type(self).__name__}\n")
         self.logger.info(f"=== Начало теста для {self.node_name} ===")
@@ -170,49 +166,6 @@ class BaseHILTest:
         self.logger.warning(f"Поле '{field}' не найдено в топике {topic}")
         return None
 
-    # def get_topic_fields(self, topic: str, fields: list[str], timeout: int = 5) -> dict:
-        # """
-        # Получить несколько полей из одного топика за один вызов ros2 topic echo.
-
-        # Пример:
-        #     get_topic_fields("/control/system", [
-        #         "control_state",
-        #         "ad_active",
-        #         "imu_has_error",
-        #     ])
-        #     → {"control_state": "0", "ad_active": "false", "imu_has_error": "true"}
-        # """
-        # self.logger.info(f"Читаем топик {topic}, поля: {fields}")
-
-        # result = self.run_ros_in_docker(
-        #     f"timeout {timeout} ros2 topic echo {topic} --once 2>/dev/null",
-        #     timeout=timeout + 3
-        # )
-        # # DEBUG — временно, удалим после отладки
-        # self.logger.info(f"=== STDOUT ===\n{result.stdout[:500]}")
-        # self.logger.info(f"=== STDERR ===\n{result.stderr[:300]}")
-
-        # parsed = {field: None for field in fields}
-
-        # parsed = {field: None for field in fields}
-
-        # for line in result.stdout.split('\n'):
-        #     stripped = line.strip()
-        #     for field in fields:
-        #         if stripped.startswith(f"{field}:"):
-        #             try:
-        #                 value = stripped.split(':', 1)[1].strip()
-        #                 parsed[field] = value
-        #                 self.logger.info(f"  {field}: {value}")
-        #             except IndexError:
-        #                 pass
-
-        # # Логируем поля которые не нашли
-        # for field, value in parsed.items():
-        #     if value is None:
-        #         self.logger.warning(f"  {field}: не найдено")
-
-        # return parsed
     
     def get_topic_fields(self, topic: str, fields: list[str], timeout: int = 10) -> dict:
         self.logger.info(f"Читаем топик {topic}, поля: {fields}")
