@@ -27,7 +27,7 @@ class TestSensingNodesRunning:
         assert auto_cleaning_node.is_alive() is True
 
         # Фактический результат
-        request.node.actual = "Нода /sensing/auto_cleaning жива ✅"
+        request.node.actual = "Нода /sensing/auto_cleaning присутствует в ROS graph ✅"
 
 
     def test_02_imu_node_running(self, imu_node, request):
@@ -40,7 +40,7 @@ class TestSensingNodesRunning:
 
         assert imu_node.is_alive() is True
 
-        request.node.actual = "Нода /sensing/imu1/imu_node жива ✅"
+        request.node.actual = "Нода /sensing/imu1/imu_node присутствует в ROS graph ✅"
 
 
     def test_03_odometry_node_running(self, odometry_node, request):
