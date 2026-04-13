@@ -1,5 +1,6 @@
 import subprocess
 import threading
+import time
 
 
 class MrmRequestMonitor:
@@ -11,6 +12,7 @@ class MrmRequestMonitor:
     def __init__(self, container: str):
         self.container = container
         self._latest_raw: str = ""
+        self._latest_stamp: str = ""  # ← sec.nanosec
         self._lock = threading.Lock()
         self._proc = None
         self._thread = None
@@ -47,6 +49,16 @@ class MrmRequestMonitor:
                 if raw.strip():
                     with self._lock:
                         self._latest_raw = raw
+                        # Парсим stamp из сообщения
+                        sec = nanosec = None
+                        for l in raw.split("\n"):
+                            s = l.strip()
+                            if s.startswith("sec:"):
+                                sec = s.split(":")[1].strip()
+                            elif s.startswith("nanosec:"):
+                                nanosec = s.split(":")[1].strip()
+                        if sec and nanosec:
+                            self._latest_stamp = f"{sec}.{nanosec}"
                     self._first_message.set()
             else:
                 buffer.append(line.rstrip())
@@ -67,6 +79,87 @@ class MrmRequestMonitor:
                     except IndexError:
                         pass
         return result
+
+    def get_stamp(self) -> str:
+        """Получить текущий timestamp последнего сообщения."""
+        with self._lock:
+            return self._latest_stamp
+
+    def wait_for_mrm_type_change(
+        self,
+        from_value: str,
+        to_value: str,
+        timeout: float = 10.0,
+        poll_interval: float = 0.05
+    ) -> dict:
+        """
+        Ждать изменения mrm_type и вернуть время реакции.
+        Время считается по stamp топика — разница между последним
+        сообщением ДО kill и первым сообщением ПОСЛЕ с новым mrm_type.
+        Точность: наносекунды.
+        """
+        # Запоминаем stamp и sec/nanosec ДО
+        with self._lock:
+            before_stamp = self._latest_stamp
+
+        # Парсим sec/nanosec из stamp "sec.nanosec"
+        before_sec, before_ns = self._parse_stamp(before_stamp)
+
+        start = time.time()
+
+        while time.time() - start < timeout:
+            with self._lock:
+                current_stamp = self._latest_stamp
+                raw = self._latest_raw
+
+            # Новое сообщение пришло
+            if current_stamp != before_stamp:
+                # Парсим mrm_type из нового сообщения
+                current_mrm = None
+                for line in raw.split("\n"):
+                    stripped = line.strip()
+                    if stripped.startswith("mrm_type:"):
+                        current_mrm = stripped.split(":")[1].strip()
+                        break
+
+                if current_mrm == to_value:
+                    after_sec, after_ns = self._parse_stamp(current_stamp)
+
+                    # Считаем разницу по stamp топика
+                    reaction_ns = (after_sec - before_sec) * 1_000_000_000 + \
+                                (after_ns - before_ns)
+                    reaction_ms = round(reaction_ns / 1_000_000, 3)
+
+                    return {
+                        "success": True,
+                        "reaction_ms": reaction_ms,
+                        "reaction_ns": reaction_ns,
+                        "mrm_type": current_mrm,
+                        "stamp_before": before_stamp,
+                        "stamp_after": current_stamp,
+                    }
+
+                # mrm_type изменился но не на нужное значение
+                before_stamp = current_stamp
+                before_sec, before_ns = after_sec, after_ns
+
+            time.sleep(poll_interval)
+
+        return {
+            "success": False,
+            "reaction_ms": None,
+            "reaction_ns": None,
+            "mrm_type": self.get_fields(["mrm_type"]).get("mrm_type"),
+            "stamp_before": before_stamp,
+            "stamp_after": None,
+        }
+
+    def _parse_stamp(self, stamp: str) -> tuple[int, int]:
+        """Парсит строку 'sec.nanosec' в два int."""
+        if not stamp or "." not in stamp:
+            return 0, 0
+        parts = stamp.split(".")
+        return int(parts[0]), int(parts[1])
 
     def stop(self):
         self._running = False

@@ -27,6 +27,7 @@ class TestSensingKill:
             pytest.skip(f"Нода {node_name} не запущена")
 
         pid_before = node.get_pid()
+        
         node.kill()
 
         time.sleep(5)
