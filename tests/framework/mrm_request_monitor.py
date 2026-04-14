@@ -89,22 +89,16 @@ class MrmRequestMonitor:
         self,
         from_value: str,
         to_value: str,
+        before_stamp: str = None,   # ← добавить параметр
         timeout: float = 10.0,
-        poll_interval: float = 0.05
+        poll_interval: float = 0.01
     ) -> dict:
-        """
-        Ждать изменения mrm_type и вернуть время реакции.
-        Время считается по stamp топика — разница между последним
-        сообщением ДО kill и первым сообщением ПОСЛЕ с новым mrm_type.
-        Точность: наносекунды.
-        """
-        # Запоминаем stamp и sec/nanosec ДО
-        with self._lock:
-            before_stamp = self._latest_stamp
+        # Используем переданный stamp или берём текущий
+        if before_stamp is None:
+            with self._lock:
+                before_stamp = self._latest_stamp
 
-        # Парсим sec/nanosec из stamp "sec.nanosec"
         before_sec, before_ns = self._parse_stamp(before_stamp)
-
         start = time.time()
 
         while time.time() - start < timeout:
@@ -112,9 +106,7 @@ class MrmRequestMonitor:
                 current_stamp = self._latest_stamp
                 raw = self._latest_raw
 
-            # Новое сообщение пришло
             if current_stamp != before_stamp:
-                # Парсим mrm_type из нового сообщения
                 current_mrm = None
                 for line in raw.split("\n"):
                     stripped = line.strip()
@@ -124,8 +116,6 @@ class MrmRequestMonitor:
 
                 if current_mrm == to_value:
                     after_sec, after_ns = self._parse_stamp(current_stamp)
-
-                    # Считаем разницу по stamp топика
                     reaction_ns = (after_sec - before_sec) * 1_000_000_000 + \
                                 (after_ns - before_ns)
                     reaction_ms = round(reaction_ns / 1_000_000, 3)
@@ -139,9 +129,8 @@ class MrmRequestMonitor:
                         "stamp_after": current_stamp,
                     }
 
-                # mrm_type изменился но не на нужное значение
                 before_stamp = current_stamp
-                before_sec, before_ns = after_sec, after_ns
+                before_sec, before_ns = self._parse_stamp(current_stamp)
 
             time.sleep(poll_interval)
 

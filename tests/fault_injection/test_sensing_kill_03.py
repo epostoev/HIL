@@ -1,3 +1,4 @@
+import time
 import pytest
 
 
@@ -28,14 +29,18 @@ class TestSensingKill:
         baseline = mrm_monitor.get_fields(["mrm_type", "shadow_mrm_type", "drive_mode"])
         node.logger.info(f"Baseline mrm_type={baseline['mrm_type']}")
 
-        # Kill — получаем PID, фиксируем stamp, убиваем
+        # Получаем PID
         pid_before = node.get_pid()
+
+        # Фиксируем stamp прямо перед сигналом — минимальная задержка
         before_stamp = mrm_monitor.get_stamp()
         node.logger.info(f"Stamp ДО kill: {before_stamp}")
-        node.kill()
-        node.logger.info(f"Kill выполнен, PID={pid_before}. Ждём изменения mrm_type...")
 
-        # Ждём изменения mrm_type 0 → 2
+        # Отправляем только kill -9 без ожидания (не вызываем node.kill())
+        node.run_docker_command(f"kill -9 {pid_before}")
+        node.logger.info(f"Kill сигнал отправлен PID={pid_before}. Ждём изменения mrm_type...")
+
+        # Сразу мониторим изменение mrm_type — пока нода ещё умирает
         result = mrm_monitor.wait_for_mrm_type_change(
             from_value="0",
             to_value="2",
@@ -50,6 +55,15 @@ class TestSensingKill:
             f"({result['reaction_ns']}ns), "
             f"mrm_type={result['mrm_type']}"
         )
+
+        # После измерения — проверяем has_auto_restart
+        time.sleep(3)
+        if node.is_alive():
+            node.has_auto_restart = True
+            node.logger.info(
+                f"drive.py перезапустил ноду. "
+                f"Fault tolerance: ПОДТВЕРЖДЁН ✅"
+            )
 
         assert result["success"], (
             f"mrm_type не изменился на '2'. "

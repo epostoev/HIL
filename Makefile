@@ -119,6 +119,19 @@ report-sensing-kill_02:
 		--html=reports/sensing_kill_02.html \
 		--self-contained-html
 
+report-sensing-kill_03:
+	docker run --rm \
+		--name evgeny_tests \
+		--network host \
+		--pid=container:$(SDA_CONTAINER) \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v $(PROJECT_DIR)/reports:/workspace/reports \
+		-v $(PROJECT_DIR)/tests:/workspace/tests \
+		$(IMAGE):$(TAG) \
+		pytest tests/fault_injection/test_sensing_kill_03.py -v -s \
+		--html=reports/sensing_kill_03.html \
+		--self-contained-html
+
 report-sensing_01:
 	docker run --rm \
 		--name evgeny_tests \
