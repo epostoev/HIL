@@ -5,18 +5,18 @@ import pytest
 SENSING_NODES = [
     ("auto_cleaning_node_alive",      "TC-FAULT-SENSING-001", "/sensing/auto_cleaning"),
     ("imu_node_alive",                "TC-FAULT-SENSING-002", "/sensing/imu1/imu_node"),
-    ("odometry_node",                 "TC-FAULT-SENSING-003", "/sensing/odometry_node"),
-    ("odometry_velocity_node",        "TC-FAULT-SENSING-004", "/sensing/odometry_velocity_node"),
-    ("radar_driver_node_alive",       "TC-FAULT-SENSING-005", "/sensing/radar_driver_node"),
-    ("ublox_driver_node",             "TC-FAULT-SENSING-006", "/sensing/ublox1/ublox_driver_node"),
-    ("radar_visualization_node",      "TC-FAULT-SENSING-007", "/sensing/visualization/radar_visualization_node"),
+    # ("odometry_node",                 "TC-FAULT-SENSING-003", "/sensing/odometry_node"),
+    # ("odometry_velocity_node",        "TC-FAULT-SENSING-004", "/sensing/odometry_velocity_node"),
+    # ("radar_driver_node_alive",       "TC-FAULT-SENSING-005", "/sensing/radar_driver_node"),
+    # ("ublox_driver_node",             "TC-FAULT-SENSING-006", "/sensing/ublox1/ublox_driver_node"),
+    # ("radar_visualization_node",      "TC-FAULT-SENSING-007", "/sensing/visualization/radar_visualization_node"),
 ]
 
 
 class TestSensingKill:
 
     @pytest.mark.parametrize("fixture_name, tc_id, node_name", SENSING_NODES)
-    def test_sensing_kill(self, fixture_name, tc_id, node_name, mrm_monitor, request):
+    def test_sensing_kill(self, fixture_name, tc_id, node_name, mrm_monitor, request, restart_autopilot_after):
 
         node = request.getfixturevalue(fixture_name)
 

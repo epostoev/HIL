@@ -217,3 +217,45 @@ def pytest_html_results_table_header(cells):
 def pytest_html_results_table_row(report, cells):
     cells.insert(2, f'<td>{getattr(report, "expected", "—")}</td>')
     cells.insert(3, f'<td>{getattr(report, "actual", "—")}</td>')
+
+import subprocess
+import time
+
+@pytest.fixture()
+def restart_autopilot_after(mrm_monitor):
+    """
+    Перезапускает автопилот после теста.
+    Использовать только в kill тестах.
+    """
+    yield
+
+    subprocess.run(
+        ["docker", "exec", DOCKER_CONTAINER,
+         "bash", "-c", "pkill -2 -f 'python3.*drive'"],
+        capture_output=True
+    )
+    print(f"\nАвтопилот остановлен. Перезапускаем...")
+    time.sleep(60)
+
+    subprocess.Popen(
+        ["docker", "exec", "-d", DOCKER_CONTAINER,
+         "bash", "-c",
+         "cd /rep && "
+         "source /opt/ros/humble/setup.bash && "
+         "source /rep/ros2/install/setup.bash && "
+         "drive -u postoev"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+    result = mrm_monitor.wait_for_mrm_type_change(
+        from_value="2",
+        to_value="0",
+        timeout=60.0,
+        poll_interval=0.5
+    )
+
+    if result["success"]:
+        print(f"Автопилот готов. mrm_type=0 ✅")
+    else:
+        pytest.fail("Автопилот не перезапустился за 60 секунд")
