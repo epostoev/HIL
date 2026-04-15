@@ -155,3 +155,35 @@ class MrmRequestMonitor:
         if self._proc:
             self._proc.kill()
             self._proc.communicate()
+    
+    def get_error_codes(self) -> list[dict]:
+        """
+        Получить список error_codes из последнего сообщения.
+        Возвращает список словарей с полями error_code и details.
+        """
+        with self._lock:
+            raw = self._latest_raw
+
+        codes = []
+        current_code = None
+
+        for line in raw.split("\n"):
+            stripped = line.strip()
+            clean = stripped.lstrip("- ")
+
+            if clean.startswith("error_code:"):
+                try:
+                    current_code = int(clean.split(":")[1].strip())
+                except ValueError:
+                    current_code = None
+
+            elif clean.startswith("details:") and current_code is not None:
+                details = clean.split(":", 1)[1].strip().strip("'\"")
+                codes.append({
+                    "error_code": current_code,
+                    "error_code_hex": f"0x{current_code:08X}",
+                    "details": details,
+                })
+                current_code = None
+
+        return codes

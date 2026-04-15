@@ -243,7 +243,7 @@ def restart_autopilot_after(mrm_monitor):
          "cd /rep && "
          "source /opt/ros/humble/setup.bash && "
          "source /rep/ros2/install/setup.bash && "
-         "drive -u postoev"],
+         "drive -u postoev --no-ecu-update"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
@@ -251,11 +251,13 @@ def restart_autopilot_after(mrm_monitor):
     result = mrm_monitor.wait_for_mrm_type_change(
         from_value="2",
         to_value="0",
-        timeout=60.0,
+        timeout=120.0,
         poll_interval=0.5
     )
 
     if result["success"]:
         print(f"Автопилот готов. mrm_type=0 ✅")
+        time.sleep(30)  # ← ждём пока все ноды поднимутся
+        print(f"Автопилот готов. Следующий тест можно запускать ✅")
     else:
         pytest.fail("Автопилот не перезапустился за 60 секунд")

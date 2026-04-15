@@ -5,11 +5,11 @@ import pytest
 SENSING_NODES = [
     ("auto_cleaning_node_alive",      "TC-FAULT-SENSING-001", "/sensing/auto_cleaning"),
     ("imu_node_alive",                "TC-FAULT-SENSING-002", "/sensing/imu1/imu_node"),
-    # ("odometry_node",                 "TC-FAULT-SENSING-003", "/sensing/odometry_node"),
-    # ("odometry_velocity_node",        "TC-FAULT-SENSING-004", "/sensing/odometry_velocity_node"),
-    # ("radar_driver_node_alive",       "TC-FAULT-SENSING-005", "/sensing/radar_driver_node"),
-    # ("ublox_driver_node",             "TC-FAULT-SENSING-006", "/sensing/ublox1/ublox_driver_node"),
-    # ("radar_visualization_node",      "TC-FAULT-SENSING-007", "/sensing/visualization/radar_visualization_node"),
+    ("odometry_node",                 "TC-FAULT-SENSING-003", "/sensing/odometry_node"),
+    ("odometry_velocity_node",        "TC-FAULT-SENSING-004", "/sensing/odometry_velocity_node"),
+    ("radar_driver_node_alive",       "TC-FAULT-SENSING-005", "/sensing/radar_driver_node"),
+    ("ublox_driver_node",             "TC-FAULT-SENSING-006", "/sensing/ublox1/ublox_driver_node"),
+    ("radar_visualization_node",      "TC-FAULT-SENSING-007", "/sensing/visualization/radar_visualization_node"),
 ]
 
 
@@ -32,15 +32,15 @@ class TestSensingKill:
         # Получаем PID
         pid_before = node.get_pid()
 
-        # Фиксируем stamp прямо перед сигналом — минимальная задержка
+        # Фиксируем stamp прямо перед сигналом
         before_stamp = mrm_monitor.get_stamp()
         node.logger.info(f"Stamp ДО kill: {before_stamp}")
 
-        # Отправляем только kill -9 без ожидания (не вызываем node.kill())
+        # Отправляем kill -9 без ожидания
         node.run_docker_command(f"kill -9 {pid_before}")
         node.logger.info(f"Kill сигнал отправлен PID={pid_before}. Ждём изменения mrm_type...")
 
-        # Сразу мониторим изменение mrm_type — пока нода ещё умирает
+        # Мониторим изменение mrm_type
         result = mrm_monitor.wait_for_mrm_type_change(
             from_value="0",
             to_value="2",
@@ -56,6 +56,19 @@ class TestSensingKill:
             f"mrm_type={result['mrm_type']}"
         )
 
+        # Получаем error_codes после kill ← добавлено
+        error_codes = mrm_monitor.get_error_codes()
+        triggered_errors = [
+            e for e in error_codes
+            if e["details"] != "{}"
+        ]
+        node.logger.info(f"Triggered errors: {len(triggered_errors)}")
+        for e in triggered_errors:
+            node.logger.info(
+                f"  {e['error_code_hex']} ({e['error_code']}): "
+                f"{e['details'][:80]}"
+            )
+
         # После измерения — проверяем has_auto_restart
         time.sleep(3)
         if node.is_alive():
@@ -70,9 +83,16 @@ class TestSensingKill:
             f"Текущее значение: {result['mrm_type']}"
         )
 
+        # Формируем строку ошибок для отчёта ← добавлено
+        errors_str = " | ".join([
+            f"{e['error_code_hex']}: {e['details'][:50]}"
+            for e in triggered_errors
+        ]) or "нет"
+
         request.node.actual = (
             f"mrm_type: {baseline['mrm_type']} → {result['mrm_type']}. "
-            f"Время реакции: {result['reaction_ms']}ms ✅"
+            f"Время реакции: {result['reaction_ms']}ms. "
+            f"Ошибки: {errors_str} ✅"
         )
 
         if node.has_auto_restart:
