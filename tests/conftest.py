@@ -2,11 +2,11 @@ import pytest
 from framework.control_system_monitor import ControlSystemMonitor
 from framework.carapi_node import CarapiNode
 from framework.trajectory_planner_node import TrajectoryPlannerNode
-from framework.lidar_localization_node import LidarLocalizationNode
 from framework.xviz_node import XvizNode
 from framework.vinx_node import VinxNode
 from framework.text_overlay import TextOverlay
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
+from framework.localization_nodes import LidarLocalizationNode, LocalizationInitializationNode, LocalizationLocalizationNode
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
 
@@ -65,15 +65,6 @@ def trajectory_planner_alive(trajectory_planner):
     return trajectory_planner
 
 
-######
-@pytest.fixture(scope="module")
-def imu_node():
-    """Создаёт объект ImuNode"""
-    node = ImuNode()
-    node.setup()
-    yield node
-    node.teardown()
-
 @pytest.fixture(scope="module")
 def imu_node_alive(imu_node):
     """С предусловием: пропускает тест если нода не запущена"""
@@ -83,20 +74,20 @@ def imu_node_alive(imu_node):
 
 
 ######
-@pytest.fixture(scope="module")
-def lidar_localization():
-    """Создаёт объект LidarLocalizationNode"""
-    node = LidarLocalizationNode()
-    node.setup()
-    yield node
-    node.teardown()
+# @pytest.fixture(scope="module")
+# def lidar_localization():
+#     """Создаёт объект LidarLocalizationNode"""
+#     node = LidarLocalizationNode()
+#     node.setup()
+#     yield node
+#     node.teardown()
 
-@pytest.fixture(scope="module")
-def lidar_localization_alive(lidar_localization):
-    """С предусловием: пропускает тест если нода не запущена"""
-    if not lidar_localization.is_alive():
-        pytest.skip("Нода /lidar_localization не запущена")
-    return lidar_localization
+# @pytest.fixture(scope="module")
+# def lidar_localization_alive(lidar_localization):
+#     """С предусловием: пропускает тест если нода не запущена"""
+#     if not lidar_localization.is_alive():
+#         pytest.skip("Нода /lidar_localization не запущена")
+#     return lidar_localization
 
 @pytest.fixture(scope="module")
 def xviz_node():
@@ -138,13 +129,7 @@ def text_overlay_alive(text_overlay):
         pytest.skip("Нода visualization/text_overlay не запущена")
     return text_overlay
 
-
-@pytest.fixture(scope="module")
-def radar_driver_node():
-    node = RadarDriverNode()
-    node.setup()
-    yield node
-    node.teardown()
+# Sensing
 
 @pytest.fixture(scope="module")
 def auto_cleaning_node():
@@ -159,12 +144,27 @@ def auto_cleaning_node():
     node.teardown()
 
 @pytest.fixture(scope="module")
+def imu_node():
+    """Создаёт объект ImuNode"""
+    node = ImuNode()
+    node.setup()
+    yield node
+    node.teardown()
+
+@pytest.fixture(scope="module")
 def odometry_node():
     node = OdometryNode(); node.setup(); yield node; node.teardown()
 
 @pytest.fixture(scope="module")
 def odometry_velocity_node():
     node = OdometryVelocityNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def radar_driver_node():
+    node = RadarDriverNode()
+    node.setup()
+    yield node
+    node.teardown()
 
 @pytest.fixture(scope="module")
 def ublox_driver_node():
@@ -179,6 +179,24 @@ def radar_driver_node_alive(radar_driver_node):
     if not radar_driver_node.is_alive():
         pytest.skip("Нода /sensing/radar_driver_node не запущена")
     return radar_driver_node
+
+
+# Localization
+
+@pytest.fixture(scope="module")
+def lidar_localization_node():
+    node = LidarLocalizationNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def localization_localization_node():
+    node = LocalizationLocalizationNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def localization_initialization_node():
+    node = LocalizationInitializationNode(); node.setup(0); yield node; node.teardown()
+
+
+
 
 @pytest.fixture(scope="session", autouse=True)
 def mrm_monitor():
@@ -209,14 +227,17 @@ def pytest_runtest_makereport(item, call):
     # Добавляем дополнительные колонки
     report.expected = getattr(item, 'expected', '—')
     report.actual = getattr(item, 'actual', '—')
+    report.reaction_ms = getattr(item, 'reaction_ms', '—')  # ← добавить
 
 def pytest_html_results_table_header(cells):
     cells.insert(2, '<th>Ожидаемый результат</th>')
     cells.insert(3, '<th>Фактический результат</th>')
+    cells.insert(4, '<th>Время реакции</th>')
 
 def pytest_html_results_table_row(report, cells):
     cells.insert(2, f'<td>{getattr(report, "expected", "—")}</td>')
     cells.insert(3, f'<td>{getattr(report, "actual", "—")}</td>')
+    cells.insert(4, f'<td>{getattr(report, "reaction_ms", "—")}</td>')
 
 import subprocess
 import time

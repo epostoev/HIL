@@ -89,9 +89,11 @@ class TestSensingKill:
             for e in triggered_errors
         ]) or "нет"
 
+        request.node.reaction_ms = f"{result['reaction_ms']}ms"  # ← добавить
+
         request.node.actual = (
             f"mrm_type: {baseline['mrm_type']} → {result['mrm_type']}. "
-            f"Время реакции: {result['reaction_ms']}ms. "
+            # f"Время реакции: {result['reaction_ms']}ms. "
             f"Ошибки: {errors_str} ✅"
         )
 
@@ -100,3 +102,4 @@ class TestSensingKill:
                 f"Fault tolerance: ПОДТВЕРЖДЁН ✅ "
                 f"Время реакции MRM: {result['reaction_ms']}ms"
             )
+            
