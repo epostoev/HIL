@@ -193,8 +193,25 @@ def localization_localization_node():
 
 @pytest.fixture(scope="module")
 def localization_initialization_node():
-    node = LocalizationInitializationNode(); node.setup(0); yield node; node.teardown()
+    node = LocalizationInitializationNode(); node.setup(); yield node; node.teardown()
 
+@pytest.fixture(scope="module")
+def lidar_localization_node_alive(lidar_localization_node):
+    if not lidar_localization_node.is_alive():
+        pytest.skip("Нода /lidar_localization не запущена")
+    return lidar_localization_node
+
+@pytest.fixture(scope="module")
+def localization_localization_node_alive(localization_localization_node):
+    if not localization_localization_node.is_alive():
+        pytest.skip("Нода /localization/localization не запущена")
+    return localization_localization_node
+
+@pytest.fixture(scope="module")
+def localization_initialization_node_alive(localization_initialization_node):
+    if not localization_initialization_node.is_alive():
+        pytest.skip("Нода /localization_initialization_node не запущена")
+    return localization_initialization_node
 
 
 
