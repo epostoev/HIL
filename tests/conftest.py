@@ -7,19 +7,20 @@ from framework.vinx_node import VinxNode
 from framework.text_overlay import TextOverlay
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
 from framework.localization_nodes import LidarLocalizationNode, LocalizationInitializationNode, LocalizationLocalizationNode
+from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode,)
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
 
-@pytest.fixture(scope="module")
-def carapi():
-    """
-    Фикстура: создаёт объект CarapiNode.
-    scope=module — один объект на весь тест-файл.
-    """
-    node = CarapiNode()
-    node.setup()
-    yield node
-    node.teardown()
+# @pytest.fixture(scope="module")
+# def carapi():
+#     """
+#     Фикстура: создаёт объект CarapiNode.
+#     scope=module — один объект на весь тест-файл.
+#     """
+#     node = CarapiNode()
+#     node.setup()
+#     yield node
+#     node.teardown()
 
 
 @pytest.fixture(scope="session", autouse=True)  # ← добавить autouse=True
@@ -212,6 +213,58 @@ def localization_initialization_node_alive(localization_initialization_node):
     if not localization_initialization_node.is_alive():
         pytest.skip("Нода /localization_initialization_node не запущена")
     return localization_initialization_node
+
+# General_Intregation
+
+@pytest.fixture(scope="module")
+def can_telemetry_node():
+    node = CanTelemetryNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def carapi_integration_node():
+    node = CarapiNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def cloud_telemetry_node():
+    node = CloudTelemetryNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def hardware_metrics_node():
+    node = HardwareMetricsNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def metrics_aggregator_node():
+    node = MetricsAggregatorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def can_telemetry_node_alive(can_telemetry_node):
+    if not can_telemetry_node.is_alive():
+        pytest.skip("Нода /can_telemetry не запущена")
+    return can_telemetry_node
+
+@pytest.fixture(scope="module")
+def carapi_integration_node_alive(carapi_integration_node):
+    if not carapi_integration_node.is_alive():
+        pytest.skip("Нода /carapi_node не запущена")
+    return carapi_integration_node
+
+@pytest.fixture(scope="module")
+def cloud_telemetry_node_alive(cloud_telemetry_node):
+    if not cloud_telemetry_node.is_alive():
+        pytest.skip("Нода /infra/cloud_telemetry_node не запущена")
+    return cloud_telemetry_node
+
+@pytest.fixture(scope="module")
+def hardware_metrics_node_alive(hardware_metrics_node):
+    if not hardware_metrics_node.is_alive():
+        pytest.skip("Нода /hardware_metrics не запущена")
+    return hardware_metrics_node
+
+@pytest.fixture(scope="module")
+def metrics_aggregator_node_alive(metrics_aggregator_node):
+    if not metrics_aggregator_node.is_alive():
+        pytest.skip("Нода /metrics_aggregator не запущена")
+    return metrics_aggregator_node
 
 
 
