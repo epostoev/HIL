@@ -1,10 +1,10 @@
 import pytest
 from framework.control_system_monitor import ControlSystemMonitor
-from framework.carapi_node import CarapiNode
-from framework.trajectory_planner_node import TrajectoryPlannerNode
-from framework.xviz_node import XvizNode
-from framework.vinx_node import VinxNode
-from framework.text_overlay import TextOverlay
+# from framework.carapi_node import CarapiNode
+# from framework.trajectory_planner_node import TrajectoryPlannerNode
+# from framework.xviz_node import XvizNode
+# from framework.vinx_node import VinxNode
+# from framework.text_overlay import TextOverlay
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
 from framework.localization_nodes import LidarLocalizationNode, LocalizationInitializationNode, LocalizationLocalizationNode
 from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode,)
