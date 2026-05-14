@@ -8,6 +8,7 @@ from framework.control_system_monitor import ControlSystemMonitor
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
 from framework.localization_nodes import LidarLocalizationNode, LocalizationInitializationNode, LocalizationLocalizationNode
 from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode,)
+from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
 
@@ -266,7 +267,60 @@ def metrics_aggregator_node_alive(metrics_aggregator_node):
         pytest.skip("Нода /metrics_aggregator не запущена")
     return metrics_aggregator_node
 
+# =============================================================================
+# Perception
+@pytest.fixture(scope="module")
+def perception_boom_barrier_detector_node():
+    node = BoomBarrierDetectorNode(); node.setup(); yield node; node.teardown()
 
+@pytest.fixture(scope="module")
+def perception_boom_barrier_detector_node_alive(perception_boom_barrier_detector_node):
+    if not perception_boom_barrier_detector_node.is_alive():
+        pytest.skip("Нода /perception/boom_barrier_detector не запущена")
+    return perception_boom_barrier_detector_node
+
+@pytest.fixture(scope="module")
+def perception_box_segmentation_fusion_node():
+    node = BoxSegmentationFusionNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_box_segmentation_fusion_node_alive(perception_box_segmentation_fusion_node):
+    if not perception_boom_barrier_detector_node.is_alive():
+        pytest.skip("Нода /perception/box_segmentation_fusion не запущена")
+    return perception_box_segmentation_fusion_node
+
+@pytest.fixture(scope="module")
+def perception_camera_detects_fusing_node():
+    node = CameraDetectsFusingNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_camera_detects_fusing_node_alive(perception_camera_detects_fusing_node):
+    if not perception_camera_detects_fusing_node.is_alive():
+        pytest.skip("Нода /perception/camera_detects_fusing не запущена")
+    return perception_camera_detects_fusing_node
+
+@pytest.fixture(scope="module")
+def perception_camera_map_detector_node():
+    node = СameraMapDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_camera_map_detector_node_alive(perception_camera_map_detector_node):
+    if not perception_camera_map_detector_node.is_alive():
+        pytest.skip("Нода /perception/camera_map_detector не запущена")
+    return perception_camera_map_detector_node
+
+@pytest.fixture(scope="module")
+def perception_camera_tracker_cpp_node():
+    node = CameraTrackerCppNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_camera_tracker_cpp_node_alive(perception_camera_tracker_cpp_node):
+    if not perception_camera_tracker_cpp_node.is_alive():
+        pytest.skip("Нода /perception/camera_tracker_cpp не запущена")
+    return perception_camera_tracker_cpp_node
+
+# Perception
+# =============================================================================
 
 @pytest.fixture(scope="session", autouse=True)
 def mrm_monitor():
