@@ -225,27 +225,20 @@ class TrafficLightGroupperNode(BaseHILTest):
         super().__init__(node_name="traffic_light_groupper", timeout=15)
 
 # "TC-PER-PRE-033"
-class TrafficLightGroupperNode(BaseHILTest):
-    NODE_NAME = "/perception/traffic_light_groupper"
-    PROCESS_NAME = "traffic_light_groupper/lib/traffic_light_groupper/traffic_light_groupper"
-    def __init__(self):
-        super().__init__(node_name="traffic_light_groupper", timeout=15)
-
-# "TC-PER-PRE-034"
 class TrafficLightLocalizationNode(BaseHILTest):
     NODE_NAME = "/perception/traffic_light_localization"
     PROCESS_NAME = "traffic_light_localization/lib/traffic_light_localization/traffic_light_localization"
     def __init__(self):
         super().__init__(node_name="traffic_light_localization", timeout=15)
 
-# "TC-PER-PRE-035"
+# "TC-PER-PRE-034"
 class TrafficSignDetectsNode(BaseHILTest):
     NODE_NAME = "/perception/traffic_sign_detects"
     PROCESS_NAME = "traffic_sign_detects/lib/traffic_sign_detects/traffic_sign_detects"
     def __init__(self):
         super().__init__(node_name="traffic_sign_detects", timeout=15)
 
-# "TC-PER-PRE-036"
+# "TC-PER-PRE-035"
 class TrafficSignLocalizationNode(BaseHILTest):
     NODE_NAME = "/perception/traffic_sign_localization"
     PROCESS_NAME = "traffic_sign_localization/lib/traffic_sign_localization/traffic_sign_localization"

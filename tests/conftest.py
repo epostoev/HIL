@@ -8,7 +8,7 @@ from framework.control_system_monitor import ControlSystemMonitor
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
 from framework.localization_nodes import LidarLocalizationNode, LocalizationInitializationNode, LocalizationLocalizationNode
 from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode,)
-from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode)
+from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode, СameraTracksMergerNode, CloudMotionDetectorNode, Detections2ClustersFusionNode, Detector3dNode, FilterTciIdNode, FrontBackboneNode, GroundSegmentatorGpNode, ImageSegmenterNode, LaneletsDetectorNode, LidarBlindZonesNode, LidarNoiseDetectorNode, ObstaclesTrackerNode, PointCloudClusterizerNode, PollutionDetectorNode, RadarCameraFusionNode, RadarStaticObstaclesDetectorNode, RoadLines3dNode, RoadLinesTrackerNode, RoadSurfaceConditionDetectorNode, RoadworksFusionNode, RoiSelectorNode, SegmentationHdmapFusionNode, SignalsСlassifierNode, SpeedLimitClassifierNode, StaticObstaclesDetectorNode, TrafficLightDetectsNode, TrafficLightGroupperNode, TrafficLightLocalizationNode, TrafficSignDetectsNode, TrafficSignLocalizationNode, VehicleDetectsNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
 
@@ -269,6 +269,8 @@ def metrics_aggregator_node_alive(metrics_aggregator_node):
 
 # =============================================================================
 # Perception
+
+# "TC-PER-PRE-001"
 @pytest.fixture(scope="module")
 def perception_boom_barrier_detector_node():
     node = BoomBarrierDetectorNode(); node.setup(); yield node; node.teardown()
@@ -279,6 +281,7 @@ def perception_boom_barrier_detector_node_alive(perception_boom_barrier_detector
         pytest.skip("Нода /perception/boom_barrier_detector не запущена")
     return perception_boom_barrier_detector_node
 
+# "TC-PER-PRE-002"
 @pytest.fixture(scope="module")
 def perception_box_segmentation_fusion_node():
     node = BoxSegmentationFusionNode(); node.setup(); yield node; node.teardown()
@@ -289,6 +292,7 @@ def perception_box_segmentation_fusion_node_alive(perception_box_segmentation_fu
         pytest.skip("Нода /perception/box_segmentation_fusion не запущена")
     return perception_box_segmentation_fusion_node
 
+# "TC-PER-PRE-003"
 @pytest.fixture(scope="module")
 def perception_camera_detects_fusing_node():
     node = CameraDetectsFusingNode(); node.setup(); yield node; node.teardown()
@@ -299,6 +303,7 @@ def perception_camera_detects_fusing_node_alive(perception_camera_detects_fusing
         pytest.skip("Нода /perception/camera_detects_fusing не запущена")
     return perception_camera_detects_fusing_node
 
+# "TC-PER-PRE-004"
 @pytest.fixture(scope="module")
 def perception_camera_map_detector_node():
     node = СameraMapDetectorNode(); node.setup(); yield node; node.teardown()
@@ -309,6 +314,7 @@ def perception_camera_map_detector_node_alive(perception_camera_map_detector_nod
         pytest.skip("Нода /perception/camera_map_detector не запущена")
     return perception_camera_map_detector_node
 
+# "TC-PER-PRE-005"
 @pytest.fixture(scope="module")
 def perception_camera_tracker_cpp_node():
     node = CameraTrackerCppNode(); node.setup(); yield node; node.teardown()
@@ -318,6 +324,347 @@ def perception_camera_tracker_cpp_node_alive(perception_camera_tracker_cpp_node)
     if not perception_camera_tracker_cpp_node.is_alive():
         pytest.skip("Нода /perception/camera_tracker_cpp не запущена")
     return perception_camera_tracker_cpp_node
+
+# "TC-PER-PRE-006"
+@pytest.fixture(scope="module")
+def perception_camera_tracks_merger_node():
+    node = СameraTracksMergerNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_camera_tracks_merger_node_alive(perception_camera_tracks_merger_node):
+    if not perception_camera_tracks_merger_node.is_alive():
+        pytest.skip("Нода /perception/camera_tracks_merger не запущена")
+    return perception_camera_tracks_merger_node
+
+# "TC-PER-PRE-007"
+@pytest.fixture(scope="module")
+def perception_cloud_motion_detector_node():
+    node = CloudMotionDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_cloud_motion_detector_node_alive(perception_cloud_motion_detector_node):
+    if not perception_cloud_motion_detector_node.is_alive():
+        pytest.skip("Нода /perception/cloud_motion_detector не запущена")
+    return perception_cloud_motion_detector_node
+
+# "TC-PER-PRE-008"
+@pytest.fixture(scope="module")
+def perception_detections2clusters_fusion_node():
+    node = Detections2ClustersFusionNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_detections2clusters_fusion_node_alive(perception_detections2clusters_fusion_node):
+    if not perception_detections2clusters_fusion_node.is_alive():
+        pytest.skip("Нода /perception/detections2clusters_fusion не запущена")
+    return perception_detections2clusters_fusion_node
+
+# "TC-PER-PRE-009"
+@pytest.fixture(scope="module")
+def perception_detector_3d_node():
+    node = Detector3dNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def erception_detector_3d_node_alive(perception_detector_3d_node):
+    if not perception_detector_3d_node.is_alive():
+        pytest.skip("Нода /perception/detector_3d не запущена")
+    return perception_detector_3d_node
+
+# "TC-PER-PRE-010"
+@pytest.fixture(scope="module")
+def perception_filter_tci_id_node():
+    node = FilterTciIdNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_filter_tci_id_node_alive(perception_filter_tci_id_node):
+    if not perception_filter_tci_id_node.is_alive():
+        pytest.skip("Нода /perception/filter_tci_id не запущена")
+    return perception_filter_tci_id_node
+
+# "TC-PER-PRE-011"
+@pytest.fixture(scope="module")
+def perception_front_backbone_node():
+    node = FrontBackboneNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_front_backbone_node_alive(perception_front_backbone_node):
+    if not perception_front_backbone_node.is_alive():
+        pytest.skip("Нода /perception/front_backbone не запущена")
+    return perception_front_backbone_node
+
+# "TC-PER-PRE-012"
+@pytest.fixture(scope="module")
+def perception_ground_segmentator_gp_node():
+    node = GroundSegmentatorGpNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_ground_segmentator_gp_node_alive(perception_ground_segmentator_gp_node):
+    if not perception_ground_segmentator_gp_node.is_alive():
+        pytest.skip("Нода /perception/ground_segmentator_gp не запущена")
+    return perception_ground_segmentator_gp_node
+
+# "TC-PER-PRE-013"
+@pytest.fixture(scope="module")
+def perception_image_segmenter_node():
+    node = ImageSegmenterNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_image_segmenter_node_alive(perception_image_segmenter_node):
+    if not perception_image_segmenter_node.is_alive():
+        pytest.skip("Нода /perception/image_segmenter не запущена")
+    return perception_image_segmenter_node
+
+# "TC-PER-PRE-014"
+@pytest.fixture(scope="module")
+def perception_lanelets_detector_node():
+    node = LaneletsDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_lanelets_detector_node_alive(perception_lanelets_detector_node):
+    if not perception_lanelets_detector_node.is_alive():
+        pytest.skip("Нода /perception/lanelets_detector не запущена")
+    return perception_lanelets_detector_node
+
+# "TC-PER-PRE-015"
+@pytest.fixture(scope="module")
+def perception_lidar_blind_zones_node():
+    node = LidarBlindZonesNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_lidar_blind_zones_node_alive(perception_lidar_blind_zones_node):
+    if not perception_lidar_blind_zones_node.is_alive():
+        pytest.skip("Нода /perception/lidar_blind_zones не запущена")
+    return perception_lidar_blind_zones_node
+
+# "TC-PER-PRE-016"
+@pytest.fixture(scope="module")
+def perception_lidar_noise_detector_node():
+    node = LidarNoiseDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_lidar_noise_detector_node_alive(perception_lidar_noise_detector_node):
+    if not perception_lidar_noise_detector_node.is_alive():
+        pytest.skip("Нода /perception/lidar_noise_detector не запущена")
+    return perception_lidar_noise_detector_node
+
+# "TC-PER-PRE-017"
+@pytest.fixture(scope="module")
+def perception_obstacles_tracker_node():
+    node = ObstaclesTrackerNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_obstacles_tracker_node_alive(perception_obstacles_tracker_node):
+    if not perception_obstacles_tracker_node.is_alive():
+        pytest.skip("Нода /perception/obstacles_tracker не запущена")
+    return perception_obstacles_tracker_node
+
+# "TC-PER-PRE-018"
+@pytest.fixture(scope="module")
+def perception_point_cloud_clusterizer_node():
+    node = PointCloudClusterizerNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_point_cloud_clusterizer_node_alive(perception_point_cloud_clusterizer_node):
+    if not perception_point_cloud_clusterizer_node.is_alive():
+        pytest.skip("Нода /perception/point_cloud_clusterizer не запущена")
+    return perception_point_cloud_clusterizer_node
+
+# "TC-PER-PRE-019"
+@pytest.fixture(scope="module")
+def perception_pollution_detector_node():
+    node = PollutionDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_pollution_detector_node_alive(perception_pollution_detector_node):
+    if not perception_pollution_detector_node.is_alive():
+        pytest.skip("Нода /perception/pollution_detector не запущена")
+    return perception_pollution_detector_node
+
+# "TC-PER-PRE-020"
+@pytest.fixture(scope="module")
+def perception_radar_camera_fusion_node():
+    node = RadarCameraFusionNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_radar_camera_fusion_node_alive(perception_radar_camera_fusion_node):
+    if not perception_radar_camera_fusion_node.is_alive():
+        pytest.skip("Нода /perception/radar_camera_fusion не запущена")
+    return perception_radar_camera_fusion_node
+
+# "TC-PER-PRE-021"
+@pytest.fixture(scope="module")
+def perception_radar_static_obstacles_detector_node():
+    node = RadarStaticObstaclesDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_radar_static_obstacles_detector_node_alive(perception_radar_static_obstacles_detector_node):
+    if not perception_radar_static_obstacles_detector_node.is_alive():
+        pytest.skip("Нода /perception/radar_static_obstacles_detector не запущена")
+    return perception_radar_static_obstacles_detector_node
+
+# "TC-PER-PRE-022"
+@pytest.fixture(scope="module")
+def perception_road_lines_3d_node():
+    node = RoadLines3dNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_road_lines_3d_node_alive(perception_road_lines_3d_node):
+    if not perception_road_lines_3d_node.is_alive():
+        pytest.skip("Нода /perception/road_lines_3d не запущена")
+    return perception_road_lines_3d_node
+
+# "TC-PER-PRE-023"
+@pytest.fixture(scope="module")
+def perception_road_lines_tracker_node():
+    node = RoadLinesTrackerNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_road_lines_tracker_node_alive(perception_road_lines_tracker_node):
+    if not perception_road_lines_tracker_node.is_alive():
+        pytest.skip("Нода /perception/road_lines_tracker не запущена")
+    return perception_road_lines_tracker_node
+
+# "TC-PER-PRE-024"
+@pytest.fixture(scope="module")
+def perception_road_surface_condition_detector_node():
+    node = RoadSurfaceConditionDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_road_surface_condition_detector_node_alive(perception_road_surface_condition_detector_node):
+    if not perception_road_surface_condition_detector_node.is_alive():
+        pytest.skip("Нода /perception/road_surface_condition_detector не запущена")
+    return perception_road_surface_condition_detector_node
+
+# "TC-PER-PRE-025"
+@pytest.fixture(scope="module")
+def perception_roadworks_fusion_node():
+    node = RoadworksFusionNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_roadworks_fusion_node_alive(perception_roadworks_fusion_node):
+    if not perception_roadworks_fusion_node.is_alive():
+        pytest.skip("Нода /perception/roadworks_fusion не запущена")
+    return perception_roadworks_fusion_node
+
+# "TC-PER-PRE-026"
+@pytest.fixture(scope="module")
+def perception_roi_selector_node():
+    node = RoiSelectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_roi_selector_node_alive(perception_roi_selector_node):
+    if not perception_roi_selector_node.is_alive():
+        pytest.skip("Нода /perception/roi_selector не запущена")
+    return perception_roi_selector_node
+
+# "TC-PER-PRE-027"
+@pytest.fixture(scope="module")
+def perception_segmentation_hdmap_fusion_node():
+    node = SegmentationHdmapFusionNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_segmentation_hdmap_fusion_node_alive(perception_segmentation_hdmap_fusion_node):
+    if not perception_segmentation_hdmap_fusion_node.is_alive():
+        pytest.skip("Нода /perception/perception_segmentation_hdmap_fusion_node не запущена")
+    return perception_segmentation_hdmap_fusion_node
+
+# "TC-PER-PRE-028"
+@pytest.fixture(scope="module")
+def perception_signals_classifier_node():
+    node = SignalsСlassifierNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_perception_signals_classifier_node_alive(perception_signals_classifier_node):
+    if not perception_signals_classifier_node.is_alive():
+        pytest.skip("Нода /perception/signals_classifier не запущена")
+    return perception_signals_classifier_node
+
+# "TC-PER-PRE-029"
+@pytest.fixture(scope="module")
+def perception_speed_limit_classifier_node():
+    node = SpeedLimitClassifierNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_speed_limit_classifier_node_alive(perception_speed_limit_classifier_node):
+    if not perception_speed_limit_classifier_node.is_alive():
+        pytest.skip("Нода /perception/speed_limit_classifier не запущена")
+    return perception_speed_limit_classifier_node
+
+# "TC-PER-PRE-030"
+@pytest.fixture(scope="module")
+def perception_static_obstacles_detector_node():
+    node = StaticObstaclesDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_static_obstacles_detector_node_alive(perception_static_obstacles_detector_node):
+    if not perception_static_obstacles_detector_node.is_alive():
+        pytest.skip("Нода /perception/static_obstacles_detector не запущена")
+    return perception_static_obstacles_detector_node
+
+# "TC-PER-PRE-031"
+@pytest.fixture(scope="module")
+def perception_traffic_light_detects_node():
+    node = TrafficLightDetectsNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_traffic_light_detects_node_alive(perception_traffic_light_detects_node):
+    if not perception_traffic_light_detects_node.is_alive():
+        pytest.skip("Нода /perception/traffic_light_detects не запущена")
+    return perception_traffic_light_detects_node
+
+# "TC-PER-PRE-032"
+@pytest.fixture(scope="module")
+def perception_traffic_light_groupper_node():
+    node = TrafficLightGroupperNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_traffic_light_groupper_node_alive(perception_traffic_light_groupper_node):
+    if not perception_traffic_light_groupper_node.is_alive():
+        pytest.skip("Нода /perception/traffic_light_groupper не запущена")
+    return perception_traffic_light_groupper_node
+
+# "TC-PER-PRE-033"
+@pytest.fixture(scope="module")
+def perception_traffic_light_localization_node():
+    node = TrafficLightLocalizationNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_traffic_light_localization_node_alive(perception_traffic_light_localization_node):
+    if not perception_traffic_light_localization_node.is_alive():
+        pytest.skip("Нода /perception/traffic_light_localization не запущена")
+    return perception_traffic_light_localization_node
+
+# "TC-PER-PRE-034"
+@pytest.fixture(scope="module")
+def perception_traffic_sign_detects_node():
+    node = TrafficSignDetectsNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_traffic_sign_detects_node_alive(perception_traffic_sign_detects_node):
+    if not perception_traffic_sign_detects_node.is_alive():
+        pytest.skip("Нода /perception/traffic_sign_detects не запущена")
+    return perception_traffic_sign_detects_node
+
+# "TC-PER-PRE-035"
+@pytest.fixture(scope="module")
+def perception_traffic_sign_localization_node():
+    node = TrafficSignLocalizationNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_perception_traffic_sign_localization_node_alive(perception_traffic_sign_localization_node):
+    if not perception_traffic_sign_localization_node.is_alive():
+        pytest.skip("Нода /perception/traffic_sign_localization не запущена")
+    return perception_traffic_sign_localization_node
+
+# "TC-PER-PRE-036"
+@pytest.fixture(scope="module")
+def perception_vehicle_detects_node():
+    node = VehicleDetectsNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def perception_vehicle_detects_node_alive(perception_vehicle_detects_node):
+    if not perception_vehicle_detects_node.is_alive():
+        pytest.skip("Нода /perception/vehicle_detects не запущена")
+    return perception_vehicle_detects_node
 
 # Perception
 # =============================================================================
