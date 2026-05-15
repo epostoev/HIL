@@ -30,6 +30,7 @@ class TestLocalizationKill:
             pytest.skip(f"Нода {node_name} не запущена")
 
         # Baseline ДО kill
+        
         baseline = mrm_monitor.get_fields(["mrm_type", "shadow_mrm_type", "drive_mode"])
         node.logger.info(f"Baseline mrm_type={baseline['mrm_type']}")
 
