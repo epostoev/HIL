@@ -23,6 +23,9 @@ pytest tests/ -v -s --log-cli-level=INFO
 # Только fault injection
 pytest tests/fault_injection/ -v -s --log-cli-level=INFO
 
+# C HTML-report
+pytest tests/fault_injection/ -v -s --log-cli-level=INFO
+
 ## Требования
 
 - Python 3.10+
