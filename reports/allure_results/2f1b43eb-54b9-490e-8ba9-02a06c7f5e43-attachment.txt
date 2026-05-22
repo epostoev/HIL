@@ -1,0 +1,4 @@
+2026-05-19 20:13:02.455 | auto_cleaning | INFO | === Начало теста для auto_cleaning ===
+2026-05-19 20:13:04.447 | auto_cleaning | INFO | Нода /sensing/auto_cleaning жива True
+2026-05-19 20:13:06.384 | auto_cleaning | INFO | Нода /sensing/auto_cleaning жива True
+2026-05-19 20:13:06.387 | auto_cleaning | INFO | === Завершение теста для auto_cleaning ===

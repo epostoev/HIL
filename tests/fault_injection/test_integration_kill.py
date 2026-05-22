@@ -3,11 +3,17 @@ import pytest
 
 
 INTEGRATION_NODES = [
-    ("can_telemetry_node_alive",      "TC-INT-KILL-001", "/can_telemetry"),
-    ("carapi_integration_node_alive", "TC-INT-KILL-002", "/carapi_node"),
-    ("cloud_telemetry_node_alive",    "TC-INT-KILL-003", "/infra/cloud_telemetry_node"),
-    ("hardware_metrics_node_alive",   "TC-INT-KILL-004", "/hardware_metrics"),
-    ("metrics_aggregator_node_alive", "TC-INT-KILL-005", "/metrics_aggregator"),
+    ("can_telemetry_node",       "TC-INT-PRE-001", "/can_telemetry"),
+    ("carapi_integration_node",  "TC-INT-PRE-002", "/carapi_node"),
+    ("cloud_telemetry_node",     "TC-INT-PRE-003", "/infra/cloud_telemetry_node"),
+    ("hardware_metrics_node",    "TC-INT-PRE-004", "/hardware_metrics"),
+    ("metrics_aggregator_node",  "TC-INT-PRE-005", "/metrics_aggregator"),
+    ("hal_node",                 "TC-INT-PRE-006", "/generic/hal"),
+    ("crash_detector_node",      "TC-INT-PRE-007", "/safety/crash_detector"),
+    ("sda_process_monitor_node", "TC-INT-PRE-008", "/sda_process_monitor/sda_process_monitor"),
+    ("v2x_publisher_node",       "TC-INT-PRE-009", "/v2x_publisher_node"),
+    ("rosbag2_recorder_node",    "TC-INT-PRE-010", "/data_logging/rosbag2_recorder"),
+    ("mrm_arbiter_node",         "TC-INT-PRE-010", "/mrm_arbiter"),
 ]
 
 
@@ -28,7 +34,7 @@ class TestIntegrationKill:
 
         node = request.getfixturevalue(fixture_name)
 
-        request.node.expected = "mrm_type: 0 → 2. Время реакции < 5000ms"
+        request.node.expected = "mrm_type: 0 → 2. Время реакции < 500ms"
 
         if not node.is_alive():
             pytest.skip(f"Нода {node_name} не запущена")

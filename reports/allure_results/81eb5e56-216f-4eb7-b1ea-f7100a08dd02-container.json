@@ -1,0 +1,1 @@
+{"uuid": "c5a83d60-ab54-472e-9cdb-989768b01974", "children": ["b99e5dd8-97e5-4ad2-8e4c-38add2b32eb9"], "befores": [{"name": "imu_node", "status": "passed", "start": 1779206851004, "stop": 1779206851005}], "afters": [{"name": "imu_node::0", "status": "passed", "start": 1779206872914, "stop": 1779206872914}], "start": 1779206851004, "stop": 1779206872914}

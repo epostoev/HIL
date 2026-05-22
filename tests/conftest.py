@@ -7,7 +7,7 @@ from framework.control_system_monitor import ControlSystemMonitor
 # from framework.text_overlay import TextOverlay
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
 from framework.localization_nodes import LidarLocalizationNode, LocalizationInitializationNode, LocalizationLocalizationNode
-from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode,)
+from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode, HalNode, CrashDetectorNode, SdaProcessMonitorNode, V2xPublisherNode, Rosbag2RecorderNode, MrmArbiterNode)
 from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode, СameraTracksMergerNode, CloudMotionDetectorNode, Detections2ClustersFusionNode, Detector3dNode, FilterTciIdNode, FrontBackboneNode, GroundSegmentatorGpNode, ImageSegmenterNode, LaneletsDetectorNode, LidarBlindZonesNode, LidarNoiseDetectorNode, ObstaclesTrackerNode, PointCloudClusterizerNode, PollutionDetectorNode, RadarCameraFusionNode, RadarStaticObstaclesDetectorNode, RoadLines3dNode, RoadLinesTrackerNode, RoadSurfaceConditionDetectorNode, RoadworksFusionNode, RoiSelectorNode, SegmentationHdmapFusionNode, SignalsСlassifierNode, SpeedLimitClassifierNode, StaticObstaclesDetectorNode, TrafficLightDetectsNode, TrafficLightGroupperNode, TrafficLightLocalizationNode, TrafficSignDetectsNode, TrafficSignLocalizationNode, VehicleDetectsNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
@@ -215,6 +215,8 @@ def localization_initialization_node_alive(localization_initialization_node):
         pytest.skip("Нода /localization_initialization_node не запущена")
     return localization_initialization_node
 
+
+# =============================================================================
 # General_Intregation
 
 @pytest.fixture(scope="module")
@@ -266,6 +268,76 @@ def metrics_aggregator_node_alive(metrics_aggregator_node):
     if not metrics_aggregator_node.is_alive():
         pytest.skip("Нода /metrics_aggregator не запущена")
     return metrics_aggregator_node
+
+# TC-INT-PRE-006: /generic/hal
+@pytest.fixture(scope="module")
+def hal_node():
+    node = HalNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def can_hal_node_alive(hal_node):
+    if not hal_node.is_alive():
+        pytest.skip("Нода /generic/hal не запущена")
+    return hal_node
+
+# TC-INT-PRE-007: /safety/crash_detector
+@pytest.fixture(scope="module")
+def crash_detector_node():
+    node = CrashDetectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def can_hal_node_alive(hal_node):
+    if not crash_detector_node.is_alive():
+        pytest.skip("Нода /safety/crash_detector не запущена")
+    return crash_detector_node
+
+# TC-INT-PRE-008: /sda_process_monitor/sda_process_monitor
+@pytest.fixture(scope="module")
+def sda_process_monitor_node():
+    node = SdaProcessMonitorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def sda_process_monitor_node_alive(hal_node):
+    if not sda_process_monitor_node.is_alive():
+        pytest.skip("Нода /sda_process_monitor/sda_process_monitor не запущена")
+    return sda_process_monitor_node
+
+# TC-INT-PRE-009: /v2x_publisher_node
+@pytest.fixture(scope="module")
+def v2x_publisher_node():
+    node = V2xPublisherNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def v2x_publisher_node_alive(hal_node):
+    if not v2x_publisher_node.is_alive():
+        pytest.skip("Нода /v2x_publisher_node не запущена")
+    return v2x_publisher_node
+
+# TC-INT-PRE-010: /data_logging/rosbag2_recorder
+@pytest.fixture(scope="module")
+def rosbag2_recorder_node():
+    node = Rosbag2RecorderNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def rosbag2_recorder_node_alive(hal_node):
+    if not rosbag2_recorder_node.is_alive():
+        pytest.skip("Нода /data_logging/rosbag2_recorder не запущена")
+    return rosbag2_recorder_node
+
+# TC-INT-PRE-011: /mrm_arbiter
+@pytest.fixture(scope="module")
+def mrm_arbiter_node():
+    node = MrmArbiterNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def mrm_arbiter_node_alive(hal_node):
+    if not mrm_arbiter_node.is_alive():
+        pytest.skip("Нода /mrm_arbiter не запущена")
+    return mrm_arbiter_node
+
+# General_Intregation
+# =============================================================================
+
 
 # =============================================================================
 # Perception
@@ -723,7 +795,8 @@ def restart_autopilot_after(mrm_monitor):
 
     subprocess.run(
         ["docker", "exec", DOCKER_CONTAINER,
-         "bash", "-c", "pkill -2 -f 'python3.*drive'"],
+        #  "bash", "-c", "pkill -2 -f 'python3.*drive'"],
+         "bash", "-c", "pkill -2 -f 'drive'"],
         capture_output=True
     )
     print(f"\nАвтопилот остановлен. Перезапускаем...")
@@ -735,7 +808,7 @@ def restart_autopilot_after(mrm_monitor):
          "cd /rep && "
          "source /opt/ros/humble/setup.bash && "
          "source /rep/ros2/install/setup.bash && "
-         "drive -u postoev --no-ecu-update"],
+         "drive classic-planner -u postoev --no-ecu-update"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )

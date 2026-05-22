@@ -1,0 +1,3 @@
+2026-05-19 16:07:38.232 | odometry_velocity_node | INFO | === Начало теста для odometry_velocity_node ===
+2026-05-19 16:07:39.985 | odometry_velocity_node | INFO | Нода /sensing/odometry_velocity_node жива True
+2026-05-19 16:07:41.716 | odometry_velocity_node | INFO | Нода /sensing/odometry_velocity_node жива True
