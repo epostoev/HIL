@@ -6,7 +6,7 @@ from framework.control_system_monitor import ControlSystemMonitor
 # from framework.vinx_node import VinxNode
 # from framework.text_overlay import TextOverlay
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
-from framework.localization_nodes import LidarLocalizationNode, LocalizationInitializationNode, LocalizationLocalizationNode
+from framework.localization_nodes import (LocalizationOutputGatewayNode, LocalizationNodeContainerNode)
 from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode, HalNode, CrashDetectorNode, SdaProcessMonitorNode, V2xPublisherNode, Rosbag2RecorderNode, MrmArbiterNode)
 from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode, СameraTracksMergerNode, CloudMotionDetectorNode, Detections2ClustersFusionNode, Detector3dNode, FilterTciIdNode, FrontBackboneNode, GroundSegmentatorGpNode, ImageSegmenterNode, LaneletsDetectorNode, LidarBlindZonesNode, LidarNoiseDetectorNode, ObstaclesTrackerNode, PointCloudClusterizerNode, PollutionDetectorNode, RadarCameraFusionNode, RadarStaticObstaclesDetectorNode, RoadLines3dNode, RoadLinesTrackerNode, RoadSurfaceConditionDetectorNode, RoadworksFusionNode, RoiSelectorNode, SegmentationHdmapFusionNode, SignalsСlassifierNode, SpeedLimitClassifierNode, StaticObstaclesDetectorNode, TrafficLightDetectsNode, TrafficLightGroupperNode, TrafficLightLocalizationNode, TrafficSignDetectsNode, TrafficSignLocalizationNode, VehicleDetectsNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
@@ -73,23 +73,6 @@ def imu_node_alive(imu_node):
     if not imu_node.is_alive():
         pytest.skip("Нода /sensing/imu1/imu_node не запущена")
     return imu_node
-
-
-######
-# @pytest.fixture(scope="module")
-# def lidar_localization():
-#     """Создаёт объект LidarLocalizationNode"""
-#     node = LidarLocalizationNode()
-#     node.setup()
-#     yield node
-#     node.teardown()
-
-# @pytest.fixture(scope="module")
-# def lidar_localization_alive(lidar_localization):
-#     """С предусловием: пропускает тест если нода не запущена"""
-#     if not lidar_localization.is_alive():
-#         pytest.skip("Нода /lidar_localization не запущена")
-#     return lidar_localization
 
 @pytest.fixture(scope="module")
 def xviz_node():
@@ -183,37 +166,33 @@ def radar_driver_node_alive(radar_driver_node):
     return radar_driver_node
 
 
+# =============================================================================
 # Localization
 
 @pytest.fixture(scope="module")
-def lidar_localization_node():
-    node = LidarLocalizationNode(); node.setup(); yield node; node.teardown()
+def localization_output_gateway_node():
+    node = LocalizationOutputGatewayNode(); node.setup(); yield node; node.teardown()
+
 
 @pytest.fixture(scope="module")
-def localization_localization_node():
-    node = LocalizationLocalizationNode(); node.setup(); yield node; node.teardown()
+def localization_output_gateway_node_alive(localization_output_gateway_node):
+    if not localization_output_gateway_node.is_alive():
+        pytest.skip("Нода /localization_output_gateway_node не запущена")
+    return localization_output_gateway_node
 
 @pytest.fixture(scope="module")
-def localization_initialization_node():
-    node = LocalizationInitializationNode(); node.setup(); yield node; node.teardown()
+def localization_node_container_node():
+    node = LocalizationNodeContainerNode(); node.setup(); yield node; node.teardown()
+
 
 @pytest.fixture(scope="module")
-def lidar_localization_node_alive(lidar_localization_node):
-    if not lidar_localization_node.is_alive():
-        pytest.skip("Нода /lidar_localization не запущена")
-    return lidar_localization_node
+def localization_node_container_node_alive(localization_node_container_node):
+    if not localization_node_container_node.is_alive():
+        pytest.skip("Нода /localization/node_container не запущена")
+    return localization_node_container_node
 
-@pytest.fixture(scope="module")
-def localization_localization_node_alive(localization_localization_node):
-    if not localization_localization_node.is_alive():
-        pytest.skip("Нода /localization/localization не запущена")
-    return localization_localization_node
-
-@pytest.fixture(scope="module")
-def localization_initialization_node_alive(localization_initialization_node):
-    if not localization_initialization_node.is_alive():
-        pytest.skip("Нода /localization_initialization_node не запущена")
-    return localization_initialization_node
+# Localization
+# =============================================================================
 
 
 # =============================================================================

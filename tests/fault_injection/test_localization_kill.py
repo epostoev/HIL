@@ -3,19 +3,17 @@ import pytest
 
 
 LOCALIZATION_NODES = [
-    ("lidar_localization_node_alive",          "TC-LOC-KILL-001", "/lidar_localization"),
-    ("localization_localization_node_alive",   "TC-LOC-KILL-002", "/localization/localization"),
-    ("localization_initialization_node_alive", "TC-LOC-KILL-003", "/localization_initialization_node"),
+    ("localization_output_gateway_node",   "TC-LOC-PRE-001", "/localization_output_gateway_node"),
+    ("localization_node_container_node",   "TC-LOC-PRE-002", "/localization/node_container"),
 ]
 
 
 class TestLocalizationKill:
     """
     Fault Injection: принудительное завершение нод компонента Localization
-
-    TC-LOC-KILL-001: /lidar_localization
-    TC-LOC-KILL-002: /localization/localization
-    TC-LOC-KILL-003: /localization_initialization_node
+    
+    TC-LOC-PRE-001: "/localization_output_gateway_node"
+    TC-LOC-PRE-002: "localization/node_container"
     """
 
     @pytest.mark.parametrize("fixture_name, tc_id, node_name", LOCALIZATION_NODES)

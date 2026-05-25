@@ -1,0 +1,10 @@
+2026-05-22 10:04:15.685 | radar_visualization_node | INFO | === Начало теста для radar_visualization_node ===
+2026-05-22 10:04:17.798 | radar_visualization_node | INFO | Нода /sensing/visualization/radar_visualization_node жива True
+2026-05-22 10:04:19.990 | radar_visualization_node | INFO | Нода /sensing/visualization/radar_visualization_node жива True
+2026-05-22 10:04:19.993 | radar_visualization_node | INFO | === Завершение теста для radar_visualization_node ===
+2026-05-22 10:04:19.994 | ublox_driver_node | INFO | === Завершение теста для ublox_driver_node ===
+2026-05-22 10:04:19.994 | radar_driver_node | INFO | === Завершение теста для radar_driver_node ===
+2026-05-22 10:04:19.995 | odometry_velocity_node | INFO | === Завершение теста для odometry_velocity_node ===
+2026-05-22 10:04:19.995 | odometry_node | INFO | === Завершение теста для odometry_node ===
+2026-05-22 10:04:19.996 | imu_node | INFO | === Завершение теста для imu_node ===
+2026-05-22 10:04:19.996 | auto_cleaning | INFO | === Завершение теста для auto_cleaning ===

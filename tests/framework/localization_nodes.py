@@ -1,22 +1,17 @@
 from framework.base_hil_test import BaseHILTest
 
-class LidarLocalizationNode(BaseHILTest):
-    NODE_NAME = "/lidar_localization"
-    PROCESS_NAME = "localization/lib/localization/lidar_localization_node"
+class LocalizationOutputGatewayNode(BaseHILTest):
+    NODE_NAME = "/localization_output_gateway_node"
+    PROCESS_NAME = "localization/lib/localization/localization_output_gateway_node"
 
     def __init__(self):
-        super().__init__(node_name="lidar_localization", timeout=15)
+        super().__init__(node_name="/localization_output_gateway_node", timeout=15)
 
-class LocalizationLocalizationNode(BaseHILTest):
-    NODE_NAME = "/localization/localization"
-    PROCESS_NAME = "localization/lib/localization/localization_node"
 
-    def __init__(self):
-        super().__init__(node_name="localization", timeout=15)
-
-class LocalizationInitializationNode(BaseHILTest):
-    NODE_NAME = "/localization_initialization_node"
-    PROCESS_NAME = "localization/lib/localization/localization_initialization_node"
+class LocalizationNodeContainerNode(BaseHILTest):
+    NODE_NAME = "/localization/node_container"
+    PROCESS_NAME = "sat_utils_node_container/lib/sat_utils_node_container/node_container"
 
     def __init__(self):
-        super().__init__(node_name="localization_initialization_node", timeout=15)
+        super().__init__(node_name="/localization/node_container", timeout=15)
+

@@ -82,3 +82,9 @@ tests/
 - [ ] Добавить отправку HTML отчёта в Confluence автоматически
 - [ ] Финальный прогон всех тестов на двух стендах (`sda-f898b5d` и `sda_drive`)
 - [ ] Итоговая документация в Confluence
+
+
+
+## Полезные команды
+
+`ros2 topic echo --full-length safety/mrm_request | grep -A 5 "error_code: 131346"`

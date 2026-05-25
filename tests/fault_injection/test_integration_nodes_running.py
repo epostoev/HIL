@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 
@@ -26,7 +27,6 @@ class TestIntegrationNodesRunning:
     TC-INT-PRE-004: /hardware_metrics
     TC-INT-PRE-005: /metrics_aggregator
     TC-INT-PRE-006: /generic/hal
-    TC-INT-PRE-007: /safety/crash_detector
     TC-INT-PRE-007: /safety/crash_detector
     TC-INT-PRE-008: /sda_process_monitor/sda_process_monitor
     TC-INT-PRE-009: /v2x_publisher_node
