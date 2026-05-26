@@ -3,7 +3,7 @@ from framework.base_hil_test import BaseHILTest
 # "TC-PER-PRE-001"
 class BoomBarrierDetectorNode(BaseHILTest):
     NODE_NAME = "/perception/boom_barrier_detector"
-    PROCESS_NAME = "boom_barrier_detector/lib/boom_barrier_detector/boom_barrier_detector"
+    PROCESS_NAME = "sat_perception_boom_barrier_detector/lib/sat_perception_boom_barrier_detector/boom_barrier_detector_node "
     def __init__(self):
         super().__init__(node_name="boom_barrier_detector", timeout=15)
         
@@ -63,12 +63,13 @@ class Detector3dNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="detector_3d", timeout=15)
 
+# (Нет в r/0.16-amg)
 # "TC-PER-PRE-010"
-class FilterTciIdNode(BaseHILTest):
-    NODE_NAME = "/perception/filter_tci_id"
-    PROCESS_NAME = "filter_tci_id/lib/filter_tci_id/filter_tci_id"
-    def __init__(self):
-        super().__init__(node_name="filter_tci_id", timeout=15)
+# class FilterTciIdNode(BaseHILTest):
+#     NODE_NAME = "/perception/filter_tci_id"
+#     PROCESS_NAME = "filter_tci_id/lib/filter_tci_id/filter_tci_id"
+#     def __init__(self):
+#         super().__init__(node_name="filter_tci_id", timeout=15)
 
 # "TC-PER-PRE-011"
 class FrontBackboneNode(BaseHILTest):
@@ -86,17 +87,18 @@ class GroundSegmentatorGpNode(BaseHILTest):
 
 # "TC-PER-PRE-013"
 class ImageSegmenterNode(BaseHILTest):
-    NODE_NAME = "/perception/image_segmenter"
-    PROCESS_NAME = "image_segmenter/lib/image_segmenter/image_segmenter"
+    NODE_NAME = "/perception/image_segmenter_cpp"
+    PROCESS_NAME = "sat_perception_image_segmenter_cpp/lib/sat_perception_image_segmenter_cpp/image_segmenter_cpp_node"
     def __init__(self):
         super().__init__(node_name="image_segmenter", timeout=15)
 
+# (Нет в r/0.16-amg)
 # "TC-PER-PRE-014"
-class LaneletsDetectorNode(BaseHILTest):
-    NODE_NAME = "/perception/lanelets_detector"
-    PROCESS_NAME = "lanelets_detector/lib/lanelets_detector/lanelets_detector"
-    def __init__(self):
-        super().__init__(node_name="lanelets_detector", timeout=15)
+# class LaneletsDetectorNode(BaseHILTest):
+#     NODE_NAME = "/perception/lanelets_detector"
+#     PROCESS_NAME = "lanelets_detector/lib/lanelets_detector/lanelets_detector"
+#     def __init__(self):
+#         super().__init__(node_name="lanelets_detector", timeout=15)
 
 # "TC-PER-PRE-015"
 class LidarBlindZonesNode(BaseHILTest):
@@ -108,7 +110,7 @@ class LidarBlindZonesNode(BaseHILTest):
 # "TC-PER-PRE-016"
 class LidarNoiseDetectorNode(BaseHILTest):
     NODE_NAME = "/perception/lidar_noise_detector"
-    PROCESS_NAME = "lidar_noise_detector/lib/lidar_noise_detector/lidar_noise_detector"
+    PROCESS_NAME = "sat_perception_lidar_noise_detector/lib/sat_perception_lidar_noise_detector/lidar_noise_detector_node"
     def __init__(self):
         super().__init__(node_name="lidar_noise_detector", timeout=15)
 
@@ -157,7 +159,7 @@ class RoadLines3dNode(BaseHILTest):
 # "TC-PER-PRE-023"
 class RoadLinesTrackerNode(BaseHILTest):
     NODE_NAME = "/perception/road_lines_tracker"
-    PROCESS_NAME = "road_lines_tracker/lib/road_lines_tracker/road_lines_tracker"
+    PROCESS_NAME = "sat_perception_road_lines_tracker/lib/sat_perception_road_lines_tracker/road_lines_tracker_node"
     def __init__(self):
         super().__init__(node_name="road_lines_tracker", timeout=15)
 
@@ -176,16 +178,16 @@ class RoadworksFusionNode(BaseHILTest):
         super().__init__(node_name="roadworks_fusion", timeout=15)
 
 # "TC-PER-PRE-026"
-class RoiSelectorNode(BaseHILTest):
-    NODE_NAME = "/perception/roi_selector"
-    PROCESS_NAME = "roi_selector/lib/roi_selector/roi_selector"
-    def __init__(self):
-        super().__init__(node_name="roi_selector", timeout=15)
+# class RoiSelectorNode(BaseHILTest):
+#     NODE_NAME = "/perception/roi_selector"
+#     PROCESS_NAME = "roi_selector/lib/roi_selector/roi_selector"
+#     def __init__(self):
+#         super().__init__(node_name="roi_selector", timeout=15)
 
 # "TC-PER-PRE-027"
 class SegmentationHdmapFusionNode(BaseHILTest):
     NODE_NAME = "/perception/segmentation_hdmap_fusion"
-    PROCESS_NAME = "segmentation_hdmap_fusion/lib/segmentation_hdmap_fusion/segmentation_hdmap_fusion"
+    PROCESS_NAME = "sat_perception_segmentation_hdmap_fusion/lib/sat_perception_segmentation_hdmap_fusion/segmentation_hdmap_fusion_node"
     def __init__(self):
         super().__init__(node_name="segmentation_hdmap_fusion", timeout=15)
 
@@ -213,7 +215,7 @@ class StaticObstaclesDetectorNode(BaseHILTest):
 # "TC-PER-PRE-031"
 class TrafficLightDetectsNode(BaseHILTest):
     NODE_NAME = "/perception/traffic_light_detects"
-    PROCESS_NAME = "traffic_light_detects/lib/traffic_light_detects/traffic_light_detects"
+    PROCESS_NAME = "__node:=traffic_light_detects"
     def __init__(self):
         super().__init__(node_name="traffic_light_detects", timeout=15)
 
@@ -234,7 +236,7 @@ class TrafficLightLocalizationNode(BaseHILTest):
 # "TC-PER-PRE-034"
 class TrafficSignDetectsNode(BaseHILTest):
     NODE_NAME = "/perception/traffic_sign_detects"
-    PROCESS_NAME = "traffic_sign_detects/lib/traffic_sign_detects/traffic_sign_detects"
+    PROCESS_NAME = "__node:=traffic_sign_detects"
     def __init__(self):
         super().__init__(node_name="traffic_sign_detects", timeout=15)
 
@@ -248,6 +250,6 @@ class TrafficSignLocalizationNode(BaseHILTest):
 # "TC-PER-PRE-036"
 class VehicleDetectsNode(BaseHILTest):
     NODE_NAME = "/perception/vehicle_detects"
-    PROCESS_NAME = "vehicle_detects/lib/vehicle_detects/vehicle_detects"
+    PROCESS_NAME = "__node:=vehicle_detects"
     def __init__(self):
         super().__init__(node_name="vehicle_detects", timeout=15)

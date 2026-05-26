@@ -8,7 +8,7 @@ from framework.control_system_monitor import ControlSystemMonitor
 from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
 from framework.localization_nodes import (LocalizationOutputGatewayNode, LocalizationNodeContainerNode)
 from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode, HalNode, CrashDetectorNode, SdaProcessMonitorNode, V2xPublisherNode, Rosbag2RecorderNode, MrmArbiterNode)
-from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode, СameraTracksMergerNode, CloudMotionDetectorNode, Detections2ClustersFusionNode, Detector3dNode, FilterTciIdNode, FrontBackboneNode, GroundSegmentatorGpNode, ImageSegmenterNode, LaneletsDetectorNode, LidarBlindZonesNode, LidarNoiseDetectorNode, ObstaclesTrackerNode, PointCloudClusterizerNode, PollutionDetectorNode, RadarCameraFusionNode, RadarStaticObstaclesDetectorNode, RoadLines3dNode, RoadLinesTrackerNode, RoadSurfaceConditionDetectorNode, RoadworksFusionNode, RoiSelectorNode, SegmentationHdmapFusionNode, SignalsСlassifierNode, SpeedLimitClassifierNode, StaticObstaclesDetectorNode, TrafficLightDetectsNode, TrafficLightGroupperNode, TrafficLightLocalizationNode, TrafficSignDetectsNode, TrafficSignLocalizationNode, VehicleDetectsNode)
+from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode, СameraTracksMergerNode, CloudMotionDetectorNode, Detections2ClustersFusionNode, Detector3dNode, FrontBackboneNode, GroundSegmentatorGpNode, ImageSegmenterNode, LidarBlindZonesNode, LidarNoiseDetectorNode, ObstaclesTrackerNode, PointCloudClusterizerNode, PollutionDetectorNode, RadarCameraFusionNode, RadarStaticObstaclesDetectorNode, RoadLines3dNode, RoadLinesTrackerNode, RoadSurfaceConditionDetectorNode, RoadworksFusionNode, SegmentationHdmapFusionNode, SignalsСlassifierNode, SpeedLimitClassifierNode, StaticObstaclesDetectorNode, TrafficLightDetectsNode, TrafficLightGroupperNode, TrafficLightLocalizationNode, TrafficSignDetectsNode, TrafficSignLocalizationNode, VehicleDetectsNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
 
@@ -464,10 +464,10 @@ def perception_image_segmenter_node_alive(perception_image_segmenter_node):
         pytest.skip("Нода /perception/image_segmenter не запущена")
     return perception_image_segmenter_node
 
-# "TC-PER-PRE-014"
-@pytest.fixture(scope="module")
-def perception_lanelets_detector_node():
-    node = LaneletsDetectorNode(); node.setup(); yield node; node.teardown()
+# # "TC-PER-PRE-014"
+# @pytest.fixture(scope="module")
+# def perception_lanelets_detector_node():
+#     node = LaneletsDetectorNode(); node.setup(); yield node; node.teardown()
 
 @pytest.fixture(scope="module")
 def perception_lanelets_detector_node_alive(perception_lanelets_detector_node):
@@ -597,9 +597,9 @@ def perception_roadworks_fusion_node_alive(perception_roadworks_fusion_node):
     return perception_roadworks_fusion_node
 
 # "TC-PER-PRE-026"
-@pytest.fixture(scope="module")
-def perception_roi_selector_node():
-    node = RoiSelectorNode(); node.setup(); yield node; node.teardown()
+# @pytest.fixture(scope="module")
+# def perception_roi_selector_node():
+#     node = RoiSelectorNode(); node.setup(); yield node; node.teardown()
 
 @pytest.fixture(scope="module")
 def perception_roi_selector_node_alive(perception_roi_selector_node):
