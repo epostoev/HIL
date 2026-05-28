@@ -9,12 +9,6 @@ LOCALIZATION_NODES = [
 
 
 class TestLocalizationKill:
-    """
-    Fault Injection: принудительное завершение нод компонента Localization
-    
-    TC-LOC-PRE-001: "/localization_output_gateway_node"
-    TC-LOC-PRE-002: "localization/node_container"
-    """
 
     @pytest.mark.parametrize("fixture_name, tc_id, node_name", LOCALIZATION_NODES)
     def test_localization_kill(self, fixture_name, tc_id, node_name,

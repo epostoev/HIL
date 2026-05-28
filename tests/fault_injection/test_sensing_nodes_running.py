@@ -1,103 +1,52 @@
 import pytest
+import allure
 
 
+SENSING_NODES = [
+    ("auto_cleaning_node",       "TC-SENSING-PRE-001", "/sensing/auto_cleaning"),
+    ("imu1_imu_node",            "TC-SENSING-PRE-002", "/sensing/imu1/imu_node"),
+    ("odometry_node",            "TC-SENSING-PRE-003", "/sensing/odometry_node"),
+    ("odometry_velocity_node",   "TC-SENSING-PRE-004", "/sensing/odometry_velocity_node"),
+    ("radar_driver_node",        "TC-SENSING-PRE-005", "/sensing/radar_driver_node"),
+    ("ublox_driver_node",        "TC-SENSING-PRE-006", "/sensing/ublox1/ublox_driver_node"),
+    ("radar_visualization_node", "TC-SENSING-PRE-007", "/sensing/visualization/radar_visualization_node"),
+    ("roi_selector_node",        "TC-SENSING-PRE-008", "/sensing/roi_selector"),
+    ("camera_decoder_node",      "TC-SENSING-PRE-009", "/sensing/camera_decoder"),
+    ("crash_video_recorder_node","TC-SENSING-PRE-010", "/sensing/crash_video_recorder")
+]
+
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.title('Тест: Состояние ноды в системе')
+@allure.description('Провека присутствия ноды в релизе r/0.16')
 class TestSensingNodesRunning:
-    """
-    Проверка что все ноды компонента Sensing запущены.
 
-    TC-SENSING-PRE-001: /sensing/auto_cleaning
-    TC-SENSING-PRE-002: /sensing/imu1/imu_node
-    TC-SENSING-PRE-003: /sensing/odometry_node
-    TC-SENSING-PRE-004: /sensing/odometry_velocity_node
-    TC-SENSING-PRE-005: /sensing/radar_driver_node
-    TC-SENSING-PRE-006: /sensing/ublox1/ublox_driver_node
-    TC-SENSING-PRE-007: /sensing/visualization/radar_visualization_node
-    """
+    @pytest.mark.parametrize("fixture_name, tc_id, node_name", SENSING_NODES)
+    def test_node_running(self, fixture_name, tc_id, node_name, request):
+        f"""{tc_id}: {node_name} присутствует в ROS graph"""
 
-    def test_01_auto_cleaning_running(self, auto_cleaning_node, request):
-        """TC-FAULT-SENSING-001-PRE: /sensing/auto_cleaning жива"""
+        allure.dynamic.title(f"{tc_id}: {node_name}")
+        allure.dynamic.parameter("node_name", node_name)
+        allure.dynamic.parameter("tc_id", tc_id)
 
-        # Ожидаемый результат
-        request.node.expected = "Нода /sensing/auto_cleaning присутствует в ROS graph"
+        with allure.step(f"Получить объект ноды {node_name}"):
+            node = request.getfixturevalue(fixture_name)
 
-        if not auto_cleaning_node.is_alive():
-            request.node.actual = "Нода не запущена — SKIPPED"
-            pytest.skip("Нода /sensing/auto_cleaning не запущена")
+        request.node.expected = f"Нода {node_name} присутствует в ROS graph"
 
-        assert auto_cleaning_node.is_alive() is True
+        with allure.step(f"Проверить что нода {node_name} присутствует в ROS graph"):
+            if not node.is_alive():
+                request.node.actual = "Нода не запущена — SKIPPED"
+                pytest.skip(f"Нода {node_name} не запущена")
 
-        # Фактический результат
-        request.node.actual = "Нода /sensing/auto_cleaning присутствует в ROS graph ✅"
+            assert node.is_alive() is True
 
+        request.node.actual = f"Нода {node_name} присутствует в ROS graph ✅"
 
-    def test_02_imu_node_running(self, imu_node, request):
-        """TC-SENSING-PRE-002: /sensing/imu1/imu_node"""
-        request.node.expected = "Нода /sensing/imu1/imu_node присутствует в ROS graph"
-        
-        if not imu_node.is_alive():
-            request.node.actual = "Нода не запущена — SKIPPED"
-            pytest.skip("Нода /sensing/imu1/imu_node не запущена")
-
-        assert imu_node.is_alive() is True
-
-        request.node.actual = "Нода /sensing/imu1/imu_node присутствует в ROS graph ✅"
-
-
-    def test_03_odometry_node_running(self, odometry_node, request):
-        """TC-SENSING-PRE-003: /sensing/odometry_node"""
-        request.node.expected = "Нода /sensing/odometry_node присутствует в ROS graph"
-        if not odometry_node.is_alive():
-            request.node.actual = "Нода не запущена — SKIPPED"
-            pytest.skip("Нода /sensing/odometry_node не запущена")
-
-        assert odometry_node.is_alive() is True
-
-        request.node.actual = "Нода /sensing/odometry_node жива ✅"
-
-
-    def test_04_odometry_velocity_node_running(self, odometry_velocity_node, request):
-        """TC-SENSING-PRE-004: /sensing/odometry_velocity_node"""
-        request.node.expected = "Нода /sensing/odometry_velocity_node присутствует в ROS graph"
-        if not odometry_velocity_node.is_alive():
-            request.node.actual = "Нода не запущена — SKIPPED"
-            pytest.skip("Нода /sensing/odometry_velocity_node не запущена")
-
-        assert odometry_velocity_node.is_alive() is True
-
-        request.node.actual = "Нода /sensing/odometry_node жива ✅"
-
-
-    def test_05_radar_driver_node_running(self, radar_driver_node, request):
-        """TC-SENSING-PRE-005: /sensing/radar_driver_node"""
-        request.node.expected = "Нода /sensing/radar_driver_node присутствует в ROS graph"
-        if not radar_driver_node.is_alive():
-            request.node.actual = "Нода не запущена — SKIPPED"
-            pytest.skip("Нода /sensing/radar_driver_node не запущена")
-
-        assert radar_driver_node.is_alive() is True
-
-        request.node.actual = "Нода /sensing/radar_driver_node жива ✅"
-
-
-    def test_06_ublox_driver_node_running(self, ublox_driver_node, request):
-        """TC-SENSING-PRE-006: /sensing/ublox1/ublox_driver_node"""
-        request.node.expected = "Нода /sensing/ublox1/ublox_driver_node присутствует в ROS graph"
-        if not ublox_driver_node.is_alive():
-            request.node.actual = "Нода не запущена — SKIPPED"
-            pytest.skip("Нода /sensing/ublox1/ublox_driver_node не запущена")
-
-        assert ublox_driver_node.is_alive() is True
-
-        request.node.actual = "Нода /sensing/ublox1/ublox_driver_node жива ✅"
-
-
-    def test_07_radar_visualization_node_running(self, radar_visualization_node, request):
-        """TC-SENSING-PRE-007: /sensing/visualization/radar_visualization_node"""
-        request.node.expected = "Нода /sensing/visualization/radar_visualization_node присутствует в ROS graph"
-        if not radar_visualization_node.is_alive():
-            request.node.actual = "Нода не запущена — SKIPPED"
-            pytest.skip("Нода /sensing/visualization/radar_visualization_node не запущена")
-
-        assert radar_visualization_node.is_alive() is True
-
-        request.node.actual = "Нода /sensing/visualization/radar_visualization_node жива ✅"
+        with allure.step("Зафиксировать результат"):
+            allure.attach(
+                f"TC ID:     {tc_id}\n"
+                f"Node:      {node_name}\n"
+                f"Статус:    ALIVE ✅",
+                name="Результат проверки",
+                attachment_type=allure.attachment_type.TEXT,
+            )

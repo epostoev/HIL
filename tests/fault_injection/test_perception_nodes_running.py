@@ -28,7 +28,6 @@ PERCEPTION_NODES = [
         ("perception_traffic_sign_detects_node",                                "TC-PER-PRE-025", "/perception/traffic_sign_detects"),
         ("perception_traffic_sign_localization_node",                           "TC-PER-PRE-026", "/perception/traffic_sign_localization"),
         ("perception_vehicle_detects_node",                                     "TC-PER-PRE-027", "/perception/vehicle_detects"),
-
         ("perception_lidar_static_obstacles_detector_node",                     "TC-PER-PRE-028", "/perception/lidar_static_obstacles_detector"),
         ("perception_visualization_cloud_clusters_visualization_node",          "TC-PER-PRE-029", "/perception/visualization/cloud_clusters_visualization"),
         ("perception_visualization_perception_lanes_visualization_py_node",     "TC-PER-PRE-030", "/perception/visualization/perception_lanes_visualization_py"),

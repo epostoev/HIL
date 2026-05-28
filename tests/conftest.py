@@ -1,6 +1,6 @@
 import pytest
 from framework.control_system_monitor import ControlSystemMonitor
-from framework.sensing_nodes import AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode
+from framework.sensing_nodes import (AutoCleaningNode, OdometryNode, OdometryVelocityNode, ImuNode, RadarDriverNode, UbloxDriverNode, RadarVisualizationNode, RoiSelectorNode, CameraDecoderNode, CrashVideoRecorderNode)
 from framework.localization_nodes import (LocalizationOutputGatewayNode, LocalizationNodeContainerNode)
 from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode, HalNode, CrashDetectorNode, SdaProcessMonitorNode, V2xPublisherNode, Rosbag2RecorderNode, MrmArbiterNode)
 from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode, СameraTracksMergerNode, CloudMotionDetectorNode, Detector3dNode, FrontBackboneNode, ImageSegmenterNode, LidarBlindZonesNode, LidarNoiseDetectorNode, StaticObstaclesTrackerNode, PointCloudClusterizerNode, PollutionDetectorNode, RadarStaticObstaclesDetectorNode, RoadLines3dNode, RoadLinesTrackerNode, RoadSurfaceConditionDetectorNode, RoadworksFusionNode, SegmentationHdmapFusionNode, SignalsСlassifierNode, SpeedLimitClassifierNode, TrafficLightDetectsNode, TrafficSignDetectsNode, TrafficSignLocalizationNode, VehicleDetectsNode, LidarStaticObstaclesDetectorNode, CloudClustersVisualizationNode, PerceptionLanesVisualizationPyNode, PerceptionVisualization2dNode, TrafficLightPipelineNode, ObjectsVisualizationNode)
@@ -49,14 +49,6 @@ def trajectory_planner_alive(trajectory_planner):
         pytest.skip("Нода /planning/trajectory_planner_node не запущена")
     return trajectory_planner
 
-
-@pytest.fixture(scope="module")
-def imu_node_alive(imu_node):
-    """С предусловием: пропускает тест если нода не запущена"""
-    if not imu_node.is_alive():
-        pytest.skip("Нода /sensing/imu1/imu_node не запущена")
-    return imu_node
-
 @pytest.fixture(scope="module")
 def xviz_node():
     node = XvizNode()
@@ -97,35 +89,54 @@ def text_overlay_alive(text_overlay):
         pytest.skip("Нода visualization/text_overlay не запущена")
     return text_overlay
 
+# =============================================================================
 # Sensing
 
 @pytest.fixture(scope="module")
 def auto_cleaning_node():
-    print("\n\n 1 шаг - Выполнить node = AutoCleaningNode() - создал объект класса\n")
     node = AutoCleaningNode()
-    print(f"\nID = {id(node)}\n")
-    print(f"\nnode.__dict__ {node.__dict__}\n")
-    print("\n3 шаг - Вызов node.setup()\n")
     node.setup() 
-    print("\n4 шаг - Перешли в yeld, тест получил готовый обьект auto_cleaning_node\n")
     yield node 
     node.teardown()
 
 @pytest.fixture(scope="module")
-def imu_node():
-    """Создаёт объект ImuNode"""
+def auto_cleaning_node_alive(auto_cleaning_node):
+    if not auto_cleaning_node.is_alive():
+        pytest.skip("Нода /sensing/auto_cleaning не запущена")
+    return auto_cleaning_node
+
+@pytest.fixture(scope="module")
+def imu1_imu_node():
     node = ImuNode()
     node.setup()
     yield node
     node.teardown()
 
 @pytest.fixture(scope="module")
+def imu1_imu_node_alive(imu1_imu_node):
+    if not imu1_imu_node.is_alive():
+        pytest.skip("Нода /sensing/imu1/imu_node не запущена")
+    return imu1_imu_node
+
+@pytest.fixture(scope="module")
 def odometry_node():
     node = OdometryNode(); node.setup(); yield node; node.teardown()
 
 @pytest.fixture(scope="module")
+def odometry_node_alive(odometry_node):
+    if not odometry_node.is_alive():
+        pytest.skip("Нода /sensing/odometry_node не запущена")
+    return odometry_node
+
+@pytest.fixture(scope="module")
 def odometry_velocity_node():
     node = OdometryVelocityNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def odometry_velocity_node_alive(odometry_velocity_node):
+    if not odometry_velocity_node.is_alive():
+        pytest.skip("Нода /sensing/odometry_velocity_node не запущена")
+    return odometry_velocity_node
 
 @pytest.fixture(scope="module")
 def radar_driver_node():
@@ -135,18 +146,60 @@ def radar_driver_node():
     node.teardown()
 
 @pytest.fixture(scope="module")
+def radar_driver_node_alive(radar_driver_node):
+    if not radar_driver_node.is_alive():
+        pytest.skip("Нода /sensing/radar_driver_node не запущена")
+    return radar_driver_node
+
+@pytest.fixture(scope="module")
 def ublox_driver_node():
     node = UbloxDriverNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def ublox_driver_node_alive(ublox_driver_node):
+    if not ublox_driver_node.is_alive():
+        pytest.skip("Нода /sensing/ublox1/ublox_driver_node не запущена")
+    return ublox_driver_node
 
 @pytest.fixture(scope="module")
 def radar_visualization_node():
     node = RadarVisualizationNode(); node.setup(); yield node; node.teardown()
 
 @pytest.fixture(scope="module")
-def radar_driver_node_alive(radar_driver_node):
-    if not radar_driver_node.is_alive():
-        pytest.skip("Нода /sensing/radar_driver_node не запущена")
-    return radar_driver_node
+def radar_visualization_node_alive(radar_visualization_node):
+    if not radar_visualization_node.is_alive():
+        pytest.skip("Нода /sensing/visualization/radar_visualization_node не запущена")
+    return radar_visualization_node
+
+@pytest.fixture(scope="module")
+def roi_selector_node():
+    node = RoiSelectorNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def roi_selector_node_alive(roi_selector_node):
+    if not roi_selector_node.is_alive():
+        pytest.skip("Нода /sensing/roi_selector не запущена")
+    return roi_selector_node
+
+@pytest.fixture(scope="module")
+def camera_decoder_node():
+    node = CameraDecoderNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def camera_decoder_node_alive(camera_decoder_node):
+    if not camera_decoder_node.is_alive():
+        pytest.skip("Нода /sensing/camera_decoder не запущена")
+    return camera_decoder_node
+
+@pytest.fixture(scope="module")
+def crash_video_recorder_node():
+    node = CrashVideoRecorderNode(); node.setup(); yield node; node.teardown()
+
+@pytest.fixture(scope="module")
+def camera_decoder_node_alive(crash_video_recorder_node):
+    if not crash_video_recorder_node.is_alive():
+        pytest.skip("Нода /sensing/crash_video_recorder не запущена")
+    return crash_video_recorder_node
 
 
 # =============================================================================
@@ -675,15 +728,6 @@ def mrm_monitor():
         pytest.fail("Топик /safety/mrm_request не публикует сообщения")
     yield monitor
     monitor.stop()
-
-@pytest.fixture(scope="module")
-def auto_cleaning_node_alive(auto_cleaning_node):
-    if not auto_cleaning_node.is_alive():
-        pytest.skip("Нода /sensing/auto_cleaning не запущена")
-    return auto_cleaning_node
-
-
-
 
 def pytest_html_report_title(report):
     report.title = "HIL Fault Injection — Sensing Component"

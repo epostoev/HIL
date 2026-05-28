@@ -7,12 +7,6 @@ LOCALIZATION_NODES = [
 ]
 
 class TestLocalizationNodesRunning:
-    """
-    Проверка что все ноды компонента Localization запущены.
-
-    TC-LOC-PRE-001: "/localization_output_gateway_node"
-    TC-LOC-PRE-002: "localization/node_container"
-    """
 
     @pytest.mark.parametrize("fixture_name, tc_id, node_name", LOCALIZATION_NODES)
     def test_node_running(self, fixture_name, tc_id, node_name, request):
