@@ -4,6 +4,9 @@ from framework.sensing_nodes import (AutoCleaningNode, OdometryNode, OdometryVel
 from framework.localization_nodes import (LocalizationOutputGatewayNode, LocalizationNodeContainerNode)
 from framework.general_intregation_nodes import (CanTelemetryNode, CarapiNode, CloudTelemetryNode, HardwareMetricsNode, MetricsAggregatorNode, HalNode, CrashDetectorNode, SdaProcessMonitorNode, V2xPublisherNode, Rosbag2RecorderNode, MrmArbiterNode)
 from framework.perception_nodes import (BoomBarrierDetectorNode, BoxSegmentationFusionNode, CameraDetectsFusingNode, СameraMapDetectorNode, CameraTrackerCppNode, СameraTracksMergerNode, CloudMotionDetectorNode, Detector3dNode, FrontBackboneNode, ImageSegmenterNode, LidarBlindZonesNode, LidarNoiseDetectorNode, StaticObstaclesTrackerNode, PointCloudClusterizerNode, PollutionDetectorNode, RadarStaticObstaclesDetectorNode, RoadLines3dNode, RoadLinesTrackerNode, RoadSurfaceConditionDetectorNode, RoadworksFusionNode, SegmentationHdmapFusionNode, SignalsСlassifierNode, SpeedLimitClassifierNode, TrafficLightDetectsNode, TrafficSignDetectsNode, TrafficSignLocalizationNode, VehicleDetectsNode, LidarStaticObstaclesDetectorNode, CloudClustersVisualizationNode, PerceptionLanesVisualizationPyNode, PerceptionVisualization2dNode, TrafficLightPipelineNode, ObjectsVisualizationNode)
+from framework.planning_nodes import ( ManeuverPlannerNode, LaneTracerNode, TrajectoryPlannerNode, 
+        PathLoaderNode, ApproximatePathsPublisherNode, TrajectoryValidatorNode, 
+        PlanningVisualizationNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.base_hil_test import DOCKER_CONTAINER
 
@@ -22,72 +25,72 @@ def control_monitor():
     yield monitor
     monitor.stop()
 
-@pytest.fixture(scope="module")
-def carapi_alive(carapi):
-    """
-    Фикстура с предусловием: пропускает тесты если нода не запущена.
-    Используй вместо carapi когда нода обязана быть активна.
-    """
-    if not carapi.is_alive():
-        pytest.skip("Нода /carapi_node не запущена — тест пропущен")
-    return carapi
+# @pytest.fixture(scope="module")
+# def carapi_alive(carapi):
+#     """
+#     Фикстура с предусловием: пропускает тесты если нода не запущена.
+#     Используй вместо carapi когда нода обязана быть активна.
+#     """
+#     if not carapi.is_alive():
+#         pytest.skip("Нода /carapi_node не запущена — тест пропущен")
+#     return carapi
 
 
 ######
-@pytest.fixture(scope="module")
-def trajectory_planner():
-    """Создаёт объект TrajectoryPlannerNode"""
-    node = TrajectoryPlannerNode()
-    node.setup()
-    yield node
-    node.teardown()
+# @pytest.fixture(scope="module")
+# def trajectory_planner():
+#     """Создаёт объект TrajectoryPlannerNode"""
+#     node = TrajectoryPlannerNode()
+#     node.setup()
+#     yield node
+#     node.teardown()
 
-@pytest.fixture(scope="module")
-def trajectory_planner_alive(trajectory_planner):
-    """С предусловием: пропускает тест если нода не запущена"""
-    if not trajectory_planner.is_alive():
-        pytest.skip("Нода /planning/trajectory_planner_node не запущена")
-    return trajectory_planner
+# @pytest.fixture(scope="module")
+# def trajectory_planner_alive(trajectory_planner):
+#     """С предусловием: пропускает тест если нода не запущена"""
+#     if not trajectory_planner.is_alive():
+#         pytest.skip("Нода /planning/trajectory_planner_node не запущена")
+#     return trajectory_planner
 
-@pytest.fixture(scope="module")
-def xviz_node():
-    node = XvizNode()
-    node.setup()
-    yield node
-    node.teardown()
+# @pytest.fixture(scope="module")
+# def xviz_node():
+#     node = XvizNode()
+#     node.setup()
+#     yield node
+#     node.teardown()
 
-@pytest.fixture(scope="module")
-def xviz_node_alive(xviz_node):
-    if not xviz_node.is_alive():
-        pytest.skip("Нода /visualization/xviz не запущена")
-    return xviz_node
+# @pytest.fixture(scope="module")
+# def xviz_node_alive(xviz_node):
+#     if not xviz_node.is_alive():
+#         pytest.skip("Нода /visualization/xviz не запущена")
+#     return xviz_node
 
 
-@pytest.fixture(scope="module")
-def vinx_node():
-    node = VinxNode()
-    node.setup()
-    yield node
-    node.teardown()
+# @pytest.fixture(scope="module")
+# def vinx_node():
+#     node = VinxNode()
+#     node.setup()
+#     yield node
+#     node.teardown()
 
-@pytest.fixture(scope="module")
-def vinx_node_alive(vinx_node):
-    if not vinx_node.is_alive():
-        pytest.skip("Нода /visualization/vinx не запущена")
-    return vinx_node
+# @pytest.fixture(scope="module")
+# def vinx_node_alive(vinx_node):
+#     if not vinx_node.is_alive():
+#         pytest.skip("Нода /visualization/vinx не запущена")
+#     return vinx_node
 
-@pytest.fixture(scope="module")
-def text_overlay():
-    node = TextOverlay()
-    node.setup()
-    yield node
-    node.teardown()
+# @pytest.fixture(scope="module")
+# def text_overlay():
+#     node = TextOverlay()
+#     node.setup()
+#     yield node
+#     node.teardown()
 
-@pytest.fixture(scope="module")
-def text_overlay_alive(text_overlay):
-    if not text_overlay.is_alive():
-        pytest.skip("Нода visualization/text_overlay не запущена")
-    return text_overlay
+# @pytest.fixture(scope="module")
+# def text_overlay_alive(text_overlay):
+#     if not text_overlay.is_alive():
+#         pytest.skip("Нода visualization/text_overlay не запущена")
+#     return text_overlay
 
 # =============================================================================
 # Sensing
@@ -719,6 +722,84 @@ def perception_visualization_objects_visualization_node_alive(perception_visuali
 
 # Perception
 # =============================================================================
+
+# =============================================================================
+# Planning
+
+@pytest.fixture(scope="module")
+def planning_maneuver_planner_node():
+    node = ManeuverPlannerNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_maneuver_planner_node_alive(planning_maneuver_planner_node):
+    if not planning_maneuver_planner_node.is_alive():
+        pytest.skip("Нода /planning/maneuver_planner_node не запущена")
+    return planning_maneuver_planner_node
+ 
+@pytest.fixture(scope="module")
+def planning_lane_tracer_node():
+    node = LaneTracerNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_lane_tracer_node_alive(planning_lane_tracer_node):
+    if not planning_lane_tracer_node.is_alive():
+        pytest.skip("Нода /planning/lane_tracer_node не запущена")
+    return planning_lane_tracer_node
+ 
+@pytest.fixture(scope="module")
+def planning_trajectory_planner_node():
+    node = TrajectoryPlannerNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_trajectory_planner_node_alive(planning_trajectory_planner_node):
+    if not planning_trajectory_planner_node.is_alive():
+        pytest.skip("Нода /planning/trajectory_planner_node не запущена")
+    return planning_trajectory_planner_node
+ 
+@pytest.fixture(scope="module")
+def planning_path_loader_node():
+    node = PathLoaderNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_path_loader_node_alive(planning_path_loader_node):
+    if not planning_path_loader_node.is_alive():
+        pytest.skip("Нода /planning/path_loader_node не запущена")
+    return planning_path_loader_node
+ 
+@pytest.fixture(scope="module")
+def planning_approximate_paths_publisher_node():
+    node = ApproximatePathsPublisherNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_approximate_paths_publisher_node_alive(planning_approximate_paths_publisher_node):
+    if not planning_approximate_paths_publisher_node.is_alive():
+        pytest.skip("Нода /planning/approximate_paths_publisher_node не запущена")
+    return planning_approximate_paths_publisher_node
+ 
+@pytest.fixture(scope="module")
+def planning_trajectory_validator_node():
+    node = TrajectoryValidatorNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_trajectory_validator_node_alive(planning_trajectory_validator_node):
+    if not planning_trajectory_validator_node.is_alive():
+        pytest.skip("Нода /planning/trajectory_validator_node не запущена")
+    return planning_trajectory_validator_node
+ 
+@pytest.fixture(scope="module")
+def planning_visualization_node():
+    node = PlanningVisualizationNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_visualization_node_alive(planning_visualization_node):
+    if not planning_visualization_node.is_alive():
+        pytest.skip("Нода /planning/visualization/planning_visualization_node не запущена")
+    return planning_visualization_node
+
+# Planning
+# =============================================================================
+
+
 
 @pytest.fixture(scope="session", autouse=True)
 def mrm_monitor():

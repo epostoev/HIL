@@ -1,3 +1,0 @@
-2026-05-22 10:10:35.886 | imu_node | INFO | === Начало теста для imu_node ===
-2026-05-22 10:10:38.189 | imu_node | INFO | Нода /sensing/imu1/imu_node жива True
-2026-05-22 10:10:40.541 | imu_node | INFO | Нода /sensing/imu1/imu_node жива True

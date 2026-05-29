@@ -1,3 +1,0 @@
-2026-05-22 10:03:48.576 | auto_cleaning | INFO | === Начало теста для auto_cleaning ===
-2026-05-22 10:03:50.890 | auto_cleaning | INFO | Нода /sensing/auto_cleaning жива True
-2026-05-22 10:03:53.136 | auto_cleaning | INFO | Нода /sensing/auto_cleaning жива True

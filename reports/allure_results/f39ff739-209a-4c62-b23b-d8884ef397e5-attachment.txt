@@ -1,3 +1,0 @@
-TC ID:     TC-SENSING-PRE-007
-Node:      /sensing/visualization/radar_visualization_node
-Статус:    ALIVE ✅

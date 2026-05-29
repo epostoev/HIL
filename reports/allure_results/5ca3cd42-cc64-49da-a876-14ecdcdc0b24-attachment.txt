@@ -1,3 +1,0 @@
-TC ID:     TC-SENSING-PRE-003
-Node:      /sensing/odometry_node
-Статус:    ALIVE ✅

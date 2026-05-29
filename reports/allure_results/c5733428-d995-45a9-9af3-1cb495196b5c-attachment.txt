@@ -1,5 +1,0 @@
-2026-05-22 09:26:23.708 | imu_node | INFO | === Начало теста для imu_node ===
-2026-05-22 09:26:25.670 | imu_node | INFO | Нода /sensing/imu1/imu_node жива True
-2026-05-22 09:26:27.673 | imu_node | INFO | Нода /sensing/imu1/imu_node жива True
-2026-05-22 09:26:27.675 | imu_node | INFO | === Завершение теста для imu_node ===
-2026-05-22 09:26:27.676 | auto_cleaning | INFO | === Завершение теста для auto_cleaning ===

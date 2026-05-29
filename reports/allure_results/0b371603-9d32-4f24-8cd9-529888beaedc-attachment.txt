@@ -1,3 +1,0 @@
-TC ID:     TC-SENSING-PRE-005
-Node:      /sensing/radar_driver_node
-Статус:    ALIVE ✅

@@ -88,3 +88,5 @@ tests/
 ## Полезные команды
 
 `ros2 topic echo --full-length safety/mrm_request | grep -A 5 "error_code: 131346"`
+
+`pytest -v -s tests/fault_injection/test_planning_kill.py`
