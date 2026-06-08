@@ -1,0 +1,3 @@
+TC ID:     TC-PLA-PRE-006
+Node:      /planning/trajectory_validator_node
+Статус:    ALIVE ✅

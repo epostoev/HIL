@@ -48,3 +48,4 @@ class PlanningVisualizationNode(BaseHILTest):
  
     def __init__(self):
         super().__init__(node_name="planning_visualization_node", timeout=15)
+

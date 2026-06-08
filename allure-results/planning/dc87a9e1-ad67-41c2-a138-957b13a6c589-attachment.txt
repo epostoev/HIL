@@ -1,0 +1,3 @@
+INFO     trajectory_validator_node:base_hil_test.py:85 === Начало теста для trajectory_validator_node ===
+INFO     trajectory_validator_node:base_hil_test.py:39 Нода /planning/trajectory_validator_node жива True
+INFO     trajectory_validator_node:base_hil_test.py:39 Нода /planning/trajectory_validator_node жива True
