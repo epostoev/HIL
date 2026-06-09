@@ -8,6 +8,17 @@ from framework.planning_nodes import ( ManeuverPlannerNode, LaneTracerNode, Traj
         PathLoaderNode, ApproximatePathsPublisherNode, TrajectoryValidatorNode, 
         PlanningVisualizationNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
+from framework.calibration_nodes import (
+    IntrinsicPublisherNode, CameraToBaselinkOnlineCalibratorNode,
+    ImuBaselinkRuntimeCalibrationNode, RuntimeRadarAutocalibrationNode,
+    CamToCamTfEstimatorsNode, FeatureExtractorsNode,
+    CamToCamControllerNode, RctValidatorNode,
+    RobotStatePublisherNode, IntrinsicRepairServiceNode, CalApiNode,
+)
+from framework.prediction_nodes import (
+    PredictionNode, MlModelWrapperNode,
+)
+
 from framework.base_hil_test import DOCKER_CONTAINER
 
 @pytest.fixture(scope="session", autouse=True)  # ← добавить autouse=True
@@ -799,7 +810,159 @@ def planning_visualization_node_alive(planning_visualization_node):
 # Planning
 # =============================================================================
 
+# =============================================================================
+# Calibration
+# TC-CAL-PRE-001
+@pytest.fixture(scope="module")
+def calibration_intrinsic_publisher_node():
+    node = IntrinsicPublisherNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_intrinsic_publisher_node_alive(calibration_intrinsic_publisher_node):
+    if not calibration_intrinsic_publisher_node.is_alive():
+        pytest.skip("Нода /intrinsic_publisher не запущена")
+    return calibration_intrinsic_publisher_node
+ 
+# TC-CAL-PRE-002
+@pytest.fixture(scope="module")
+def calibration_camera_to_baselink_online_calibrator_node():
+    node = CameraToBaselinkOnlineCalibratorNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_camera_to_baselink_online_calibrator_node_alive(calibration_camera_to_baselink_online_calibrator_node):
+    if not calibration_camera_to_baselink_online_calibrator_node.is_alive():
+        pytest.skip("Нода /calibration/rct/camera_to_baselink_online_calibrator не запущена")
+    return calibration_camera_to_baselink_online_calibrator_node
+ 
+# TC-CAL-PRE-003
+@pytest.fixture(scope="module")
+def calibration_imu_baselink_runtime_calibration_node():
+    node = ImuBaselinkRuntimeCalibrationNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_imu_baselink_runtime_calibration_node_alive(calibration_imu_baselink_runtime_calibration_node):
+    if not calibration_imu_baselink_runtime_calibration_node.is_alive():
+        pytest.skip("Нода /calibration/rct/imu/imu_baselink_runtime_calibration не запущена")
+    return calibration_imu_baselink_runtime_calibration_node
+ 
+# TC-CAL-PRE-004
+@pytest.fixture(scope="module")
+def calibration_runtime_radar_autocalibration_node():
+    node = RuntimeRadarAutocalibrationNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_runtime_radar_autocalibration_node_alive(calibration_runtime_radar_autocalibration_node):
+    if not calibration_runtime_radar_autocalibration_node.is_alive():
+        pytest.skip("Нода /calibration/rct/runtime_radar_autocalibration не запущена")
+    return calibration_runtime_radar_autocalibration_node
+ 
+# TC-CAL-PRE-005
+@pytest.fixture(scope="module")
+def calibration_cam_to_cam_tf_estimators_node():
+    node = CamToCamTfEstimatorsNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_cam_to_cam_tf_estimators_node_alive(calibration_cam_to_cam_tf_estimators_node):
+    if not calibration_cam_to_cam_tf_estimators_node.is_alive():
+        pytest.skip("Нода /calibration/rct/cam_to_cam_tf_estimators не запущена")
+    return calibration_cam_to_cam_tf_estimators_node
+ 
+# TC-CAL-PRE-006
+@pytest.fixture(scope="module")
+def calibration_feature_extractors_node():
+    node = FeatureExtractorsNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_feature_extractors_node_alive(calibration_feature_extractors_node):
+    if not calibration_feature_extractors_node.is_alive():
+        pytest.skip("Нода /calibration/rct/feature_extractors не запущена")
+    return calibration_feature_extractors_node
+ 
+# TC-CAL-PRE-007
+@pytest.fixture(scope="module")
+def calibration_cam_to_cam_controller_node():
+    node = CamToCamControllerNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_cam_to_cam_controller_node_alive(calibration_cam_to_cam_controller_node):
+    if not calibration_cam_to_cam_controller_node.is_alive():
+        pytest.skip("Нода /calibration/rct/cam_to_cam_controller не запущена")
+    return calibration_cam_to_cam_controller_node
+ 
+# TC-CAL-PRE-008
+@pytest.fixture(scope="module")
+def calibration_rct_validator_node():
+    node = RctValidatorNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_rct_validator_node_alive(calibration_rct_validator_node):
+    if not calibration_rct_validator_node.is_alive():
+        pytest.skip("Нода /calibration/rct/rct_validator не запущена")
+    return calibration_rct_validator_node
+ 
+# TC-CAL-PRE-009
+@pytest.fixture(scope="module")
+def calibration_robot_state_publisher_node():
+    node = RobotStatePublisherNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_robot_state_publisher_node_alive(calibration_robot_state_publisher_node):
+    if not calibration_robot_state_publisher_node.is_alive():
+        pytest.skip("Нода /robot_state_publisher не запущена")
+    return calibration_robot_state_publisher_node
+ 
+# TC-CAL-PRE-010
+@pytest.fixture(scope="module")
+def calibration_intrinsic_repair_service_node():
+    node = IntrinsicRepairServiceNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_intrinsic_repair_service_node_alive(calibration_intrinsic_repair_service_node):
+    if not calibration_intrinsic_repair_service_node.is_alive():
+        pytest.skip("Нода /intrinsic_repair_service не запущена")
+    return calibration_intrinsic_repair_service_node
+ 
+# TC-CAL-PRE-011
+@pytest.fixture(scope="module")
+def calibration_calapi_node():
+    node = CalApiNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def calibration_calapi_node_alive(calibration_calapi_node):
+    if not calibration_calapi_node.is_alive():
+        pytest.skip("Нода /calibration/calapi_node не запущена")
+    return calibration_calapi_node
 
+# Calibration
+# =============================================================================
+
+# =============================================================================
+# Perception
+
+# TC-PRD-PRE-001
+@pytest.fixture(scope="module")
+def prediction_node():
+    node = PredictionNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def prediction_node_alive(prediction_node):
+    if not prediction_node.is_alive():
+        pytest.skip("Нода /prediction/prediction не запущена")
+    return prediction_node
+ 
+# TC-PRD-PRE-002
+@pytest.fixture(scope="module")
+def prediction_ml_model_wrapper():
+    node = MlModelWrapperNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def prediction_ml_model_wrapper_alive(prediction_ml_model_wrapper):
+    if not prediction_ml_model_wrapper.is_alive():
+        pytest.skip("Нода /prediction/ml_model_wrapper не запущена")
+    return prediction_ml_model_wrapper
+ 
+# Perception
+# =============================================================================
 
 @pytest.fixture(scope="session", autouse=True)
 def mrm_monitor():
