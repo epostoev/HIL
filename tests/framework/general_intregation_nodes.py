@@ -1,5 +1,6 @@
 from framework.base_hil_test import BaseHILTest
 
+
 class CanTelemetryNode(BaseHILTest):
     NODE_NAME = "/can_telemetry"
     PROCESS_NAME = "can_telemetry/lib/can_telemetry/can_telemetry_node"
@@ -39,12 +40,14 @@ class MetricsAggregatorNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="metrics_aggregator", timeout=15)
 
+
 class HalNode(BaseHILTest):
     NODE_NAME = "/generic/hal"
     PROCESS_NAME = "generic_hal/lib/generic_hal/generic_hal"
 
     def __init__(self):
         super().__init__(node_name="/generic/hal", timeout=15)
+
 
 class CrashDetectorNode(BaseHILTest):
     NODE_NAME = "/safety/crash_detector"
@@ -53,12 +56,14 @@ class CrashDetectorNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="/safety/crash_detector", timeout=15)
 
+
 class SdaProcessMonitorNode(BaseHILTest):
     NODE_NAME = "/sda_process_monitor/sda_process_monitor"
     PROCESS_NAME = "sda_process_monitor/lib/sda_process_monitor/process_monitor_node"
 
     def __init__(self):
         super().__init__(node_name="/sda_process_monitor/sda_process_monitor", timeout=15)
+
 
 class V2xPublisherNode(BaseHILTest):
     NODE_NAME = "/v2x_publisher_node"
@@ -67,12 +72,14 @@ class V2xPublisherNode(BaseHILTest):
     def __init__(self):
         super().__init__(node_name="/v2x_publisher_node", timeout=15)
 
+
 class Rosbag2RecorderNode(BaseHILTest):
     NODE_NAME = "/data_logging/rosbag2_recorder"
     PROCESS_NAME = "sat_infra_rosbag2_transport/lib/sat_infra_rosbag2_transport/rosbag2_recorder_node"
 
     def __init__(self):
         super().__init__(node_name="/data_logging/rosbag2_recorder", timeout=15)
+
 
 class MrmArbiterNode(BaseHILTest):
     NODE_NAME = "/mrm_arbiter"

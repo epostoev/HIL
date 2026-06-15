@@ -1,5 +1,6 @@
 from framework.base_hil_test import BaseHILTest
 
+
 class LocalizationOutputGatewayNode(BaseHILTest):
     NODE_NAME = "/localization_output_gateway_node"
     PROCESS_NAME = "localization/lib/localization/localization_output_gateway_node"
@@ -14,4 +15,3 @@ class LocalizationNodeContainerNode(BaseHILTest):
 
     def __init__(self):
         super().__init__(node_name="/localization/node_container", timeout=15)
-

@@ -117,7 +117,7 @@ class MrmRequestMonitor:
                 if current_mrm == to_value:
                     after_sec, after_ns = self._parse_stamp(current_stamp)
                     reaction_ns = (after_sec - before_sec) * 1_000_000_000 + \
-                                (after_ns - before_ns)
+                        (after_ns - before_ns)
                     reaction_ms = round(reaction_ns / 1_000_000, 3)
 
                     return {
@@ -155,7 +155,7 @@ class MrmRequestMonitor:
         if self._proc:
             self._proc.kill()
             self._proc.communicate()
-    
+
     def get_error_codes(self) -> list[dict]:
         """
         Получить список error_codes из последнего сообщения.

@@ -35,11 +35,12 @@ class ControlSystemMonitor:
             bufsize=1
         )
         # Читаем stderr в отдельном треде для диагностики
+
         def log_stderr():
             for line in self._proc.stderr:
                 print(f"[MONITOR STDERR] {line.rstrip()}", flush=True)
         threading.Thread(target=log_stderr, daemon=True).start()
-        
+
         self._running = True
         self._thread = threading.Thread(target=self._read_loop, daemon=True)
         self._thread.start()

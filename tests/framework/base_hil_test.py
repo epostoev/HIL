@@ -3,25 +3,27 @@ import logging
 import subprocess
 import os
 
+
 def _detect_container() -> str:
     """Автоматически определить имя контейнера стенда."""
     candidates = ["sda-f898b5d", "sda_drive"]
-    
+
     result = subprocess.run(
         ["docker", "ps", "--format", "{{.Names}}"],
         capture_output=True, text=True
     )
     running = result.stdout.strip().split('\n')
-    
+
     for name in candidates:
         if name in running:
             return name
-    
+
     raise RuntimeError(
         f"Контейнер стенда не найден. "
         f"Искали: {candidates}. "
         f"Запущены: {running}"
     )
+
 
 DOCKER_CONTAINER = _detect_container()
 
@@ -38,7 +40,7 @@ class BaseHILTest:
         alive = self.NODE_NAME in self.get_node_list()
         self.logger.info(f"Нода {self.NODE_NAME} жива {alive}")
         return alive
-    
+
     def __init__(self, node_name: str, timeout: int = 15):
         self.node_name = node_name
         self.timeout = timeout
@@ -51,14 +53,16 @@ class BaseHILTest:
         # handler.setFormatter(logging.Formatter(
         #     "%(asctime)s | %(name)s | %(levelname)s | %(message)s"
         handler.setFormatter(logging.Formatter(
-        "%(asctime)s.%(msecs)03d | %(name)s | %(levelname)s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"  # ← добавляет миллисекунды
+            "%(asctime)s.%(msecs)03d | %(name)s | %(levelname)s | %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S"  # ← добавляет миллисекунды
         ))
         logger.addHandler(handler)
         return logger
-    
 
-    def run_ros(self, cmd: str, timeout: int = None) -> subprocess.CompletedProcess:
+    def run_ros(
+            self,
+            cmd: str,
+            timeout: int = None) -> subprocess.CompletedProcess:
         """Выполнить команду в ROS 2 окружении через docker exec"""
         _timeout = timeout or self.timeout
         full_cmd = [
@@ -86,8 +90,11 @@ class BaseHILTest:
 
     def teardown(self):
         self.logger.info(f"=== Завершение теста для {self.node_name} ===")
-    
-    def run_ros_in_docker(self, cmd: str, timeout: int = None) -> subprocess.CompletedProcess:
+
+    def run_ros_in_docker(
+            self,
+            cmd: str,
+            timeout: int = None) -> subprocess.CompletedProcess:
         """
         Выполнить ROS 2 команду ВНУТРИ контейнера.
         Использует UDP транспорт вместо SHM чтобы избежать
@@ -113,15 +120,13 @@ class BaseHILTest:
             '<useBuiltinTransports>false</useBuiltinTransports>'
             '</rtps>'
             '</participant>'
-            '</profiles>'
-        )
+            '</profiles>')
 
         inner = (
             f"source /rep/ros2/install/setup.bash && "
             f"export ROS_DOMAIN_ID=1 && "
             f"export FASTRTPS_DEFAULT_PROFILES_FILE=/tmp/fastdds_no_shm.xml && "
-            f"{cmd}"
-        )
+            f"{cmd}")
 
         full_cmd = [
             "docker", "exec", self.DOCKER_CONTAINER,
@@ -135,8 +140,12 @@ class BaseHILTest:
             text=True,
             timeout=_timeout
         )
-    
-    def get_topic_field(self, topic: str, field: str, timeout: int = 5) -> str | None:
+
+    def get_topic_field(
+            self,
+            topic: str,
+            field: str,
+            timeout: int = 5) -> str | None:
         """
         Получить значение конкретного поля из топика.
         Поддерживает вложенные поля через точку.
@@ -169,15 +178,19 @@ class BaseHILTest:
         self.logger.warning(f"Поле '{field}' не найдено в топике {topic}")
         return None
 
-    
-    def get_topic_fields(self, topic: str, fields: list[str], timeout: int = 10) -> dict:
+    def get_topic_fields(
+            self,
+            topic: str,
+            fields: list[str],
+            timeout: int = 10) -> dict:
         self.logger.info(f"Читаем топик {topic}, поля: {fields}")
 
         result = self.run_ros_in_docker(
             f"timeout {timeout} ros2 topic echo {topic} --once 2>/dev/null",
             timeout=timeout + 5
         )
-        self.logger.info(f"STDOUT len={len(result.stdout)}: {result.stdout[:200]}")
+        self.logger.info(
+            f"STDOUT len={len(result.stdout)}: {result.stdout[:200]}")
         self.logger.warning(f"STDERR: {result.stderr[:300]}")
         self.logger.info(f"returncode: {result.returncode}")
 
@@ -218,7 +231,10 @@ class BaseHILTest:
         for field, expected_value in expected_errors.items():
             actual_value = actual.get(field)
             ok = actual_value == expected_value
-            results[field] = {"expected": expected_value, "actual": actual_value, "ok": ok}
+            results[field] = {
+                "expected": expected_value,
+                "actual": actual_value,
+                "ok": ok}
             status = "✅" if ok else "❌"
             self.logger.info(
                 f"  {status} {field}: ожидалось='{expected_value}', получено='{actual_value}'"
