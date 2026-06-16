@@ -1,0 +1,16 @@
+INFO     camera_decoder:base_hil_test.py:89 === Начало теста для camera_decoder ===
+INFO     camera_decoder:base_hil_test.py:41 Нода /sensing/camera_decoder жива True
+INFO     camera_decoder:test_sensing_kill.py:33 Baseline mrm_type=2
+INFO     camera_decoder:base_hil_test.py:249 Docker exec: ps aux | grep 'sat_sensing_camera_decoder/lib/sat_sensing_camera_decoder/camera_decoder_node'
+INFO     camera_decoder:base_hil_test.py:261 Найден PID: 300474
+INFO     camera_decoder:test_sensing_kill.py:40 Stamp ДО kill: 1781605060.135429952
+INFO     camera_decoder:base_hil_test.py:249 Docker exec: kill -9 300474
+INFO     camera_decoder:test_sensing_kill.py:44 Kill сигнал отправлен PID=300474. Ждём изменения mrm_type...
+INFO     camera_decoder:test_sensing_kill.py:55 Результат: success=True, reaction=97.647ms (97647365ns), mrm_type=2
+INFO     camera_decoder:test_sensing_kill.py:68 Triggered errors: 3
+INFO     camera_decoder:test_sensing_kill.py:70   0x0001FF12 (130834): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"High c
+INFO     camera_decoder:test_sensing_kill.py:70   0x00010112 (65810): {"nodes":["/perception/detector_3d","/perception/segmentation_hdmap_fusion","/pe
+INFO     camera_decoder:test_sensing_kill.py:70   0x00020112 (131346): {"nodes":["/cloud_builder_node"]}
+INFO     camera_decoder:base_hil_test.py:41 Нода /sensing/camera_decoder жива True
+INFO     camera_decoder:test_sensing_kill.py:79 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     camera_decoder:test_sensing_kill.py:104 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 97.647ms

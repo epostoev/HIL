@@ -1,3 +1,0 @@
-INFO     path_loader_node:base_hil_test.py:85 === Начало теста для path_loader_node ===
-INFO     path_loader_node:base_hil_test.py:39 Нода /planning/path_loader_node жива True
-INFO     path_loader_node:base_hil_test.py:39 Нода /planning/path_loader_node жива True

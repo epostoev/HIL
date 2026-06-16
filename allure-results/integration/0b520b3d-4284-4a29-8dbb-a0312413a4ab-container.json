@@ -1,0 +1,1 @@
+{"uuid": "f5d9e026-aaf1-4a52-9cdb-617878d02544", "children": ["cac137cc-c35c-4d84-b1b6-a346b5da6436"], "befores": [{"name": "can_telemetry_node", "status": "passed", "start": 1781625185256, "stop": 1781625185256}], "afters": [{"name": "can_telemetry_node::0", "status": "passed", "start": 1781626627036, "stop": 1781626627036}], "start": 1781625185256, "stop": 1781626627036}

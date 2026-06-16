@@ -1,0 +1,16 @@
+INFO     metrics_aggregator:base_hil_test.py:89 === Начало теста для metrics_aggregator ===
+INFO     metrics_aggregator:base_hil_test.py:41 Нода /metrics_aggregator жива True
+INFO     metrics_aggregator:test_integration_kill.py:35 Baseline mrm_type=0
+INFO     metrics_aggregator:base_hil_test.py:249 Docker exec: ps aux | grep 'metrics_aggregator/lib/metrics_aggregator/metrics_aggregator_node'
+INFO     metrics_aggregator:base_hil_test.py:261 Найден PID: 770821
+INFO     metrics_aggregator:test_integration_kill.py:42 Stamp ДО kill: 1781625703.883997161
+INFO     metrics_aggregator:base_hil_test.py:249 Docker exec: kill -9 770821
+INFO     metrics_aggregator:test_integration_kill.py:46 Kill сигнал отправлен PID=770821. Ждём изменения mrm_type...
+INFO     metrics_aggregator:test_integration_kill.py:57 Результат: success=True, reaction=18.657ms (18657002ns), mrm_type=2
+INFO     metrics_aggregator:test_integration_kill.py:70 Triggered errors: 3
+INFO     metrics_aggregator:test_integration_kill.py:72   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"High m
+INFO     metrics_aggregator:test_integration_kill.py:72   0x00010112 (65810): {"nodes":["/prediction/prediction","/perception/objects_tracker","/perception/po
+INFO     metrics_aggregator:test_integration_kill.py:72   0x00020112 (131346): {"nodes":["/metrics_aggregator"]}
+INFO     metrics_aggregator:base_hil_test.py:41 Нода /metrics_aggregator жива True
+INFO     metrics_aggregator:test_integration_kill.py:81 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     metrics_aggregator:test_integration_kill.py:103 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 18.657ms

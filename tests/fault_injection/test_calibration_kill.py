@@ -13,8 +13,6 @@ CALIBRATION_NODES = [
     ("calibration_cam_to_cam_controller_node_alive",                "TC-CAL-KILL-007", "/calibration/rct/cam_to_cam_controller"),
     ("calibration_rct_validator_node_alive",                        "TC-CAL-KILL-008", "/calibration/rct/rct_validator"),
     ("calibration_robot_state_publisher_node_alive",                "TC-CAL-KILL-009", "/robot_state_publisher"),
-    ("calibration_intrinsic_repair_service_node_alive",             "TC-CAL-KILL-010", "/intrinsic_repair_service"),
-    ("calibration_calapi_node_alive",                               "TC-CAL-KILL-011", "/calibration/calapi_node"),
 ]
 
 

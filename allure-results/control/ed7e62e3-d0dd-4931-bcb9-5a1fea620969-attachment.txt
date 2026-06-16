@@ -1,0 +1,19 @@
+INFO     chassis_adapter_receiver:base_hil_test.py:89 === Начало теста для chassis_adapter_receiver ===
+INFO     chassis_adapter_receiver:base_hil_test.py:41 Нода /chassis/chassis_adapter_receiver жива True
+INFO     chassis_adapter_receiver:base_hil_test.py:41 Нода /chassis/chassis_adapter_receiver жива True
+INFO     chassis_adapter_receiver:test_control_kill.py:60 Baseline mrm_type=0
+INFO     chassis_adapter_receiver:base_hil_test.py:249 Docker exec: ps aux | grep 'chassis_adapter/lib/chassis_adapter/chassis_adapter_receiver'
+INFO     chassis_adapter_receiver:base_hil_test.py:261 Найден PID: 624305
+INFO     chassis_adapter_receiver:test_control_kill.py:71 PID=624305
+INFO     chassis_adapter_receiver:test_control_kill.py:80 Stamp ДО kill: 1781622819.929118892
+INFO     chassis_adapter_receiver:base_hil_test.py:249 Docker exec: kill -6 624305
+INFO     chassis_adapter_receiver:test_control_kill.py:84 kill -6 отправлен PID=624305. Ждём изменения mrm_type...
+INFO     chassis_adapter_receiver:test_control_kill.py:97 Результат: success=True, reaction=12.387ms (12386992ns), mrm_type=2
+INFO     chassis_adapter_receiver:test_control_kill.py:118 Triggered errors: 4
+INFO     chassis_adapter_receiver:test_control_kill.py:120   0x0002FF12 (196370): {"/perception/radar_camera_fusion":{"/radar_roof_front_right/cluster_list":"Low 
+INFO     chassis_adapter_receiver:test_control_kill.py:120   0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"Low me
+INFO     chassis_adapter_receiver:test_control_kill.py:120   0x00010112 (65810): {"nodes":["/perception/point_cloud_clusterizer","/perception/ground_segmentator_
+INFO     chassis_adapter_receiver:test_control_kill.py:120   0x00020112 (131346): {"nodes":["/chassis/chassis_adapter_receiver"]}
+INFO     chassis_adapter_receiver:base_hil_test.py:41 Нода /chassis/chassis_adapter_receiver жива True
+INFO     chassis_adapter_receiver:test_control_kill.py:138 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     chassis_adapter_receiver:test_control_kill.py:173 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 12.387ms

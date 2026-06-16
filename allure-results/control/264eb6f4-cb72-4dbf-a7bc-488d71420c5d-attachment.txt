@@ -1,0 +1,3 @@
+TC ID:     TC-CTL-PRE-006
+Node:      /control/mpc
+Статус:    ALIVE ✅

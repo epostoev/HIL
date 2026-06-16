@@ -55,3 +55,11 @@ class PlanningVisualizationNode(BaseHILTest):
 
     def __init__(self):
         super().__init__(node_name="planning_visualization_node", timeout=15)
+
+
+class MlPlannerCppNode(BaseHILTest):
+    NODE_NAME = "/planning/ml_planner_cpp"
+    PROCESS_NAME = "ml_planner_cpp/lib/ml_planner_cpp/ml_planner_cpp"
+ 
+    def __init__(self):
+        super().__init__(node_name="ml_planner_cpp", timeout=15)

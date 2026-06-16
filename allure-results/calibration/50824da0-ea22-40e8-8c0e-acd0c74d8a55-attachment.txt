@@ -1,0 +1,19 @@
+INFO     rtk_provider_node:base_hil_test.py:89 === Начало теста для rtk_provider_node ===
+INFO     rtk_provider_node:base_hil_test.py:41 Нода /rtk_provider_node жива True
+INFO     rtk_provider_node:base_hil_test.py:41 Нода /rtk_provider_node жива True
+INFO     rtk_provider_node:test_hdmap_kill.py:54 Baseline mrm_type=0
+INFO     rtk_provider_node:base_hil_test.py:249 Docker exec: ps aux | grep 'rtk_provider/lib/rtk_provider/rtk_provider_node'
+INFO     rtk_provider_node:base_hil_test.py:261 Найден PID: 495309
+INFO     rtk_provider_node:test_hdmap_kill.py:65 PID=495309
+INFO     rtk_provider_node:test_hdmap_kill.py:74 Stamp ДО kill: 1781619954.656048889
+INFO     rtk_provider_node:base_hil_test.py:249 Docker exec: kill -6 495309
+INFO     rtk_provider_node:test_hdmap_kill.py:78 kill -6 отправлен PID=495309. Ждём изменения mrm_type...
+INFO     rtk_provider_node:test_hdmap_kill.py:91 Результат: success=True, reaction=7.31ms (7310127ns), mrm_type=2
+INFO     rtk_provider_node:test_hdmap_kill.py:112 Triggered errors: 4
+INFO     rtk_provider_node:test_hdmap_kill.py:114   0x0001FF12 (130834): {"/perception/radar_camera_fusion":{"/radar_roof_front_left/cluster_list":"High 
+INFO     rtk_provider_node:test_hdmap_kill.py:114   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     rtk_provider_node:test_hdmap_kill.py:114   0x00010112 (65810): {"nodes":["/prediction/prediction","/perception/objects_tracker","/perception/po
+INFO     rtk_provider_node:test_hdmap_kill.py:114   0x00020112 (131346): {"nodes":["/rtk_provider_node"]}
+INFO     rtk_provider_node:base_hil_test.py:41 Нода /rtk_provider_node жива True
+INFO     rtk_provider_node:test_hdmap_kill.py:132 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     rtk_provider_node:test_hdmap_kill.py:167 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 7.31ms

@@ -1,0 +1,16 @@
+INFO     odometry_node:base_hil_test.py:89 === Начало теста для odometry_node ===
+INFO     odometry_node:base_hil_test.py:41 Нода /sensing/odometry_node жива True
+INFO     odometry_node:test_sensing_kill.py:33 Baseline mrm_type=0
+INFO     odometry_node:base_hil_test.py:249 Docker exec: ps aux | grep 'odometry_driver/lib/odometry_driver/odometry_node'
+INFO     odometry_node:base_hil_test.py:261 Найден PID: 277684
+INFO     odometry_node:test_sensing_kill.py:40 Stamp ДО kill: 1781614804.163264285
+INFO     odometry_node:base_hil_test.py:249 Docker exec: kill -9 277684
+INFO     odometry_node:test_sensing_kill.py:44 Kill сигнал отправлен PID=277684. Ждём изменения mrm_type...
+INFO     odometry_node:test_sensing_kill.py:55 Результат: success=True, reaction=25.372ms (25372220ns), mrm_type=2
+INFO     odometry_node:test_sensing_kill.py:68 Triggered errors: 3
+INFO     odometry_node:test_sensing_kill.py:70   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     odometry_node:test_sensing_kill.py:70   0x00010112 (65810): {"nodes":["/perception/road_lines_3d","/perception/detector_3d","/perception/sig
+INFO     odometry_node:test_sensing_kill.py:70   0x00020112 (131346): {"nodes":["/sensing/odometry_node"]}
+INFO     odometry_node:base_hil_test.py:41 Нода /sensing/odometry_node жива True
+INFO     odometry_node:test_sensing_kill.py:79 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     odometry_node:test_sensing_kill.py:104 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 25.372ms

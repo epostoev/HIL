@@ -69,14 +69,15 @@ from framework.planning_nodes import (
     PathLoaderNode,
     ApproximatePathsPublisherNode,
     TrajectoryValidatorNode,
-    PlanningVisualizationNode)
+    PlanningVisualizationNode,
+    MlPlannerCppNode)
 from framework.mrm_request_monitor import MrmRequestMonitor
 from framework.calibration_nodes import (
     IntrinsicPublisherNode, CameraToBaselinkOnlineCalibratorNode,
     ImuBaselinkRuntimeCalibrationNode, RuntimeRadarAutocalibrationNode,
     CamToCamTfEstimatorsNode, FeatureExtractorsNode,
     CamToCamControllerNode, RctValidatorNode,
-    RobotStatePublisherNode, IntrinsicRepairServiceNode, CalApiNode,
+    RobotStatePublisherNode,
 )
 from framework.prediction_nodes import (
     PredictionNode, MlModelWrapperNode,
@@ -1174,6 +1175,17 @@ def planning_visualization_node_alive(planning_visualization_node):
         pytest.skip(
             "Нода /planning/visualization/planning_visualization_node не запущена")
     return planning_visualization_node
+
+
+@pytest.fixture(scope="module")
+def planning_ml_planner_cpp_node():
+    node = MlPlannerCppNode(); node.setup(); yield node; node.teardown()
+ 
+@pytest.fixture(scope="module")
+def planning_ml_planner_cpp_node_alive(planning_ml_planner_cpp_node):
+    if not planning_ml_planner_cpp_node.is_alive():
+        pytest.skip("Нода /planning/ml_planner_cpp не запущена")
+    return planning_ml_planner_cpp_node
 
 # Planning
 # =============================================================================

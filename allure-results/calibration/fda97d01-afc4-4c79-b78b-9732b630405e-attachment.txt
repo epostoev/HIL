@@ -1,0 +1,18 @@
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:89 === Начало теста для imu_baselink_runtime_calibration ===
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:64 Baseline mrm_type=0
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:249 Docker exec: ps aux | grep 'imu_baselink_runtime_calibration/lib/imu_baselink_runtime_calibration/imu_baselink_runtime_calibration'
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:261 Найден PID: 121373
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:75 PID=121373
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:84 Stamp ДО kill: 1781611379.661952873
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:249 Docker exec: kill -6 121373
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:88 kill -6 отправлен PID=121373. Ждём изменения mrm_type...
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:101 Результат: success=True, reaction=9.932ms (9931711ns), mrm_type=2
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:122 Triggered errors: 3
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:124   0x0005FF12 (392978): {"/perception/objects_tracker":{"/perception/camera_tracks_merger_leopard120_5":
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:124   0x00010112 (65810): {"nodes":["/perception/camera_tracks_merger","/perception/road_lines_3d","/perce
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:124   0x00020112 (131346): {"nodes":["/calibration/rct/imu/imu_baselink_runtime_calibration"]}
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:142 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:177 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 9.932ms

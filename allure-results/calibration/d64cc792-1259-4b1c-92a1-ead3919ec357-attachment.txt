@@ -1,0 +1,12 @@
+INFO     robot_state_publisher:base_hil_test.py:89 === Начало теста для robot_state_publisher ===
+INFO     robot_state_publisher:base_hil_test.py:41 Нода /robot_state_publisher жива True
+INFO     robot_state_publisher:base_hil_test.py:41 Нода /robot_state_publisher жива True
+INFO     robot_state_publisher:base_hil_test.py:92 === Завершение теста для robot_state_publisher ===
+INFO     rct_validator:base_hil_test.py:92 === Завершение теста для rct_validator ===
+INFO     cam_to_cam_controller:base_hil_test.py:92 === Завершение теста для cam_to_cam_controller ===
+INFO     feature_extractors:base_hil_test.py:92 === Завершение теста для feature_extractors ===
+INFO     cam_to_cam_tf_estimators:base_hil_test.py:92 === Завершение теста для cam_to_cam_tf_estimators ===
+INFO     runtime_radar_autocalibration:base_hil_test.py:92 === Завершение теста для runtime_radar_autocalibration ===
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:92 === Завершение теста для imu_baselink_runtime_calibration ===
+INFO     camera_to_baselink_online_calibrator:base_hil_test.py:92 === Завершение теста для camera_to_baselink_online_calibrator ===
+INFO     intrinsic_publisher:base_hil_test.py:92 === Завершение теста для intrinsic_publisher ===

@@ -1,0 +1,1 @@
+{"uuid": "d3092498-c521-4cbf-8d70-abecbaca6c14", "children": ["b98097fe-6172-4118-bb1b-6777a088ecd3"], "befores": [{"name": "crash_detector_node", "status": "passed", "start": 1781625163873, "stop": 1781625163874}], "afters": [{"name": "crash_detector_node::0", "status": "passed", "start": 1781625185250, "stop": 1781625185250}], "start": 1781625163873, "stop": 1781625185250}

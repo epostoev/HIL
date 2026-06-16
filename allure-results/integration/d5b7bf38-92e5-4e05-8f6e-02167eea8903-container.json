@@ -1,0 +1,1 @@
+{"uuid": "0787c929-0de2-4a9f-bfe7-f3dd5a5b40ae", "children": ["de161cad-801f-4efd-bae5-373f0972456b"], "befores": [{"name": "rosbag2_recorder_node", "status": "passed", "start": 1781626350595, "stop": 1781626350597}], "afters": [{"name": "rosbag2_recorder_node::0", "status": "passed", "start": 1781626627031, "stop": 1781626627031}], "start": 1781626350595, "stop": 1781626627031}

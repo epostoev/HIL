@@ -1,0 +1,1 @@
+{"uuid": "7c8496a0-5037-48b0-ae09-1e592a589703", "children": ["4bdd0b6b-5203-4a0b-bba2-4a1fa9edb585"], "befores": [{"name": "control_mpc_node", "status": "passed", "start": 1781622413026, "stop": 1781622413026}], "afters": [{"name": "control_mpc_node::0", "status": "passed", "start": 1781622421176, "stop": 1781622421176}], "start": 1781622413026, "stop": 1781622421176}

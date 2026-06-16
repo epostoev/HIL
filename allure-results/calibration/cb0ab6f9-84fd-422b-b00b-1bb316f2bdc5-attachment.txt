@@ -1,0 +1,5 @@
+0x0002FF12 (196370): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"Low c
+0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"High m
+0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_front_right/cluster_list":"Low 
+0x00010112 (65810): {"nodes":["/prediction/prediction","/perception/objects_tracker","/perception/gr
+0x00020112 (131346): {"nodes":["/dynamic_objects_service_node"]}

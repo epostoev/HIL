@@ -9,6 +9,7 @@ PLANNING_NODES = [
     ("planning_approximate_paths_publisher_node",   "TC-PLA-PRE-005", "/planning/approximate_paths_publisher_node"),
     ("planning_trajectory_validator_node",          "TC-PLA-PRE-006", "/planning/trajectory_validator_node"),
     ("planning_visualization_node",                 "TC-PLA-PRE-007", "/planning/visualization/planning_visualization_node"),
+    ("planning_ml_planner_cpp_node",                "TC-PLA-PRE-007", "/planning/ml_planner_cpp"),
 ]
 
 @allure.epic("HIL Testing")

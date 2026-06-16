@@ -1,0 +1,16 @@
+INFO     /localization_output_gateway_node:base_hil_test.py:89 === Начало теста для /localization_output_gateway_node ===
+INFO     /localization_output_gateway_node:base_hil_test.py:41 Нода /localization_output_gateway_node жива True
+INFO     /localization_output_gateway_node:test_localization_kill.py:27 Baseline mrm_type=0
+INFO     /localization_output_gateway_node:base_hil_test.py:249 Docker exec: ps aux | grep 'localization/lib/localization/localization_output_gateway_node'
+INFO     /localization_output_gateway_node:base_hil_test.py:261 Найден PID: 662899
+INFO     /localization_output_gateway_node:test_localization_kill.py:34 Stamp ДО kill: 1781624165.524139403
+INFO     /localization_output_gateway_node:base_hil_test.py:249 Docker exec: kill -9 662899
+INFO     /localization_output_gateway_node:test_localization_kill.py:38 Kill сигнал отправлен PID=662899. Ждём изменения mrm_type...
+INFO     /localization_output_gateway_node:test_localization_kill.py:49 Результат: success=True, reaction=6.861ms (6860827ns), mrm_type=2
+INFO     /localization_output_gateway_node:test_localization_kill.py:62 Triggered errors: 3
+INFO     /localization_output_gateway_node:test_localization_kill.py:64   0x0004FF12 (327442): {"/perception/objects_tracker":{"/perception/camera_tracks_merger_leopard120_6":
+INFO     /localization_output_gateway_node:test_localization_kill.py:64   0x00010112 (65810): {"nodes":["/perception/road_lines_3d","/perception/point_cloud_clusterizer","/pe
+INFO     /localization_output_gateway_node:test_localization_kill.py:64   0x00020112 (131346): {"nodes":["/localization_output_gateway_node"]}
+INFO     /localization_output_gateway_node:base_hil_test.py:41 Нода /localization_output_gateway_node жива True
+INFO     /localization_output_gateway_node:test_localization_kill.py:73 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     /localization_output_gateway_node:test_localization_kill.py:96 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 6.861ms

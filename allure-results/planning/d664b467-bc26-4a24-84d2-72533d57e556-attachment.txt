@@ -1,2 +1,0 @@
-INFO     lane_tracer_node:base_hil_test.py:85 === Начало теста для lane_tracer_node ===
-INFO     lane_tracer_node:base_hil_test.py:39 Нода /planning/lane_tracer_node жива False

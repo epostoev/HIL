@@ -1,0 +1,19 @@
+INFO     rover_feedback:base_hil_test.py:89 === Начало теста для rover_feedback ===
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True
+INFO     rover_feedback:test_control_kill.py:60 Baseline mrm_type=0
+INFO     rover_feedback:base_hil_test.py:249 Docker exec: ps aux | grep 'rover_feedback/lib/rover_feedback/rover_feedback_node'
+INFO     rover_feedback:base_hil_test.py:261 Найден PID: 608744
+INFO     rover_feedback:test_control_kill.py:71 PID=608744
+INFO     rover_feedback:test_control_kill.py:80 Stamp ДО kill: 1781622556.118131967
+INFO     rover_feedback:base_hil_test.py:249 Docker exec: kill -6 608744
+INFO     rover_feedback:test_control_kill.py:84 kill -6 отправлен PID=608744. Ждём изменения mrm_type...
+INFO     rover_feedback:test_control_kill.py:97 Результат: success=True, reaction=72.565ms (72565399ns), mrm_type=2
+INFO     rover_feedback:test_control_kill.py:118 Triggered errors: 4
+INFO     rover_feedback:test_control_kill.py:120   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     rover_feedback:test_control_kill.py:120   0x0006FF12 (458514): {"/perception/radar_camera_fusion":{"/radar_roof_front_right/cluster_list":"Subs
+INFO     rover_feedback:test_control_kill.py:120   0x00010112 (65810): {"nodes":["/perception/speed_limit_classifier","/perception/front_backbone","/li
+INFO     rover_feedback:test_control_kill.py:120   0x00020112 (131346): {"nodes":["/chassis/rover_feedback"]}
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True
+INFO     rover_feedback:test_control_kill.py:138 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     rover_feedback:test_control_kill.py:173 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 72.565ms

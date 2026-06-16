@@ -1,0 +1,3 @@
+INFO     rover_feedback:base_hil_test.py:89 === Начало теста для rover_feedback ===
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True

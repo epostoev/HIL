@@ -1,0 +1,17 @@
+INFO     radar_driver_node:base_hil_test.py:89 === Начало теста для radar_driver_node ===
+INFO     radar_driver_node:base_hil_test.py:41 Нода /sensing/radar_driver_node жива True
+INFO     radar_driver_node:test_sensing_kill.py:33 Baseline mrm_type=2
+INFO     radar_driver_node:base_hil_test.py:249 Docker exec: ps aux | grep 'radar_driver/lib/radar_driver/radar_driver_node'
+INFO     radar_driver_node:base_hil_test.py:261 Найден PID: 268776
+INFO     radar_driver_node:test_sensing_kill.py:40 Stamp ДО kill: 1781604544.143304966
+INFO     radar_driver_node:base_hil_test.py:249 Docker exec: kill -9 268776
+INFO     radar_driver_node:test_sensing_kill.py:44 Kill сигнал отправлен PID=268776. Ждём изменения mrm_type...
+INFO     radar_driver_node:test_sensing_kill.py:55 Результат: success=True, reaction=102.838ms (102838361ns), mrm_type=2
+INFO     radar_driver_node:test_sensing_kill.py:68 Triggered errors: 4
+INFO     radar_driver_node:test_sensing_kill.py:70   0x0001FF12 (130834): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     radar_driver_node:test_sensing_kill.py:70   0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"Low me
+INFO     radar_driver_node:test_sensing_kill.py:70   0x00010112 (65810): {"nodes":["/perception/traffic_sign_localization","/prediction/prediction","/per
+INFO     radar_driver_node:test_sensing_kill.py:70   0x00020112 (131346): {"nodes":["/cloud_builder_node"]}
+INFO     radar_driver_node:base_hil_test.py:41 Нода /sensing/radar_driver_node жива True
+INFO     radar_driver_node:test_sensing_kill.py:79 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     radar_driver_node:test_sensing_kill.py:104 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 102.838ms

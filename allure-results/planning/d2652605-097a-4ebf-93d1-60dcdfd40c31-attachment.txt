@@ -1,2 +1,0 @@
-INFO     trajectory_planner_node:base_hil_test.py:85 === Начало теста для trajectory_planner_node ===
-INFO     trajectory_planner_node:base_hil_test.py:39 Нода /planning/trajectory_planner_node жива False

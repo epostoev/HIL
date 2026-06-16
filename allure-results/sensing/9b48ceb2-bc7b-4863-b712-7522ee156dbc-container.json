@@ -1,0 +1,1 @@
+{"uuid": "690913bb-e5ce-4ed8-aff7-d1cc4140d3b3", "children": ["662858fe-b2de-4f93-a2ae-7d639f24445c"], "befores": [{"name": "auto_cleaning_node", "status": "passed", "start": 1781604030956, "stop": 1781604030956}], "afters": [{"name": "auto_cleaning_node::0", "status": "passed", "start": 1781605314990, "stop": 1781605314990}], "start": 1781604030956, "stop": 1781605314990}

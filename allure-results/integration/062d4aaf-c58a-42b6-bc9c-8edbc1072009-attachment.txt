@@ -1,0 +1,17 @@
+INFO     /safety/crash_detector:base_hil_test.py:89 === Начало теста для /safety/crash_detector ===
+INFO     /safety/crash_detector:base_hil_test.py:41 Нода /safety/crash_detector жива True
+INFO     /safety/crash_detector:test_integration_kill.py:35 Baseline mrm_type=0
+INFO     /safety/crash_detector:base_hil_test.py:249 Docker exec: ps aux | grep 'crash_detector/lib/crash_detector/crash_detector'
+INFO     /safety/crash_detector:base_hil_test.py:261 Найден PID: 785956
+INFO     /safety/crash_detector:test_integration_kill.py:42 Stamp ДО kill: 1781625964.832736756
+INFO     /safety/crash_detector:base_hil_test.py:249 Docker exec: kill -9 785956
+INFO     /safety/crash_detector:test_integration_kill.py:46 Kill сигнал отправлен PID=785956. Ждём изменения mrm_type...
+INFO     /safety/crash_detector:test_integration_kill.py:57 Результат: success=True, reaction=11.463ms (11463449ns), mrm_type=2
+INFO     /safety/crash_detector:test_integration_kill.py:70 Triggered errors: 4
+INFO     /safety/crash_detector:test_integration_kill.py:72   0x0002FF12 (196370): {"/perception/radar_camera_fusion":{"/radar_roof_front_right/cluster_list":"Low 
+INFO     /safety/crash_detector:test_integration_kill.py:72   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     /safety/crash_detector:test_integration_kill.py:72   0x00010112 (65810): {"nodes":["/lidar_localization","/prediction/prediction","/perception/objects_tr
+INFO     /safety/crash_detector:test_integration_kill.py:72   0x00020112 (131346): {"nodes":["/safety/crash_detector"]}
+INFO     /safety/crash_detector:base_hil_test.py:41 Нода /safety/crash_detector жива True
+INFO     /safety/crash_detector:test_integration_kill.py:81 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     /safety/crash_detector:test_integration_kill.py:103 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 11.463ms

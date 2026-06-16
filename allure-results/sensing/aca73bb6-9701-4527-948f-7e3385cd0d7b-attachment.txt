@@ -1,0 +1,3 @@
+INFO     auto_cleaning:base_hil_test.py:89 === Начало теста для auto_cleaning ===
+INFO     auto_cleaning:base_hil_test.py:41 Нода /sensing/auto_cleaning жива True
+INFO     auto_cleaning:base_hil_test.py:41 Нода /sensing/auto_cleaning жива True

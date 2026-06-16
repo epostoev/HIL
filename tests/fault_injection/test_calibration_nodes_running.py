@@ -12,8 +12,6 @@ CALIBRATION_NODES = [
     ("calibration_cam_to_cam_controller_node",                  "TC-CAL-PRE-007", "/calibration/rct/cam_to_cam_controller"),
     ("calibration_rct_validator_node",                          "TC-CAL-PRE-008", "/calibration/rct/rct_validator"),
     ("calibration_robot_state_publisher_node",                  "TC-CAL-PRE-009", "/robot_state_publisher"),
-    ("calibration_intrinsic_repair_service_node",               "TC-CAL-PRE-010", "/intrinsic_repair_service"),
-    ("calibration_calapi_node",                                 "TC-CAL-PRE-011", "/calibration/calapi_node"),
 ]
 
 

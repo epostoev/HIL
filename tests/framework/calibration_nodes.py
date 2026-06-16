@@ -74,20 +74,3 @@ class RobotStatePublisherNode(BaseHILTest):
 
     def __init__(self):
         super().__init__(node_name="robot_state_publisher", timeout=15)
-
-
-# Ноды не найденные в ps aux — PROCESS_NAME уточнить
-class IntrinsicRepairServiceNode(BaseHILTest):
-    NODE_NAME = "/intrinsic_repair_service"
-    PROCESS_NAME = "intrinsic_repair_service"  # уточнить через ps aux
-
-    def __init__(self):
-        super().__init__(node_name="intrinsic_repair_service", timeout=15)
-
-
-class CalApiNode(BaseHILTest):
-    NODE_NAME = "/calibration/calapi_node"
-    PROCESS_NAME = "calapi"  # уточнить через ps aux
-
-    def __init__(self):
-        super().__init__(node_name="calapi_node", timeout=15)

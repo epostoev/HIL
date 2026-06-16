@@ -1,0 +1,5 @@
+INFO     /localization/node_container:base_hil_test.py:89 === Начало теста для /localization/node_container ===
+INFO     /localization/node_container:base_hil_test.py:41 Нода /localization/node_container жива True
+INFO     /localization/node_container:base_hil_test.py:41 Нода /localization/node_container жива True
+INFO     /localization/node_container:base_hil_test.py:92 === Завершение теста для /localization/node_container ===
+INFO     /localization_output_gateway_node:base_hil_test.py:92 === Завершение теста для /localization_output_gateway_node ===

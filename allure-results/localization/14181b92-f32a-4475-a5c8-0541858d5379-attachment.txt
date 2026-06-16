@@ -1,0 +1,19 @@
+INFO     /localization/node_container:base_hil_test.py:89 === Начало теста для /localization/node_container ===
+INFO     /localization/node_container:base_hil_test.py:41 Нода /localization/node_container жива True
+INFO     /localization/node_container:test_localization_kill.py:27 Baseline mrm_type=0
+INFO     /localization/node_container:base_hil_test.py:249 Docker exec: ps aux | grep 'sat_utils_node_container/lib/sat_utils_node_container/node_container'
+INFO     /localization/node_container:base_hil_test.py:261 Найден PID: 699379
+INFO     /localization/node_container:test_localization_kill.py:34 Stamp ДО kill: 1781624294.152697264
+INFO     /localization/node_container:base_hil_test.py:249 Docker exec: kill -9 699379
+INFO     /localization/node_container:test_localization_kill.py:38 Kill сигнал отправлен PID=699379. Ждём изменения mrm_type...
+INFO     /localization/node_container:test_localization_kill.py:49 Результат: success=True, reaction=11.118ms (11118263ns), mrm_type=2
+INFO     /localization/node_container:test_localization_kill.py:62 Triggered errors: 4
+INFO     /localization/node_container:test_localization_kill.py:64   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"High m
+INFO     /localization/node_container:test_localization_kill.py:64   0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_front_left/cluster_list":"Low m
+INFO     /localization/node_container:test_localization_kill.py:64   0x00010112 (65810): {"nodes":["/prediction/prediction","/perception/objects_tracker","/perception/ro
+INFO     /localization/node_container:test_localization_kill.py:64   0x00020112 (131346): {"nodes":["/nav/localization","/localization_initialization_node","/localization
+INFO     /localization/node_container:base_hil_test.py:41 Нода /localization/node_container жива True
+INFO     /localization/node_container:test_localization_kill.py:73 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     /localization/node_container:test_localization_kill.py:96 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 11.118ms
+INFO     /localization/node_container:base_hil_test.py:92 === Завершение теста для /localization/node_container ===
+INFO     /localization_output_gateway_node:base_hil_test.py:92 === Завершение теста для /localization_output_gateway_node ===
