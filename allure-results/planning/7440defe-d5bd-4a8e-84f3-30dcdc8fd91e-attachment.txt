@@ -1,0 +1,17 @@
+INFO     maneuver_planner_node:base_hil_test.py:89 === Начало теста для maneuver_planner_node ===
+INFO     maneuver_planner_node:base_hil_test.py:41 Нода /planning/maneuver_planner_node жива True
+INFO     maneuver_planner_node:test_planning_kill.py:48 Baseline mrm_type=0
+INFO     maneuver_planner_node:base_hil_test.py:249 Docker exec: ps aux | grep 'maneuver_planner/lib/maneuver_planner/maneuver_planner_node'
+INFO     maneuver_planner_node:base_hil_test.py:261 Найден PID: 2784706
+INFO     maneuver_planner_node:test_planning_kill.py:59 PID=2784706
+INFO     maneuver_planner_node:test_planning_kill.py:68 Stamp ДО kill: 1781679261.307418508
+INFO     maneuver_planner_node:base_hil_test.py:249 Docker exec: kill -6 2784706
+INFO     maneuver_planner_node:test_planning_kill.py:72 kill -6 отправлен PID=2784706. Ждём изменения mrm_type...
+INFO     maneuver_planner_node:test_planning_kill.py:85 Результат: success=True, reaction=7.388ms (7387611ns), mrm_type=2
+INFO     maneuver_planner_node:test_planning_kill.py:106 Triggered errors: 3
+INFO     maneuver_planner_node:test_planning_kill.py:108   0x0004FF12 (327442): {"/perception/objects_tracker":{"/perception/camera_tracks_merger_leopard120_1":
+INFO     maneuver_planner_node:test_planning_kill.py:108   0x00010112 (65810): {"nodes":["/localization/localization","/nav_classic/localization","/perception/
+INFO     maneuver_planner_node:test_planning_kill.py:108   0x00020112 (131346): {"nodes":["/planning/maneuver_planner_node"]}
+INFO     maneuver_planner_node:base_hil_test.py:41 Нода /planning/maneuver_planner_node жива True
+INFO     maneuver_planner_node:test_planning_kill.py:126 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     maneuver_planner_node:test_planning_kill.py:161 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 7.388ms

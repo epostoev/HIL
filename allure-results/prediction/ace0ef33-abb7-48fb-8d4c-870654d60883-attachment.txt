@@ -1,0 +1,4 @@
+INFO     ml_model_wrapper:base_hil_test.py:89 === Начало теста для ml_model_wrapper ===
+INFO     ml_model_wrapper:base_hil_test.py:41 Нода /prediction/ml_model_wrapper жива False
+INFO     ml_model_wrapper:base_hil_test.py:92 === Завершение теста для ml_model_wrapper ===
+INFO     prediction:base_hil_test.py:92 === Завершение теста для prediction ===

@@ -1,0 +1,2 @@
+INFO     road_surface_condition_detector:base_hil_test.py:89 === Начало теста для road_surface_condition_detector ===
+INFO     road_surface_condition_detector:base_hil_test.py:41 Нода /perception/road_surface_condition_detector жива False

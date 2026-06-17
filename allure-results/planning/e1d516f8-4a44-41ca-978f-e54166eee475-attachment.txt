@@ -1,0 +1,17 @@
+INFO     approximate_paths_publisher_node:base_hil_test.py:89 === Начало теста для approximate_paths_publisher_node ===
+INFO     approximate_paths_publisher_node:base_hil_test.py:41 Нода /planning/approximate_paths_publisher_node жива True
+INFO     approximate_paths_publisher_node:test_planning_kill.py:48 Baseline mrm_type=0
+INFO     approximate_paths_publisher_node:base_hil_test.py:249 Docker exec: ps aux | grep 'approximate_paths_publisher/lib/approximate_paths_publisher/approximate_paths_publisher_node'
+INFO     approximate_paths_publisher_node:base_hil_test.py:261 Найден PID: 2848007
+INFO     approximate_paths_publisher_node:test_planning_kill.py:59 PID=2848007
+INFO     approximate_paths_publisher_node:test_planning_kill.py:68 Stamp ДО kill: 1781679794.679675365
+INFO     approximate_paths_publisher_node:base_hil_test.py:249 Docker exec: kill -6 2848007
+INFO     approximate_paths_publisher_node:test_planning_kill.py:72 kill -6 отправлен PID=2848007. Ждём изменения mrm_type...
+INFO     approximate_paths_publisher_node:test_planning_kill.py:85 Результат: success=True, reaction=19.65ms (19650349ns), mrm_type=2
+INFO     approximate_paths_publisher_node:test_planning_kill.py:106 Triggered errors: 3
+INFO     approximate_paths_publisher_node:test_planning_kill.py:108   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     approximate_paths_publisher_node:test_planning_kill.py:108   0x00010112 (65810): {"nodes":["/perception/static_obstacles_tracker","/prediction/prediction","/perc
+INFO     approximate_paths_publisher_node:test_planning_kill.py:108   0x00020112 (131346): {"nodes":["/planning/approximate_paths_publisher_node"]}
+INFO     approximate_paths_publisher_node:base_hil_test.py:41 Нода /planning/approximate_paths_publisher_node жива True
+INFO     approximate_paths_publisher_node:test_planning_kill.py:126 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     approximate_paths_publisher_node:test_planning_kill.py:161 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 19.65ms

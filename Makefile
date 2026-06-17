@@ -164,4 +164,30 @@ allure_integration:
 		       tests/fault_injection/test_integration_kill.py \
 		-v -s \
 		--alluredir=allure-results/integration
+allure_perception:
+	docker run --rm \
+		--name evgeny_tests \
+		--network host \
+		--pid=container:$(SDA_CONTAINER) \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v $(PROJECT_DIR)/allure-results:/workspace/allure-results \
+		-v $(PROJECT_DIR)/tests:/workspace/tests \
+		$(IMAGE):$(TAG) \
+		pytest tests/fault_injection/test_perception_nodes_running.py \
+		       tests/fault_injection/test_perception_kill.py \
+		-v -s \
+		--alluredir=allure-results/perception
+allure_prediction:
+	docker run --rm \
+		--name evgeny_tests \
+		--network host \
+		--pid=container:$(SDA_CONTAINER) \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v $(PROJECT_DIR)/allure-results:/workspace/allure-results \
+		-v $(PROJECT_DIR)/tests:/workspace/tests \
+		$(IMAGE):$(TAG) \
+		pytest tests/fault_injection/test_prediction_nodes_running.py \
+		       tests/fault_injection/test_prediction_kill.py \
+		-v -s \
+		--alluredir=allure-results/prediction
 .PHONY: build rebuild run run-sensing test dev debug stop clean report-sensing report-sensing-kill report-sensing-kill_01 report-sensing_01

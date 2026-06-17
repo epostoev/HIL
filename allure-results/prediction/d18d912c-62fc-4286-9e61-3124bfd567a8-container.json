@@ -1,0 +1,1 @@
+{"uuid": "0bece01b-2b19-4c68-b616-fe72df3dbcdb", "children": ["204b54fb-8076-4f20-93c3-1d7cb31ee837"], "befores": [{"name": "prediction_node", "status": "passed", "start": 1781678146299, "stop": 1781678146299}], "afters": [{"name": "prediction_node::0", "status": "passed", "start": 1781678403831, "stop": 1781678403832}], "start": 1781678146299, "stop": 1781678403832}

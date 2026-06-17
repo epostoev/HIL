@@ -1,0 +1,14 @@
+INFO     lidar_blind_zones:base_hil_test.py:89 === Начало теста для lidar_blind_zones ===
+INFO     lidar_blind_zones:base_hil_test.py:41 Нода /perception/lidar_blind_zones жива True
+INFO     lidar_blind_zones:test_perception_kill.py:56 Baseline mrm_type=0
+INFO     lidar_blind_zones:base_hil_test.py:249 Docker exec: ps aux | grep 'lidar_blind_zones/lib/lidar_blind_zones/lidar_blind_zones'
+INFO     lidar_blind_zones:base_hil_test.py:261 Найден PID: 1043358
+INFO     lidar_blind_zones:test_perception_kill.py:63 Stamp ДО kill: 1781631865.928447024
+INFO     lidar_blind_zones:base_hil_test.py:249 Docker exec: kill -9 1043358
+INFO     lidar_blind_zones:test_perception_kill.py:67 Kill сигнал отправлен PID=1043358. Ждём изменения mrm_type...
+INFO     lidar_blind_zones:test_perception_kill.py:78 Результат: success=False, reaction=Nonems (Nonens), mrm_type=0
+INFO     lidar_blind_zones:test_perception_kill.py:91 Triggered errors: 2
+INFO     lidar_blind_zones:test_perception_kill.py:93   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     lidar_blind_zones:test_perception_kill.py:93   0x00010112 (65810): {"nodes":["/perception/road_surface_condition_detector","/nav_classic/localizati
+INFO     lidar_blind_zones:base_hil_test.py:41 Нода /perception/lidar_blind_zones жива True
+INFO     lidar_blind_zones:test_perception_kill.py:102 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅

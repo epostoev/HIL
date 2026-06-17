@@ -1,0 +1,14 @@
+INFO     point_cloud_clusterizer:base_hil_test.py:89 === Начало теста для point_cloud_clusterizer ===
+INFO     point_cloud_clusterizer:base_hil_test.py:41 Нода /perception/point_cloud_clusterizer жива True
+INFO     point_cloud_clusterizer:test_perception_kill.py:56 Baseline mrm_type=0
+INFO     point_cloud_clusterizer:base_hil_test.py:249 Docker exec: ps aux | grep 'point_cloud_clusterizer/lib/point_cloud_clusterizer/point_cloud_clusterizer'
+INFO     point_cloud_clusterizer:base_hil_test.py:261 Найден PID: 1067281
+INFO     point_cloud_clusterizer:test_perception_kill.py:63 Stamp ДО kill: 1781632276.692315099
+INFO     point_cloud_clusterizer:base_hil_test.py:249 Docker exec: kill -9 1067281
+INFO     point_cloud_clusterizer:test_perception_kill.py:67 Kill сигнал отправлен PID=1067281. Ждём изменения mrm_type...
+INFO     point_cloud_clusterizer:test_perception_kill.py:78 Результат: success=False, reaction=Nonems (Nonens), mrm_type=0
+INFO     point_cloud_clusterizer:test_perception_kill.py:91 Triggered errors: 2
+INFO     point_cloud_clusterizer:test_perception_kill.py:93   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"High m
+INFO     point_cloud_clusterizer:test_perception_kill.py:93   0x00010112 (65810): {"nodes":["/perception/road_lines_3d","/lidar_localization","/can_telemetry","/p
+INFO     point_cloud_clusterizer:base_hil_test.py:41 Нода /perception/point_cloud_clusterizer жива True
+INFO     point_cloud_clusterizer:test_perception_kill.py:102 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅

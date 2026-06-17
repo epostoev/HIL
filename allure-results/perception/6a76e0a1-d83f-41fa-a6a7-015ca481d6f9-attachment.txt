@@ -1,0 +1,17 @@
+INFO     image_segmenter:base_hil_test.py:89 === Начало теста для image_segmenter ===
+INFO     image_segmenter:base_hil_test.py:41 Нода /perception/image_segmenter_cpp жива True
+INFO     image_segmenter:test_perception_kill.py:56 Baseline mrm_type=0
+INFO     image_segmenter:base_hil_test.py:249 Docker exec: ps aux | grep 'sat_perception_image_segmenter_cpp/lib/sat_perception_image_segmenter_cpp/image_segmenter_cpp_node'
+INFO     image_segmenter:base_hil_test.py:261 Найден PID: 1035940
+INFO     image_segmenter:test_perception_kill.py:63 Stamp ДО kill: 1781631734.277482668
+INFO     image_segmenter:base_hil_test.py:249 Docker exec: kill -9 1035940
+INFO     image_segmenter:test_perception_kill.py:67 Kill сигнал отправлен PID=1035940. Ждём изменения mrm_type...
+INFO     image_segmenter:test_perception_kill.py:78 Результат: success=True, reaction=8.656ms (8655841ns), mrm_type=2
+INFO     image_segmenter:test_perception_kill.py:91 Triggered errors: 4
+INFO     image_segmenter:test_perception_kill.py:93   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_front_right/cluster_list":"High
+INFO     image_segmenter:test_perception_kill.py:93   0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_front_left/cluster_list":"Low m
+INFO     image_segmenter:test_perception_kill.py:93   0x00010112 (65810): {"nodes":["/perception/point_cloud_clusterizer","/perception/ground_segmentator_
+INFO     image_segmenter:test_perception_kill.py:93   0x00020112 (131346): {"nodes":["/perception/image_segmenter_cpp"]}
+INFO     image_segmenter:base_hil_test.py:41 Нода /perception/image_segmenter_cpp жива True
+INFO     image_segmenter:test_perception_kill.py:102 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     image_segmenter:test_perception_kill.py:124 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 8.656ms

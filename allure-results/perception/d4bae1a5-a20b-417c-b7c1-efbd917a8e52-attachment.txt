@@ -1,0 +1,17 @@
+INFO     pollution_detector:base_hil_test.py:89 === Начало теста для pollution_detector ===
+INFO     pollution_detector:base_hil_test.py:41 Нода /perception/pollution_detector жива True
+INFO     pollution_detector:test_perception_kill.py:56 Baseline mrm_type=0
+INFO     pollution_detector:base_hil_test.py:249 Docker exec: ps aux | grep 'pollution_detector/lib/pollution_detector/pollution_detector'
+INFO     pollution_detector:base_hil_test.py:261 Найден PID: 1074889
+INFO     pollution_detector:test_perception_kill.py:63 Stamp ДО kill: 1781632417.553633360
+INFO     pollution_detector:base_hil_test.py:249 Docker exec: kill -9 1074889
+INFO     pollution_detector:test_perception_kill.py:67 Kill сигнал отправлен PID=1074889. Ждём изменения mrm_type...
+INFO     pollution_detector:test_perception_kill.py:78 Результат: success=True, reaction=28.166ms (28165834ns), mrm_type=2
+INFO     pollution_detector:test_perception_kill.py:91 Triggered errors: 4
+INFO     pollution_detector:test_perception_kill.py:93   0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_front_right/cluster_list":"High
+INFO     pollution_detector:test_perception_kill.py:93   0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"Low me
+INFO     pollution_detector:test_perception_kill.py:93   0x00010112 (65810): {"nodes":["/perception/front_backbone","/perception/traffic_light_pipeline","/pe
+INFO     pollution_detector:test_perception_kill.py:93   0x00020112 (131346): {"nodes":["/perception/pollution_detector"]}
+INFO     pollution_detector:base_hil_test.py:41 Нода /perception/pollution_detector жива True
+INFO     pollution_detector:test_perception_kill.py:102 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     pollution_detector:test_perception_kill.py:124 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 28.166ms

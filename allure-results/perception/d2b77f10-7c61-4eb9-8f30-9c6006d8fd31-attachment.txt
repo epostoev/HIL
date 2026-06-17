@@ -1,0 +1,3 @@
+INFO     cloud_motion_detector:base_hil_test.py:89 === Начало теста для cloud_motion_detector ===
+INFO     cloud_motion_detector:base_hil_test.py:41 Нода /perception/cloud_motion_detector жива True
+INFO     cloud_motion_detector:base_hil_test.py:41 Нода /perception/cloud_motion_detector жива True

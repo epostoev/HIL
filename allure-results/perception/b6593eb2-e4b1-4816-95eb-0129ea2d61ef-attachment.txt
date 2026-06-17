@@ -1,0 +1,16 @@
+INFO     radar_static_obstacles_detector:base_hil_test.py:89 === Начало теста для radar_static_obstacles_detector ===
+INFO     radar_static_obstacles_detector:base_hil_test.py:41 Нода /perception/radar_static_obstacles_detector жива True
+INFO     radar_static_obstacles_detector:test_perception_kill.py:56 Baseline mrm_type=0
+INFO     radar_static_obstacles_detector:base_hil_test.py:249 Docker exec: ps aux | grep 'radar_static_obstacles_detector/lib/radar_static_obstacles_detector/radar_static_obstacles_detector'
+INFO     radar_static_obstacles_detector:base_hil_test.py:261 Найден PID: 1082399
+INFO     radar_static_obstacles_detector:test_perception_kill.py:63 Stamp ДО kill: 1781632548.767623165
+INFO     radar_static_obstacles_detector:base_hil_test.py:249 Docker exec: kill -9 1082399
+INFO     radar_static_obstacles_detector:test_perception_kill.py:67 Kill сигнал отправлен PID=1082399. Ждём изменения mrm_type...
+INFO     radar_static_obstacles_detector:test_perception_kill.py:78 Результат: success=True, reaction=10.153ms (10153296ns), mrm_type=2
+INFO     radar_static_obstacles_detector:test_perception_kill.py:91 Triggered errors: 3
+INFO     radar_static_obstacles_detector:test_perception_kill.py:93   0x0001FF12 (130834): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"High c
+INFO     radar_static_obstacles_detector:test_perception_kill.py:93   0x00010112 (65810): {"nodes":["/perception/lidar_blind_zones","/nav_classic/localization","/localiza
+INFO     radar_static_obstacles_detector:test_perception_kill.py:93   0x00020112 (131346): {"nodes":["/perception/radar_static_obstacles_detector"]}
+INFO     radar_static_obstacles_detector:base_hil_test.py:41 Нода /perception/radar_static_obstacles_detector жива True
+INFO     radar_static_obstacles_detector:test_perception_kill.py:102 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     radar_static_obstacles_detector:test_perception_kill.py:124 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 10.153ms

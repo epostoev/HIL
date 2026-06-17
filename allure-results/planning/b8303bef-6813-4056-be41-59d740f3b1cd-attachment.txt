@@ -1,0 +1,17 @@
+INFO     planning_visualization_node:base_hil_test.py:89 === Начало теста для planning_visualization_node ===
+INFO     planning_visualization_node:base_hil_test.py:41 Нода /planning/visualization/planning_visualization_node жива True
+INFO     planning_visualization_node:test_planning_kill.py:48 Baseline mrm_type=0
+INFO     planning_visualization_node:base_hil_test.py:249 Docker exec: ps aux | grep 'planning_visualization/lib/planning_visualization/planning_visualization_node'
+INFO     planning_visualization_node:base_hil_test.py:261 Найден PID: 2862940
+INFO     planning_visualization_node:test_planning_kill.py:59 PID=2862940
+INFO     planning_visualization_node:test_planning_kill.py:68 Stamp ДО kill: 1781680062.585691914
+INFO     planning_visualization_node:base_hil_test.py:249 Docker exec: kill -6 2862940
+INFO     planning_visualization_node:test_planning_kill.py:72 kill -6 отправлен PID=2862940. Ждём изменения mrm_type...
+INFO     planning_visualization_node:test_planning_kill.py:85 Результат: success=True, reaction=7.602ms (7601580ns), mrm_type=2
+INFO     planning_visualization_node:test_planning_kill.py:106 Triggered errors: 3
+INFO     planning_visualization_node:test_planning_kill.py:108   0x0001FF12 (130834): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
+INFO     planning_visualization_node:test_planning_kill.py:108   0x00010112 (65810): {"nodes":["/perception/camera_tracks_merger","/perception/detector_3d","/percept
+INFO     planning_visualization_node:test_planning_kill.py:108   0x00020112 (131346): {"nodes":["/planning/visualization/planning_visualization_node"]}
+INFO     planning_visualization_node:base_hil_test.py:41 Нода /planning/visualization/planning_visualization_node жива True
+INFO     planning_visualization_node:test_planning_kill.py:126 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     planning_visualization_node:test_planning_kill.py:161 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 7.602ms
