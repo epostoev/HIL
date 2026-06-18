@@ -1,2 +1,0 @@
-INFO     road_lines_3d:base_hil_test.py:89 === Начало теста для road_lines_3d ===
-INFO     road_lines_3d:base_hil_test.py:41 Нода /perception/road_lines_3d жива False

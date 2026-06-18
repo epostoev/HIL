@@ -1,1 +1,0 @@
-{"uuid": "7d731994-fe78-4fb7-a3ab-600398843bbd", "children": ["801b774f-c30b-46e8-ac76-14b10363d7ca"], "befores": [{"name": "roi_selector_node", "status": "passed", "start": 1781604020426, "stop": 1781604020427}], "afters": [{"name": "roi_selector_node::0", "status": "passed", "start": 1781604030948, "stop": 1781604030949}], "start": 1781604020426, "stop": 1781604030949}

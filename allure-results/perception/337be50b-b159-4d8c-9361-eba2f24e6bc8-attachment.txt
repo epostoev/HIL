@@ -1,3 +1,0 @@
-INFO     camera_map_detector:base_hil_test.py:89 === Начало теста для camera_map_detector ===
-INFO     camera_map_detector:base_hil_test.py:41 Нода /perception/camera_map_detector жива True
-INFO     camera_map_detector:base_hil_test.py:41 Нода /perception/camera_map_detector жива True

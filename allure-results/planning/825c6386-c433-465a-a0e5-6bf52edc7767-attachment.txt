@@ -1,2 +1,0 @@
-Нода /planning/approximate_paths_publisher_node перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

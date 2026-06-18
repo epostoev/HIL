@@ -1,4 +1,0 @@
-0x0001FF12 (130834): {"/perception/radar_camera_fusion":{"/radar_roof_front_left/cluster_list":"High 
-0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
-0x00010112 (65810): {"nodes":["/prediction/prediction","/perception/objects_tracker","/perception/po
-0x00020112 (131346): {"nodes":["/rtk_provider_node"]}

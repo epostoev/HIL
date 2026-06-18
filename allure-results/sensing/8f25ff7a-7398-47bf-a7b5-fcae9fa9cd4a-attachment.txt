@@ -1,3 +1,0 @@
-TC ID:     TC-SENSING-PRE-009
-Node:      /sensing/camera_decoder
-Статус:    ALIVE ✅

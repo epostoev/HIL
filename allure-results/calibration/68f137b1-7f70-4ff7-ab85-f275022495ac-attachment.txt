@@ -1,2 +1,0 @@
-Нода /calibration/rct/cam_to_cam_controller перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

@@ -1,2 +1,0 @@
-Нода /planning/trajectory_validator_node перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

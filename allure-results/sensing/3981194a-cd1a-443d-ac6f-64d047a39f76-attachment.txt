@@ -1,3 +1,0 @@
-INFO     camera_decoder:base_hil_test.py:89 === Начало теста для camera_decoder ===
-INFO     camera_decoder:base_hil_test.py:41 Нода /sensing/camera_decoder жива True
-INFO     camera_decoder:base_hil_test.py:41 Нода /sensing/camera_decoder жива True

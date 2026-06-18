@@ -1,3 +1,0 @@
-INFO     speed_limit_classifier:base_hil_test.py:89 === Начало теста для speed_limit_classifier ===
-INFO     speed_limit_classifier:base_hil_test.py:41 Нода /perception/speed_limit_classifier жива True
-INFO     speed_limit_classifier:base_hil_test.py:41 Нода /perception/speed_limit_classifier жива True

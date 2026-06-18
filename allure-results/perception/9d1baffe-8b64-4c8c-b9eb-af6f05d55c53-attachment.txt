@@ -1,3 +1,0 @@
-INFO     camera_detects_fusing:base_hil_test.py:89 === Начало теста для camera_detects_fusing ===
-INFO     camera_detects_fusing:base_hil_test.py:41 Нода /perception/camera_detects_fusing жива True
-INFO     camera_detects_fusing:base_hil_test.py:41 Нода /perception/camera_detects_fusing жива True

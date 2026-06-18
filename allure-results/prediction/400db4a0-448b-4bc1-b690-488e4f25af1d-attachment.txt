@@ -1,3 +1,0 @@
-TC ID:     TC-PRD-PRE-001
-Node:      /prediction/prediction
-Статус:    ALIVE ✅

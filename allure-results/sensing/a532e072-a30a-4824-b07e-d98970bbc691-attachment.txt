@@ -1,3 +1,0 @@
-TC ID:     TC-SENSING-PRE-010
-Node:      /sensing/crash_video_recorder
-Статус:    ALIVE ✅

@@ -1,2 +1,0 @@
-INFO     issue_reporter:base_hil_test.py:89 === Начало теста для issue_reporter ===
-INFO     issue_reporter:base_hil_test.py:41 Нода /hdmap/issue_reporter жива False

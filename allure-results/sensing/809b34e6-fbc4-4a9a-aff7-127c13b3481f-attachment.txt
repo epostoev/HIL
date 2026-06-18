@@ -1,3 +1,0 @@
-INFO     radar_visualization_node:base_hil_test.py:89 === Начало теста для radar_visualization_node ===
-INFO     radar_visualization_node:base_hil_test.py:41 Нода /sensing/visualization/radar_visualization_node жива True
-INFO     radar_visualization_node:base_hil_test.py:41 Нода /sensing/visualization/radar_visualization_node жива True

@@ -1,3 +1,0 @@
-TC ID:     TC-CAL-PRE-001
-Node:      /intrinsic_publisher
-Статус:    ALIVE ✅

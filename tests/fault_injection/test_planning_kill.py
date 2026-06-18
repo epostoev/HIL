@@ -1,3 +1,4 @@
+import json
 import time
 import pytest
 import allure
@@ -42,7 +43,7 @@ class TestPlanningKill:
  
         if not node.is_alive():
             pytest.skip(f"Нода {node_name} не запущена")
- 
+
         with allure.step("Снять baseline: mrm_type, shadow_mrm_type, drive_mode"):
             baseline = mrm_monitor.get_fields(["mrm_type", "shadow_mrm_type", "drive_mode"])
             node.logger.info(f"Baseline mrm_type={baseline['mrm_type']}")
@@ -53,7 +54,7 @@ class TestPlanningKill:
                 name="Baseline",
                 attachment_type=allure.attachment_type.TEXT,
             )
- 
+
         with allure.step(f"Получить PID ноды {node_name}"):
             pid_before = node.get_pid()
             node.logger.info(f"PID={pid_before}")
@@ -62,18 +63,18 @@ class TestPlanningKill:
                 name="PID до kill",
                 attachment_type=allure.attachment_type.TEXT,
             )
- 
+
         with allure.step("Зафиксировать timestamp перед kill"):
             before_stamp = mrm_monitor.get_stamp()
             node.logger.info(f"Stamp ДО kill: {before_stamp}")
- 
+
         with allure.step(f"Отправить kill -6 PID={pid_before}"):
             node.run_docker_command(f"kill -6 {pid_before}")
             node.logger.info(
                 f"kill -6 отправлен PID={pid_before}. "
                 f"Ждём изменения mrm_type..."
             )
- 
+
         with allure.step("Ожидать mrm_type: 0 → 2 (timeout=10s)"):
             result = mrm_monitor.wait_for_mrm_type_change(
                 from_value="0",
@@ -96,7 +97,7 @@ class TestPlanningKill:
                 name="Результат ожидания MRM",
                 attachment_type=allure.attachment_type.TEXT,
             )
- 
+
         with allure.step("Собрать error_codes после kill"):
             error_codes = mrm_monitor.get_error_codes()
             triggered_errors = [
@@ -118,7 +119,16 @@ class TestPlanningKill:
                 name=f"Triggered errors ({len(triggered_errors)})",
                 attachment_type=allure.attachment_type.TEXT,
             )
- 
+            # Сохраняем error_codes в файл и прикрепляем к отчёту
+            log_path = f"/tmp/error_codes_{node_name.replace('/', '_')}.json"
+            with open(log_path, "w") as f:
+                json.dump(triggered_errors, f, indent=2, ensure_ascii=False)
+            allure.attach.file(
+                log_path,
+                name=f"error_codes_{node_name}",
+                attachment_type=allure.attachment_type.JSON,
+            )
+
         with allure.step("Проверить наличие авторестарта ноды (fault tolerance)"):
             time.sleep(3)
             if node.is_alive():
@@ -139,24 +149,24 @@ class TestPlanningKill:
                     name="Fault Tolerance",
                     attachment_type=allure.attachment_type.TEXT,
                 )
- 
+
         with allure.step("Проверить assert: mrm_type изменился на '2'"):
             assert result["success"], (
                 f"mrm_type не изменился на '2'. "
                 f"Текущее значение: {result['mrm_type']}"
             )
- 
+
         errors_str = " | ".join([
             f"{e['error_code_hex']}: {e['details'][:50]}"
             for e in triggered_errors
         ]) or "нет"
- 
+
         request.node.actual = (
             f"mrm_type: {baseline['mrm_type']} → {result['mrm_type']}. "
             f"Ошибки: {errors_str} ✅"
         )
         request.node.reaction_ms = f"{result['reaction_ms']}ms"
- 
+
         if node.has_auto_restart:
             node.logger.info(
                 f"Fault tolerance: ПОДТВЕРЖДЁН ✅ "

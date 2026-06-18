@@ -1,3 +1,0 @@
-INFO     static_obstacles_tracker:base_hil_test.py:89 === Начало теста для static_obstacles_tracker ===
-INFO     static_obstacles_tracker:base_hil_test.py:41 Нода /perception/static_obstacles_tracker жива True
-INFO     static_obstacles_tracker:base_hil_test.py:41 Нода /perception/static_obstacles_tracker жива True

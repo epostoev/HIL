@@ -1,2 +1,0 @@
-Нода /planning/visualization/planning_visualization_node перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

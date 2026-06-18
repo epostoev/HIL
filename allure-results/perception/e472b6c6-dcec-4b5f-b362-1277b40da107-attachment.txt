@@ -1,3 +1,0 @@
-INFO     cloud_clusters_visualization:base_hil_test.py:89 === Начало теста для cloud_clusters_visualization ===
-INFO     cloud_clusters_visualization:base_hil_test.py:41 Нода /perception/visualization/cloud_clusters_visualization жива True
-INFO     cloud_clusters_visualization:base_hil_test.py:41 Нода /perception/visualization/cloud_clusters_visualization жива True

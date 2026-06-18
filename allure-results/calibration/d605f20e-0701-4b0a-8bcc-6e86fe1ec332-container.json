@@ -1,1 +1,0 @@
-{"uuid": "52ad5d0c-8715-40c6-8d52-871991bfbee8", "children": ["be8a3a7c-67ff-4584-a50a-427d304aa0c9"], "befores": [{"name": "hdmap_service_node", "status": "passed", "start": 1781619672144, "stop": 1781619672144}], "afters": [{"name": "hdmap_service_node::0", "status": "passed", "start": 1781619688856, "stop": 1781619688856}], "start": 1781619672144, "stop": 1781619688856}

@@ -1,2 +1,0 @@
-0x00010112 (65810): {"nodes":["/perception/box_segmentation_fusion","/nav_classic/localization","/lo
-0x00020112 (131346): {"nodes":["/intrinsic_publisher"]}

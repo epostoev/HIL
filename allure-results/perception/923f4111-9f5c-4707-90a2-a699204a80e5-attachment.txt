@@ -1,3 +1,0 @@
-INFO     boom_barrier_detector:base_hil_test.py:89 === Начало теста для boom_barrier_detector ===
-INFO     boom_barrier_detector:base_hil_test.py:41 Нода /perception/boom_barrier_detector жива True
-INFO     boom_barrier_detector:base_hil_test.py:41 Нода /perception/boom_barrier_detector жива True

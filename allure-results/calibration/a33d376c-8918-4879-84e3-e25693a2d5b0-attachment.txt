@@ -1,2 +1,0 @@
-Нода /robot_state_publisher перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

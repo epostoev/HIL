@@ -1,3 +1,0 @@
-INFO     lidar_blind_zones:base_hil_test.py:89 === Начало теста для lidar_blind_zones ===
-INFO     lidar_blind_zones:base_hil_test.py:41 Нода /perception/lidar_blind_zones жива True
-INFO     lidar_blind_zones:base_hil_test.py:41 Нода /perception/lidar_blind_zones жива True

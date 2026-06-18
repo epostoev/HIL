@@ -1,2 +1,0 @@
-INFO     box_segmentation_fusion:base_hil_test.py:89 === Начало теста для box_segmentation_fusion ===
-INFO     box_segmentation_fusion:base_hil_test.py:41 Нода /perception/box_segmentation_fusion жива False

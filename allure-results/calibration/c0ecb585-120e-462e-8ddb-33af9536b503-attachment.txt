@@ -1,3 +1,0 @@
-0x0004FF12 (327442): {"/perception/objects_tracker":{"/perception/camera_tracks_merger_leopard120_6":
-0x00010112 (65810): {"nodes":["/prediction/prediction","/planning/maneuver_planner_node","/acrux_lis
-0x00020112 (131346): {"nodes":["/hdmap_service_node"]}

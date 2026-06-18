@@ -1,3 +1,0 @@
-INFO     imu_baselink_runtime_calibration:base_hil_test.py:89 === Начало теста для imu_baselink_runtime_calibration ===
-INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True
-INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True

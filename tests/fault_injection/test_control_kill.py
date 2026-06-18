@@ -1,3 +1,4 @@
+import json
 import time
 import pytest
 import allure
@@ -129,6 +130,15 @@ class TestControlKill:
                 errors_text,
                 name=f"Triggered errors ({len(triggered_errors)})",
                 attachment_type=allure.attachment_type.TEXT,
+            )
+            # Сохраняем error_codes в файл и прикрепляем к отчёту
+            log_path = f"/tmp/error_codes_{node_name.replace('/', '_')}.json"
+            with open(log_path, "w") as f:
+                json.dump(triggered_errors, f, indent=2, ensure_ascii=False)
+            allure.attach.file(
+                log_path,
+                name=f"error_codes_{node_name}",
+                attachment_type=allure.attachment_type.JSON,
             )
 
         with allure.step("Проверить наличие авторестарта ноды (fault tolerance)"):

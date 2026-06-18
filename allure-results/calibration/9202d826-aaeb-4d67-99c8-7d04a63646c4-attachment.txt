@@ -1,2 +1,0 @@
-0x00010112 (65810): {"nodes":["/perception/box_segmentation_fusion","/perception/ground_segmentator_
-0x00020112 (131346): {"nodes":["/calibration/rct/cam_to_cam_controller"]}

@@ -1,2 +1,0 @@
-Нода /planning/path_loader_node перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

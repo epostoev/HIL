@@ -1,2 +1,0 @@
-Нода /dynamic_objects_service_node перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

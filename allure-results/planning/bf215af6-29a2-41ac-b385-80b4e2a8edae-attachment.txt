@@ -1,5 +1,0 @@
-0x0001FF12 (130834): {"/perception/radar_camera_fusion":{"/radar_roof_front_left/cluster_list":"High 
-0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_front_right/cluster_list":"High
-0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"Low me
-0x00010112 (65810): {"nodes":["/perception/traffic_sign_localization","/perception/signals_classifie
-0x00020112 (131346): {"nodes":["/planning/path_loader_node"]}

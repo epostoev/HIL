@@ -1,3 +1,0 @@
-mrm_type:        0
-shadow_mrm_type: 1
-drive_mode:      2

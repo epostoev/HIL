@@ -1,3 +1,0 @@
-INFO     segmentation_hdmap_fusion:base_hil_test.py:89 === Начало теста для segmentation_hdmap_fusion ===
-INFO     segmentation_hdmap_fusion:base_hil_test.py:41 Нода /perception/segmentation_hdmap_fusion жива True
-INFO     segmentation_hdmap_fusion:base_hil_test.py:41 Нода /perception/segmentation_hdmap_fusion жива True

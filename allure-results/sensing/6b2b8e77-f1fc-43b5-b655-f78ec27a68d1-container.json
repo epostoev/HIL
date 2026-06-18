@@ -1,1 +1,0 @@
-{"uuid": "768a1545-847d-4ba0-b8cb-adfa97fdfbbf", "children": ["e5e4e666-e3e6-4f13-9d1f-31cd92c7cdc1"], "befores": [{"name": "ublox_driver_node", "status": "passed", "start": 1781604671890, "stop": 1781604671890}], "afters": [{"name": "ublox_driver_node::0", "status": "passed", "start": 1781605314986, "stop": 1781605314986}], "start": 1781604671890, "stop": 1781605314986}

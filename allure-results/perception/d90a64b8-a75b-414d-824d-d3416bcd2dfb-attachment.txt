@@ -1,3 +1,0 @@
-INFO     point_cloud_clusterizer:base_hil_test.py:89 === Начало теста для point_cloud_clusterizer ===
-INFO     point_cloud_clusterizer:base_hil_test.py:41 Нода /perception/point_cloud_clusterizer жива True
-INFO     point_cloud_clusterizer:base_hil_test.py:41 Нода /perception/point_cloud_clusterizer жива True

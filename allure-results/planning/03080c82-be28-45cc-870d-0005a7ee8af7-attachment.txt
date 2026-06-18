@@ -1,3 +1,0 @@
-INFO     approximate_paths_publisher_node:base_hil_test.py:89 === Начало теста для approximate_paths_publisher_node ===
-INFO     approximate_paths_publisher_node:base_hil_test.py:41 Нода /planning/approximate_paths_publisher_node жива True
-INFO     approximate_paths_publisher_node:base_hil_test.py:41 Нода /planning/approximate_paths_publisher_node жива True

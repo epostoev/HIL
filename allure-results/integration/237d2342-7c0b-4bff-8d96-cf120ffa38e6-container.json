@@ -1,1 +1,0 @@
-{"uuid": "d90af019-1ea9-40a7-bdb3-48422cfbac2a", "children": ["bfa8286b-5ad1-4b9a-92fa-6127ec28650f"], "befores": [{"name": "hardware_metrics_node", "status": "passed", "start": 1781625572352, "stop": 1781625572352}], "afters": [{"name": "hardware_metrics_node::0", "status": "passed", "start": 1781626627034, "stop": 1781626627034}], "start": 1781625572352, "stop": 1781626627034}

@@ -1,3 +1,0 @@
-INFO     traffic_sign_detects:base_hil_test.py:89 === Начало теста для traffic_sign_detects ===
-INFO     traffic_sign_detects:base_hil_test.py:41 Нода /perception/traffic_sign_detects жива True
-INFO     traffic_sign_detects:base_hil_test.py:41 Нода /perception/traffic_sign_detects жива True

@@ -1,3 +1,0 @@
-TC ID:     TC-HDM-PRE-003
-Node:      /rtk_provider_node
-Статус:    ALIVE ✅

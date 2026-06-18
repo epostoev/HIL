@@ -1,2 +1,0 @@
-Нода /chassis/chassis_adapter_sender перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

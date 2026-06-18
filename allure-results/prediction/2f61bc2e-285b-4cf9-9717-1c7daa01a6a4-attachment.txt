@@ -1,2 +1,0 @@
-Нода /prediction/prediction перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

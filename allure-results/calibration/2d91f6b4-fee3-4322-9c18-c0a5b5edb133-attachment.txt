@@ -1,2 +1,0 @@
-Нода /rtk_provider_node перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

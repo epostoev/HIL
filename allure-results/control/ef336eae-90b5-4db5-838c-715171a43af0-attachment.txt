@@ -1,3 +1,0 @@
-0x0004FF12 (327442): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"High 
-0x00010112 (65810): {"nodes":["/perception/traffic_light_pipeline","/perception/static_obstacles_tra
-0x00020112 (131346): {"nodes":["/control/input_monitor"]}

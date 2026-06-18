@@ -1,4 +1,0 @@
-success:      True
-mrm_type:     2
-reaction_ms:  7.31ms
-reaction_ns:  7310127ns

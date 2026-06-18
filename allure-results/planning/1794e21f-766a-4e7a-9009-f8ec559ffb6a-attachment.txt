@@ -1,2 +1,0 @@
-Нода /planning/lane_tracer_node перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

@@ -1,2 +1,0 @@
-INFO     front_backbone:base_hil_test.py:89 === Начало теста для front_backbone ===
-INFO     front_backbone:base_hil_test.py:41 Нода /perception/front_backbone жива False
