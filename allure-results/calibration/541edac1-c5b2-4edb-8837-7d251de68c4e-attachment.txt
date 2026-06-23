@@ -1,0 +1,18 @@
+INFO     runtime_radar_autocalibration:base_hil_test.py:89 === Начало теста для runtime_radar_autocalibration ===
+INFO     runtime_radar_autocalibration:base_hil_test.py:41 Нода /calibration/rct/runtime_radar_autocalibration жива True
+INFO     runtime_radar_autocalibration:base_hil_test.py:41 Нода /calibration/rct/runtime_radar_autocalibration жива True
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:65 Baseline mrm_type=0
+INFO     runtime_radar_autocalibration:base_hil_test.py:249 Docker exec: ps aux | grep 'runtime_radar_autocalibration/lib/runtime_radar_autocalibration/runtime_radar_autocalibration'
+INFO     runtime_radar_autocalibration:base_hil_test.py:261 Найден PID: 186782
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:76 PID=186782
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:85 Stamp ДО kill: 1782123611.139119079
+INFO     runtime_radar_autocalibration:base_hil_test.py:249 Docker exec: kill -6 186782
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:89 kill -6 отправлен PID=186782. Ждём изменения mrm_type...
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:102 Результат: success=True, reaction=16.483ms (16482759ns), mrm_type=2
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:123 Triggered errors: 3
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:125   0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_back_left/cluster_list":"Low me
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:125   0x00010112 (65810): {"nodes":["/perception/camera_tracks_merger","/perception/road_lines_3d","/perce
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:125   0x00020112 (131346): {"nodes":["/calibration/rct/runtime_radar_autocalibration"]}
+INFO     runtime_radar_autocalibration:base_hil_test.py:41 Нода /calibration/rct/runtime_radar_autocalibration жива True
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:152 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     runtime_radar_autocalibration:test_calibration_kill.py:187 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 16.483ms

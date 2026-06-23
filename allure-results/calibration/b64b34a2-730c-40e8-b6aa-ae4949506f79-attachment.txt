@@ -1,0 +1,17 @@
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:89 === Начало теста для imu_baselink_runtime_calibration ===
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:65 Baseline mrm_type=0
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:249 Docker exec: ps aux | grep 'imu_baselink_runtime_calibration/lib/imu_baselink_runtime_calibration/imu_baselink_runtime_calibration'
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:261 Найден PID: 179237
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:76 PID=179237
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:85 Stamp ДО kill: 1782123482.185266407
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:249 Docker exec: kill -6 179237
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:89 kill -6 отправлен PID=179237. Ждём изменения mrm_type...
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:102 Результат: success=True, reaction=9.943ms (9943230ns), mrm_type=2
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:123 Triggered errors: 2
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:125   0x00010112 (65810): {"nodes":["/perception/camera_tracks_merger","/perception/road_lines_3d","/perce
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:125   0x00020112 (131346): {"nodes":["/calibration/rct/imu/imu_baselink_runtime_calibration"]}
+INFO     imu_baselink_runtime_calibration:base_hil_test.py:41 Нода /calibration/rct/imu/imu_baselink_runtime_calibration жива True
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:152 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     imu_baselink_runtime_calibration:test_calibration_kill.py:187 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 9.943ms

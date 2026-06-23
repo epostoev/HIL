@@ -1,0 +1,1 @@
+{"uuid": "bdfa104f-d94d-4587-9bae-5d7b2cef92a6", "children": ["059a8a83-7c79-4622-9ebf-88f90434de42"], "befores": [{"name": "control_chassis_adapter_receiver_node_alive", "status": "passed", "start": 1782129649496, "stop": 1782129651314}], "start": 1782129649496, "stop": 1782130287915}

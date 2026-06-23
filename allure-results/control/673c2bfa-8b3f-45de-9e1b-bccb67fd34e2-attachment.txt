@@ -1,0 +1,4 @@
+0x0002FF12 (196370): {"/perception/radar_camera_fusion":{"/radar_roof_front_left/cluster_list":"Low c
+0x0005FF12 (392978): {"/perception/radar_camera_fusion":{"/radar_roof_back_right/cluster_list":"Low m
+0x00010112 (65810): {"nodes":["/perception/road_lines_3d","/perception/camera_tracks_merger","/perce
+0x00020112 (131346): {"nodes":["/control/mpc"]}

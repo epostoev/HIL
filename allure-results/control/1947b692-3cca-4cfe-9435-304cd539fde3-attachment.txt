@@ -1,0 +1,17 @@
+INFO     rover_feedback:base_hil_test.py:89 === Начало теста для rover_feedback ===
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True
+INFO     rover_feedback:test_control_kill.py:61 Baseline mrm_type=0
+INFO     rover_feedback:base_hil_test.py:249 Docker exec: ps aux | grep 'rover_feedback/lib/rover_feedback/rover_feedback_node'
+INFO     rover_feedback:base_hil_test.py:261 Найден PID: 392592
+INFO     rover_feedback:test_control_kill.py:72 PID=392592
+INFO     rover_feedback:test_control_kill.py:81 Stamp ДО kill: 1782129389.99872644
+INFO     rover_feedback:base_hil_test.py:249 Docker exec: kill -6 392592
+INFO     rover_feedback:test_control_kill.py:85 kill -6 отправлен PID=392592. Ждём изменения mrm_type...
+INFO     rover_feedback:test_control_kill.py:98 Результат: success=True, reaction=11.107ms (11107442ns), mrm_type=2
+INFO     rover_feedback:test_control_kill.py:119 Triggered errors: 2
+INFO     rover_feedback:test_control_kill.py:121   0x00010112 (65810): {"nodes":["/prediction/prediction","/perception/objects_tracker","/perception/bo
+INFO     rover_feedback:test_control_kill.py:121   0x00020112 (131346): {"nodes":["/chassis/rover_feedback"]}
+INFO     rover_feedback:base_hil_test.py:41 Нода /chassis/rover_feedback жива True
+INFO     rover_feedback:test_control_kill.py:148 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     rover_feedback:test_control_kill.py:183 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 11.107ms

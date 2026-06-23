@@ -1,0 +1,1 @@
+{"uuid": "e829b3c5-d959-42a7-8b60-cbe7378ac356", "children": ["848a1cc5-5092-4fe2-8d64-8b1f2e4b68ed"], "befores": [{"name": "control_chassis_bridge_udp_reader_node_alive", "status": "passed", "start": 1782129256405, "stop": 1782129258074}], "start": 1782129256405, "stop": 1782130287920}

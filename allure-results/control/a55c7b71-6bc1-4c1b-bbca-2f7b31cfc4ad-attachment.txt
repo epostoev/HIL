@@ -1,0 +1,17 @@
+INFO     chassis_adapter_sender:base_hil_test.py:89 === Начало теста для chassis_adapter_sender ===
+INFO     chassis_adapter_sender:base_hil_test.py:41 Нода /chassis/chassis_adapter_sender жива True
+INFO     chassis_adapter_sender:base_hil_test.py:41 Нода /chassis/chassis_adapter_sender жива True
+INFO     chassis_adapter_sender:test_control_kill.py:61 Baseline mrm_type=0
+INFO     chassis_adapter_sender:base_hil_test.py:249 Docker exec: ps aux | grep 'chassis_adapter/lib/chassis_adapter/chassis_adapter_sender'
+INFO     chassis_adapter_sender:base_hil_test.py:261 Найден PID: 400075
+INFO     chassis_adapter_sender:test_control_kill.py:72 PID=400075
+INFO     chassis_adapter_sender:test_control_kill.py:81 Stamp ДО kill: 1782129521.509890865
+INFO     chassis_adapter_sender:base_hil_test.py:249 Docker exec: kill -6 400075
+INFO     chassis_adapter_sender:test_control_kill.py:85 kill -6 отправлен PID=400075. Ждём изменения mrm_type...
+INFO     chassis_adapter_sender:test_control_kill.py:98 Результат: success=True, reaction=20.492ms (20491757ns), mrm_type=2
+INFO     chassis_adapter_sender:test_control_kill.py:119 Triggered errors: 2
+INFO     chassis_adapter_sender:test_control_kill.py:121   0x00010112 (65810): {"nodes":["/perception/point_cloud_clusterizer","/perception/lidar_noise_detecto
+INFO     chassis_adapter_sender:test_control_kill.py:121   0x00020112 (131346): {"nodes":["/chassis/chassis_adapter_sender"]}
+INFO     chassis_adapter_sender:base_hil_test.py:41 Нода /chassis/chassis_adapter_sender жива True
+INFO     chassis_adapter_sender:test_control_kill.py:148 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     chassis_adapter_sender:test_control_kill.py:183 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 20.492ms
