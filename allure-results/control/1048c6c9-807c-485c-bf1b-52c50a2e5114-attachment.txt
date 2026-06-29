@@ -1,3 +1,0 @@
-INFO     input_monitor:base_hil_test.py:89 === Начало теста для input_monitor ===
-INFO     input_monitor:base_hil_test.py:41 Нода /control/input_monitor жива True
-INFO     input_monitor:base_hil_test.py:41 Нода /control/input_monitor жива True

@@ -1,3 +1,0 @@
-TC ID:     TC-CTL-PRE-001
-Node:      /chassis/chassis_bridge_udp_reader
-Статус:    ALIVE ✅

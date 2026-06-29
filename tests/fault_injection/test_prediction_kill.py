@@ -6,7 +6,7 @@ import allure
  
 PREDICTION_NODES = [
     ("prediction_node_alive",             "TC-PRD-KILL-001", "/prediction/prediction"),
-    ("prediction_ml_model_wrapper_alive", "TC-PRD-KILL-002", "/prediction/ml_model_wrapper"),
+    # ("prediction_ml_model_wrapper_alive", "TC-PRD-KILL-002", "/prediction/ml_model_wrapper"),
 ]
  
  

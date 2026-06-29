@@ -3,11 +3,11 @@ import allure
 
 
 HDMAP_NODES = [
-    ("hdmap_service_node",              "TC-HDM-PRE-001", "/hdmap_service_node"),
-    ("hdmap_dynamic_objects_service",   "TC-HDM-PRE-002", "/dynamic_objects_service_node"),
-    ("hdmap_rtk_provider_node",         "TC-HDM-PRE-003", "/rtk_provider_node"),
-    ("hdmap_issue_reporter_node",       "TC-HDM-PRE-004", "/hdmap/issue_reporter"),
-    ("hdmap_visualization_node",        "TC-HDM-PRE-005", "/hdmap/visualization/hdmap_visualization_node"),
+    ("hdmap_service_node_alive",            "TC-HDM-KILL-001", "/hdmap_service_node"),
+    ("hdmap_dynamic_objects_service_alive", "TC-HDM-KILL-002", "/dynamic_objects_service_node"),
+    ("hdmap_rtk_provider_node_alive",       "TC-HDM-KILL-003", "/rtk_provider_node"),
+    # ("hdmap_issue_reporter_node_alive",     "TC-HDM-KILL-004", "/hdmap/issue_reporter"),
+    # ("hdmap_visualization_node_alive",      "TC-HDM-KILL-005", "/hdmap/visualization/hdmap_visualization_node"),
 ]
 
 

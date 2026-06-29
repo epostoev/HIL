@@ -1,2 +1,0 @@
-Нода /calibration/rct/runtime_radar_autocalibration перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

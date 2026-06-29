@@ -1,3 +1,0 @@
-TC ID:     TC-CTL-PRE-003
-Node:      /chassis/chassis_adapter_sender
-Статус:    ALIVE ✅

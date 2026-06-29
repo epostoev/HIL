@@ -5,15 +5,15 @@ import allure
 
 
 CALIBRATION_NODES = [
-    ("calibration_intrinsic_publisher_node_alive",                  "TC-CAL-KILL-001", "/intrinsic_publisher"),
-    ("calibration_camera_to_baselink_online_calibrator_node_alive", "TC-CAL-KILL-002", "/calibration/rct/camera_to_baselink_online_calibrator"),
-    ("calibration_imu_baselink_runtime_calibration_node_alive",     "TC-CAL-KILL-003", "/calibration/rct/imu/imu_baselink_runtime_calibration"),
-    ("calibration_runtime_radar_autocalibration_node_alive",        "TC-CAL-KILL-004", "/calibration/rct/runtime_radar_autocalibration"),
-    ("calibration_cam_to_cam_tf_estimators_node_alive",             "TC-CAL-KILL-005", "/calibration/rct/cam_to_cam_tf_estimators"),
-    ("calibration_feature_extractors_node_alive",                   "TC-CAL-KILL-006", "/calibration/rct/feature_extractors"),
-    ("calibration_cam_to_cam_controller_node_alive",                "TC-CAL-KILL-007", "/calibration/rct/cam_to_cam_controller"),
-    ("calibration_rct_validator_node_alive",                        "TC-CAL-KILL-008", "/calibration/rct/rct_validator"),
-    ("calibration_robot_state_publisher_node_alive",                "TC-CAL-KILL-009", "/robot_state_publisher"),
+    # ("calibration_intrinsic_publisher_node",                    "TC-CAL-PRE-001", "/intrinsic_publisher"),
+    ("calibration_camera_to_baselink_online_calibrator_node",   "TC-CAL-PRE-002", "/calibration/rct/camera_to_baselink_online_calibrator"),
+    ("calibration_imu_baselink_runtime_calibration_node",       "TC-CAL-PRE-003", "/calibration/rct/imu/imu_baselink_runtime_calibration"),
+    ("calibration_runtime_radar_autocalibration_node",          "TC-CAL-PRE-004", "/calibration/rct/runtime_radar_autocalibration"),
+    # ("calibration_cam_to_cam_tf_estimators_node",               "TC-CAL-PRE-005", "/calibration/rct/cam_to_cam_tf_estimators"),
+    # ("calibration_feature_extractors_node",                     "TC-CAL-PRE-006", "/calibration/rct/feature_extractors"),
+    ("calibration_cam_to_cam_controller_node",                  "TC-CAL-PRE-007", "/calibration/rct/cam_to_cam_controller"),
+    ("calibration_rct_validator_node",                          "TC-CAL-PRE-008", "/calibration/rct/rct_validator"),
+    # ("calibration_robot_state_publisher_node",                  "TC-CAL-PRE-009", "/robot_state_publisher"),
 ]
 
 

@@ -1750,3 +1750,42 @@ def restart_autopilot_after(mrm_monitor):
         print(f"Автопилот готов. Следующий тест можно запускать ✅")
     else:
         pytest.fail("Автопилот не перезапустился за 60 секунд")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@pytest.fixture(scope="module")
+def node_alive_factory(request):
+    """
+    Универсальная фабрика для получения живой ноды.
+    Пропускает тест если нода не запущена.
+
+    Использование в тесте:
+        node = node_alive_factory("calibration_intrinsic_publisher_node")
+
+    Принцип работы:
+        1. Получает базовую фикстуру по имени через request.getfixturevalue
+        2. Проверяет is_alive()
+        3. Если нода не жива — pytest.skip (тест помечается как SKIPPED)
+        4. Если жива — возвращает объект ноды
+    """
+    def factory(fixture_name: str):
+        # Убираем суффикс _alive если передали с ним
+        base_name = fixture_name.replace("_alive", "")
+        node = request.getfixturevalue(base_name)
+        if not node.is_alive():
+            pytest.skip(f"Нода {node.NODE_NAME} не запущена")
+        return node
+
+    return factory

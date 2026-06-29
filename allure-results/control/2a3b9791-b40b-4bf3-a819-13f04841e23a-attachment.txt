@@ -1,2 +1,0 @@
-Нода /control/input_monitor перезапущена автоматически
-Fault Tolerance: ПОДТВЕРЖДЁН ✅

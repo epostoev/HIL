@@ -1,3 +1,0 @@
-INFO     camera_to_baselink_online_calibrator:base_hil_test.py:89 === Начало теста для camera_to_baselink_online_calibrator ===
-INFO     camera_to_baselink_online_calibrator:base_hil_test.py:41 Нода /calibration/rct/camera_to_baselink_online_calibrator жива True
-INFO     camera_to_baselink_online_calibrator:base_hil_test.py:41 Нода /calibration/rct/camera_to_baselink_online_calibrator жива True

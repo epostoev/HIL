@@ -1,3 +1,0 @@
-INFO     runtime_radar_autocalibration:base_hil_test.py:89 === Начало теста для runtime_radar_autocalibration ===
-INFO     runtime_radar_autocalibration:base_hil_test.py:41 Нода /calibration/rct/runtime_radar_autocalibration жива True
-INFO     runtime_radar_autocalibration:base_hil_test.py:41 Нода /calibration/rct/runtime_radar_autocalibration жива True

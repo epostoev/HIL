@@ -1,3 +1,0 @@
-TC ID:     TC-CAL-PRE-008
-Node:      /calibration/rct/rct_validator
-Статус:    ALIVE ✅
