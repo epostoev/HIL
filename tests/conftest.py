@@ -1724,7 +1724,7 @@ def restart_autopilot_after(mrm_monitor):
         capture_output=True
     )
     print(f"\nАвтопилот остановлен. Перезапускаем...")
-    time.sleep(60)
+    time.sleep(120)
 
     subprocess.Popen(
         ["docker", "exec", "-d", DOCKER_CONTAINER,
@@ -1746,7 +1746,7 @@ def restart_autopilot_after(mrm_monitor):
 
     if result["success"]:
         print(f"Автопилот готов. mrm_type=0 ✅")
-        time.sleep(30)  # ← ждём пока все ноды поднимутся
+        time.sleep(120)  # ← ждём пока все ноды поднимутся
         print(f"Автопилот готов. Следующий тест можно запускать ✅")
     else:
         pytest.fail("Автопилот не перезапустился за 60 секунд")
