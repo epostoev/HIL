@@ -1,0 +1,17 @@
+[
+  {
+    "error_code": 392978,
+    "error_code_hex": "0x0005FF12",
+    "details": "{\"/perception/objects_tracker\":{\"/perception/camera_tracks_merger_leopard120_8\":\"Low messages arrival rate at queue: /perception..."
+  },
+  {
+    "error_code": 65810,
+    "error_code_hex": "0x00010112",
+    "details": "{\"nodes\":[\"/localization/localization\",\"/prediction/prediction\",\"/localization_initialization_node\",\"/perception/ground_segmenta..."
+  },
+  {
+    "error_code": 131346,
+    "error_code_hex": "0x00020112",
+    "details": "{\"nodes\":[\"/sensing/roi_selector\"]}"
+  }
+]

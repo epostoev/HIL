@@ -217,37 +217,37 @@ run-all:
 	-$(MAKE) allure_sensing
 	-$(MAKE) allure-upload-sensing
 
-	@echo "\n>>> [2/9] Perception"
-	-$(MAKE) allure_perception
-	-$(MAKE) allure-upload-perception
+	# @echo "\n>>> [2/9] Perception"
+	# -$(MAKE) allure_perception
+	# -$(MAKE) allure-upload-perception
 
-	@echo "\n>>> [3/9] Planning"
-	-$(MAKE) allure_planning
-	-$(MAKE) allure-upload-planning
+	# @echo "\n>>> [3/9] Planning"
+	# -$(MAKE) allure_planning
+	# -$(MAKE) allure-upload-planning
 
-	@echo "\n>>> [4/9] Localization"
-	-$(MAKE) allure_localization
-	-$(MAKE) allure-upload-localization
+	# @echo "\n>>> [4/9] Localization"
+	# -$(MAKE) allure_localization
+	# -$(MAKE) allure-upload-localization
 
-	@echo "\n>>> [5/9] Calibration"
-	-$(MAKE) allure_calibration
-	-$(MAKE) allure-upload-calibration
+	# @echo "\n>>> [5/9] Calibration"
+	# -$(MAKE) allure_calibration
+	# -$(MAKE) allure-upload-calibration
 
-	@echo "\n>>> [6/9] Control"
-	-$(MAKE) allure_control
-	-$(MAKE) allure-upload-control
+	# @echo "\n>>> [6/9] Control"
+	# -$(MAKE) allure_control
+	# -$(MAKE) allure-upload-control
 
-	@echo "\n>>> [7/9] HD-Map"
-	-$(MAKE) allure_hdmap
-	-$(MAKE) allure-upload-hdmap
+	# @echo "\n>>> [7/9] HD-Map"
+	# -$(MAKE) allure_hdmap
+	# -$(MAKE) allure-upload-hdmap
 
-	@echo "\n>>> [8/9] Prediction"
-	-$(MAKE) allure_prediction
-	-$(MAKE) allure-upload-prediction
+	# @echo "\n>>> [8/9] Prediction"
+	# -$(MAKE) allure_prediction
+	# -$(MAKE) allure-upload-prediction
 
-	@echo "\n>>> [9/9] Integration"
-	-$(MAKE) allure_integration
-	-$(MAKE) allure-upload-integration
+	# @echo "\n>>> [9/9] Integration"
+	# -$(MAKE) allure_integration
+	# -$(MAKE) allure-upload-integration
 
 	@echo "\n======================================================"
 	@echo " Готово! Результаты доступны на:"

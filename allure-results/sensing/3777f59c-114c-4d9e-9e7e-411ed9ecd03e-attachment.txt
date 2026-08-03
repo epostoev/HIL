@@ -1,0 +1,16 @@
+INFO     radar_driver_node:base_hil_test.py:89 === Начало теста для radar_driver_node ===
+INFO     radar_driver_node:base_hil_test.py:41 Нода /sensing/radar_driver_node жива True
+INFO     radar_driver_node:test_sensing_kill.py:35 Baseline mrm_type=0
+INFO     radar_driver_node:base_hil_test.py:249 Docker exec: ps aux | grep 'radar_driver/lib/radar_driver/radar_driver_node'
+INFO     radar_driver_node:base_hil_test.py:261 Найден PID: 193385
+INFO     radar_driver_node:test_sensing_kill.py:46 PID=193385
+INFO     radar_driver_node:test_sensing_kill.py:55 Stamp ДО kill: 1784283035.511798941
+INFO     radar_driver_node:base_hil_test.py:249 Docker exec: kill -6 193385
+INFO     radar_driver_node:test_sensing_kill.py:59 kill -6 отправлен PID=193385. Ждём изменения mrm_type...
+INFO     radar_driver_node:test_sensing_kill.py:72 Результат: success=True, reaction=4.196ms (4195685ns), mrm_type=2
+INFO     radar_driver_node:test_sensing_kill.py:93 Triggered errors: 2
+INFO     radar_driver_node:test_sensing_kill.py:95   0x00010112 (65810): {"nodes":["/prediction/prediction","/perception/objects_tracker","/perception/st
+INFO     radar_driver_node:test_sensing_kill.py:95   0x00020112 (131346): {"nodes":["/sensing/radar_driver_node"]}
+INFO     radar_driver_node:base_hil_test.py:41 Нода /sensing/radar_driver_node жива True
+INFO     radar_driver_node:test_sensing_kill.py:122 drive.py перезапустил ноду. Fault tolerance: ПОДТВЕРЖДЁН ✅
+INFO     radar_driver_node:test_sensing_kill.py:157 Fault tolerance: ПОДТВЕРЖДЁН ✅ Время реакции MRM: 4.196ms

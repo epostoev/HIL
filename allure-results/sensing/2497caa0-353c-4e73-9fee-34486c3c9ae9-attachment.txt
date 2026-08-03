@@ -1,0 +1,2 @@
+Нода /sensing/imu1/imu_node перезапущена автоматически
+Fault Tolerance: ПОДТВЕРЖДЁН ✅

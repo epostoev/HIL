@@ -1,0 +1,12 @@
+[
+  {
+    "error_code": 65810,
+    "error_code_hex": "0x00010112",
+    "details": "{\"nodes\":[\"/perception/detections2clusters_fusion\",\"/sensing/auto_cleaning\",\"/lidar_localization\",\"/localization_output_gateway_..."
+  },
+  {
+    "error_code": 131346,
+    "error_code_hex": "0x00020112",
+    "details": "{\"nodes\":[\"/sensing/odometry_node\"]}"
+  }
+]
