@@ -259,7 +259,7 @@ def crash_video_recorder_node():
 
 
 @pytest.fixture(scope="module")
-def camera_decoder_node_alive(crash_video_recorder_node):
+def crash_video_recorder_node_alive(crash_video_recorder_node):
     if not crash_video_recorder_node.is_alive():
         pytest.skip("Нода /sensing/crash_video_recorder не запущена")
     return crash_video_recorder_node
@@ -403,7 +403,7 @@ def crash_detector_node():
 
 
 @pytest.fixture(scope="module")
-def can_hal_node_alive(hal_node):
+def crash_detector_node_alive(crash_detector_node):
     if not crash_detector_node.is_alive():
         pytest.skip("Нода /safety/crash_detector не запущена")
     return crash_detector_node
@@ -418,7 +418,7 @@ def sda_process_monitor_node():
 
 
 @pytest.fixture(scope="module")
-def sda_process_monitor_node_alive(hal_node):
+def sda_process_monitor_node_alive(sda_process_monitor_node):
     if not sda_process_monitor_node.is_alive():
         pytest.skip("Нода /sda_process_monitor/sda_process_monitor не запущена")
     return sda_process_monitor_node
@@ -433,7 +433,7 @@ def v2x_publisher_node():
 
 
 @pytest.fixture(scope="module")
-def v2x_publisher_node_alive(hal_node):
+def v2x_publisher_node_alive(v2x_publisher_node):
     if not v2x_publisher_node.is_alive():
         pytest.skip("Нода /v2x_publisher_node не запущена")
     return v2x_publisher_node
@@ -448,7 +448,7 @@ def rosbag2_recorder_node():
 
 
 @pytest.fixture(scope="module")
-def rosbag2_recorder_node_alive(hal_node):
+def rosbag2_recorder_node_alive(rosbag2_recorder_node):
     if not rosbag2_recorder_node.is_alive():
         pytest.skip("Нода /data_logging/rosbag2_recorder не запущена")
     return rosbag2_recorder_node
@@ -463,7 +463,7 @@ def mrm_arbiter_node():
 
 
 @pytest.fixture(scope="module")
-def mrm_arbiter_node_alive(hal_node):
+def mrm_arbiter_node_alive(mrm_arbiter_node):
     if not mrm_arbiter_node.is_alive():
         pytest.skip("Нода /mrm_arbiter не запущена")
     return mrm_arbiter_node
@@ -505,7 +505,7 @@ def perception_box_segmentation_fusion_node():
 @pytest.fixture(scope="module")
 def perception_box_segmentation_fusion_node_alive(
         perception_box_segmentation_fusion_node):
-    if not perception_boom_barrier_detector_node.is_alive():
+    if not perception_box_segmentation_fusion_node.is_alive():
         pytest.skip("Нода /perception/box_segmentation_fusion не запущена")
     return perception_box_segmentation_fusion_node
 
@@ -610,7 +610,7 @@ def perception_detector_3d_node():
 
 
 @pytest.fixture(scope="module")
-def erception_detector_3d_node_alive(perception_detector_3d_node):
+def perception_detector_3d_node_alive(perception_detector_3d_node):
     if not perception_detector_3d_node.is_alive():
         pytest.skip("Нода /perception/detector_3d не запущена")
     return perception_detector_3d_node
@@ -1749,7 +1749,7 @@ def restart_autopilot_after(mrm_monitor):
         time.sleep(120)  # ← ждём пока все ноды поднимутся
         print(f"Автопилот готов. Следующий тест можно запускать ✅")
     else:
-        pytest.fail("Автопилот не перезапустился за 60 секунд")
+        pytest.fail("Автопилот не перезапустился за 120 секунд")
 
 
 

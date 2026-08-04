@@ -45,6 +45,7 @@ class BaseHILTest:
         self.node_name = node_name
         self.timeout = timeout
         self.logger = self._setup_logger()
+        self.has_auto_restart = False
 
     def _setup_logger(self):
         logger = logging.getLogger(self.node_name)
@@ -253,8 +254,7 @@ class BaseHILTest:
 
     def get_pid(self) -> int | None:
         result = self.run_docker_command(
-            # f"ps aux | grep '{self.PROCESS_NAME}' | grep -v grep | grep -v python3"
-            f"ps aux | grep '{self.PROCESS_NAME}'"
+            f"ps aux | grep '{self.PROCESS_NAME}' | grep -v grep | grep -v python3"
         )
         if result.returncode == 0 and result.stdout.strip():
             pid = int(result.stdout.strip().split('\n')[0].split()[1])
