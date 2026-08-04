@@ -10,7 +10,7 @@ $(error Контейнер стенда не найден. Запусти: docke
 endif
 
 # Allure TestOps
-ALLURE_SERVER  = https://allure-testops.sberautotech.ru
+ALLURE_SERVER  = https://testops.navio.auto
 HIL_PROJECT_ID = 24
 
 # Общие флаги docker run

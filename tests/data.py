@@ -1,2 +1,2 @@
 # ENDPOINTS
-ALLURE_ENDPOINT = "https://allure-testops.sberautotech.ru"
+ALLURE_ENDPOINT = "https://testops.navio.auto"

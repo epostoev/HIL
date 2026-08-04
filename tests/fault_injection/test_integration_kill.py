@@ -144,6 +144,12 @@ class TestIntegrationKill:
                 f"Текущее значение: {result['mrm_type']}"
             )
 
+        with allure.step("Проверить SLA: время реакции < 500ms"):
+            assert result["reaction_ms"] < 500, (
+                f"Время реакции {result['reaction_ms']}ms превышает "
+                f"заявленный SLA 500ms"
+            )
+
         errors_str = " | ".join([
             f"{e['error_code_hex']}: {e['details'][:50]}"
             for e in triggered_errors
