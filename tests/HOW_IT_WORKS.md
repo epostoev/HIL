@@ -273,10 +273,17 @@ echo` процесс на весь сьют через `autouse=True` session-ф
 5. node.get_pid() + kill -6/-9               → инъекция отказа
 6. mrm_monitor.wait_for_mrm_type_change(...) → дождаться реакции MRM
 7. mrm_monitor.get_error_codes()             → собрать диагностику
-8. assert result["success"]
+8. assert result["success"] и assert result["reaction_ms"] < SLA
 9. teardown (fixture restart_autopilot_after) → убить процесс `drive`,
    подождать 120с, перезапустить, дождаться mrm_type 2→0 (conftest.py:1713-1752)
 ```
+С 2026-08-04 шаги 2-8 живут в одном месте —
+`tests/framework/kill_fault_injection.py::run_kill_fault_injection()`
+(см. `KNOWN_ISSUES.md`, пункт 10) — все 9 `test_*_kill.py` файлов вызывают
+эту функцию, оставляя себе только список нод и allure-метаданные (шаг 1
+и teardown/фикстуры остаются в самих тестовых файлах, так как это разное
+для каждого компонента/зависит от pytest-фикстур).
+
 Relay-based (аппаратные) fault injection тесты устроены аналогично, но
 вместо `kill -N` используется HTTP-вызов к физическому реле
 (`tests/fault_injection/sensing/control_relay.py`) — черновик такого
@@ -299,8 +306,10 @@ Relay-based (аппаратные) fault injection тесты устроены �
 ## 9. Известные проблемы
 
 Полный список найденных багов и техдолга — в
-`tests/fault_injection/KNOWN_ISSUES.md`. На момент написания этой записки
-исправлены пункты 1–8 (сломанные фикстуры `*_alive`, `has_auto_restart`,
-фильтр `get_pid()`, рассинхрон таймаута 60/120с); пункты 9–14
-(несоответствие assert'ов заявленному SLA, дублирование кода между
-kill-тестами, магические строки `mrm_type`) — пока открыты.
+`tests/fault_injection/KNOWN_ISSUES.md`. На момент обновления этой записки
+исправлены пункты 1–10 (сломанные фикстуры `*_alive`, `has_auto_restart`,
+фильтр `get_pid()`, рассинхрон таймаута 60/120с, несоответствие assert'ов
+заявленному SLA, дублирование кода между 9 kill-тестами — вынесено в
+`framework/kill_fault_injection.py`, см. раздел 7 выше); пункты 11–14
+(тройное дублирование парсинга `ros2 topic echo`, магические строки
+`mrm_type`) — пока открыты.

@@ -152,12 +152,44 @@
 
 ## Дублирование / технический долг
 
-10. **8 файлов `*_kill.py`** (`test_control_kill.py`, `test_calibration_kill.py`,
-    `test_hdmap_kill.py`, `test_localization_kill.py`, `test_planning_kill.py`,
-    `test_integration_kill.py`, `test_perception_kill.py`, `test_prediction_kill.py`,
-    `test_sensing_kill.py`) — почти построчно идентичный код (~150-180 строк
-    каждый), отличаются только список нод и таймаут. Кандидат на общий хелпер
-    в `framework/` (`run_kill_fault_injection(node, mrm_monitor, tc_id, ...)`).
+10. **[ИСПРАВЛЕНО 2026-08-04] 9 файлов `*_kill.py`** (`test_control_kill.py`,
+    `test_calibration_kill.py`, `test_hdmap_kill.py`, `test_localization_kill.py`,
+    `test_planning_kill.py`, `test_integration_kill.py`, `test_perception_kill.py`,
+    `test_prediction_kill.py`, `test_sensing_kill.py`) были почти построчно
+    идентичны (~150-190 строк каждый), отличаясь только списком нод, SLA
+    (5000ms везде, кроме `test_integration_kill.py` — там 500ms) и
+    allure-метаданными (epic/feature/story/описание).
+    Исправлено: общее тело сценария ("kill -6 → снять baseline → зафиксировать
+    stamp → kill → дождаться mrm_type 0→2 → собрать error_codes → проверить
+    авторестарт → assert success/SLA → заполнить отчёт") вынесено в новый
+    файл `tests/framework/kill_fault_injection.py` —
+    `run_kill_fault_injection(node, node_name, mrm_monitor, request, sla_ms)`.
+    Каждый из 9 файлов теперь оставляет себе только: список `NODES`,
+    allure-декораторы класса (epic/feature/story/title/description) и
+    docstring (там, где они были — не у всех файлов они были изначально, я
+    не добавляла отсутствовавшие декораторы, чтобы не выйти за рамки задачи),
+    получение `node` из фикстуры (в части файлов — с `allure.dynamic.title`
+    и `allure.step`-обёрткой, в другой части — без, сохранила стиль каждого
+    файла как было), и один вызов хелпера. `import json`/`import time` из
+    9 файлов убраны (перенесены в новый модуль, там же были и нужны).
+
+    **Побочная находка при переписывании `test_perception_kill.py`:** класс
+    назывался `TestIPerceptionKill`, метод — `test_integration_kill` (явный
+    copy-paste из `test_integration_kill.py`, не переименованный). Ничего в
+    проекте не ссылалось на это имя напрямую (проверено grep'ом, в т.ч. по
+    `Makefile` — там пути к файлам, не к classId/methodId) — переименовала
+    в `TestPerceptionKill`/`test_perception_kill` заодно, раз файл и так
+    переписывался.
+
+    Проверено статически: `python3 -m py_compile` на всех 10 файлах (9
+    переписанных + новый хелпер) — синтаксис корректен; каждый из 9 файлов
+    и сам хелпер успешно импортируются напрямую (`importlib.import_module`)
+    без докер-стенда — эти файлы больше не тянут за собой
+    `_detect_container()` на этапе импорта (в отличие от `conftest.py`,
+    который по-прежнему требует докер при коллекции сьюта). Полноценный
+    прогон на стенде не выполнялся — нужна ручная проверка, в первую
+    очередь того, что allure-степы и `request.node.expected/actual` в
+    HTML/Allure-отчёте выглядят так же, как до рефакторинга.
 
 11. **Парсинг `ros2 topic echo` дублирован минимум трижды**: в
     `MrmRequestMonitor.get_fields/_read_loop`, в
