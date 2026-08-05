@@ -254,7 +254,7 @@ class BaseHILTest:
 
     def get_pid(self) -> int | None:
         result = self.run_docker_command(
-            f"ps aux | grep '{self.PROCESS_NAME}' | grep -v grep | grep -v python3"
+            f"ps aux | grep '{self.PROCESS_NAME}' | grep -v grep"
         )
         if result.returncode == 0 and result.stdout.strip():
             pid = int(result.stdout.strip().split('\n')[0].split()[1])
