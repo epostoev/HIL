@@ -143,6 +143,69 @@ class MrmRequestMonitor:
             "stamp_after": None,
         }
 
+    def wait_for_error_code(
+        self,
+        error_code: int,
+        before_stamp: str = None,
+        timeout: float = 10.0,
+        poll_interval: float = 0.01
+    ) -> dict:
+        """
+        Ждёт появления заданного error_code в error_codes сообщения
+        /safety/mrm_request (в отличие от wait_for_mrm_type_change,
+        не привязан к смене mrm_type — некоторые отказы могут не
+        эскалировать mrm_type, но добавлять запись в error_codes).
+        """
+        if before_stamp is None:
+            with self._lock:
+                before_stamp = self._latest_stamp
+
+        before_sec, before_ns = self._parse_stamp(before_stamp)
+        start = time.time()
+
+        while time.time() - start < timeout:
+            with self._lock:
+                current_stamp = self._latest_stamp
+
+            if current_stamp != before_stamp:
+                match = next(
+                    (c for c in self.get_error_codes()
+                     if c["error_code"] == error_code),
+                    None
+                )
+                if match is not None:
+                    after_sec, after_ns = self._parse_stamp(current_stamp)
+                    reaction_ns = (after_sec - before_sec) * 1_000_000_000 + \
+                        (after_ns - before_ns)
+                    reaction_ms = round(reaction_ns / 1_000_000, 3)
+
+                    return {
+                        "success": True,
+                        "reaction_ms": reaction_ms,
+                        "reaction_ns": reaction_ns,
+                        "error_code": match["error_code"],
+                        "error_code_hex": match["error_code_hex"],
+                        "details": match["details"],
+                        "stamp_before": before_stamp,
+                        "stamp_after": current_stamp,
+                    }
+
+                before_stamp = current_stamp
+                before_sec, before_ns = self._parse_stamp(current_stamp)
+
+            time.sleep(poll_interval)
+
+        return {
+            "success": False,
+            "reaction_ms": None,
+            "reaction_ns": None,
+            "error_code": error_code,
+            "error_code_hex": f"0x{error_code:08X}",
+            "details": None,
+            "stamp_before": before_stamp,
+            "stamp_after": None,
+        }
+
     def _parse_stamp(self, stamp: str) -> tuple[int, int]:
         """Парсит строку 'sec.nanosec' в два int."""
         if not stamp or "." not in stamp:
