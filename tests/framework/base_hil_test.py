@@ -12,6 +12,7 @@ def _detect_container() -> str:
         ["docker", "ps", "--format", "{{.Names}}"],
         capture_output=True, text=True
     )
+    print(f"docker ps output:\n{result.stdout}")
     running = result.stdout.strip().split('\n')
 
     for name in candidates:
