@@ -58,11 +58,18 @@ class TestLidarRelay:
     @allure.severity(allure.severity_level.BLOCKER)
     @pytest.mark.parametrize("channel, error_code, lidar_name", LIDAR_CHANNELS)
     def test_lidar_power_cut_triggers_no_data_error(
-        self, channel, error_code, lidar_name, mrm_monitor, request
+        self, channel, error_code, lidar_name, mrm_monitor, request,
+        restart_autopilot_after
     ):
         """
-        TC-SENSING-RELAY-LIDAR-001..004 (черновик, не запускался в
-        параметризованном виде).
+        TC-SENSING-RELAY-LIDAR-001..004.
+
+        После каждой проверки лидара автопилот перезапускается через
+        фикстуру restart_autopilot_after (conftest.py) -- та же фикстура,
+        что используется во всех kill-тестах. Она ничего не делает до
+        yield и не используется по имени в теле теста -- вся её работа
+        (kill "drive", ожидание 120с, повторный запуск, ожидание
+        mrm_type: 2 -> 0) происходит в teardown, после завершения теста.
         """
         allure.dynamic.title(
             f"Отключение {lidar_name} (канал {channel}) -> "
