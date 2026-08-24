@@ -16,6 +16,14 @@ LIDAR_RELAY_CHANNELS = {
     7: "lidar_right",
 }
 
+# Каналы реле -> радар (подтверждено на стенде 2026-08-24).
+RADAR_RELAY_CHANNELS = {
+    0: "radar_roof_back_left",
+    1: "radar_roof_back_right",
+    2: "radar_roof_front_right",
+    3: "radar_roof_front_left",
+}
+
 
 def relay_on(channel: int):
     """
