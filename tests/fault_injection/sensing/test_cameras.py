@@ -21,6 +21,16 @@ Fault Injection: отказ камеры через порчу конфига н
    недостаточно -- без reboot следующие по порядку камеры начинали
    падать после первого прогона (подтверждено на стенде 2026-08-31).
 
+Все 8 камер прогоняются в РАМКАХ ОДНОГО запуска drive -- restart_autopilot_after
+НЕ используется (в отличие от test_lidars.py/test_radars.py и kill-тестов).
+Это оправдано тем, что здесь ломается не сам процесс/нода (никакого
+kill -N), а внешнее устройство (TZTEK) -- как только конфиг восстановлен и
+TZTEK перезагружен, поток должен возобновиться сам, без необходимости
+перезапускать drive. Вместо перезапуска drive в конце каждого теста явно
+ждём возврата mrm_type к значению ДО инъекции (wait_for_mrm_type_change) --
+это нужно, чтобы следующая камера в этом же прогоне не унаследовала ещё не
+рассосавшееся состояние fault от предыдущей.
+
 Соответствие камера -> error_code подтверждено на стенде 2026-08-28/31:
     leopard120_1 -> 65807
     leopard120_2 -> 131343
@@ -88,16 +98,17 @@ class TestCameraConfigFault:
     @allure.severity(allure.severity_level.BLOCKER)
     @pytest.mark.parametrize("camera_name, error_code", CAMERA_ERROR_CODES)
     def test_camera_config_break_triggers_no_data_error(
-        self, camera_name, error_code, mrm_monitor, request,
-        restart_autopilot_after
+        self, camera_name, error_code, mrm_monitor, request
     ):
         """
         TC-SENSING-TZTEK-CAM-001..008.
 
-        После каждой проверки камеры автопилот перезапускается через
-        фикстуру restart_autopilot_after (conftest.py) -- та же
-        фикстура, что используется во всех kill-тестах и в
-        test_lidars.py/test_radars.py.
+        В ОТЛИЧИЕ от kill-тестов и test_lidars.py/test_radars.py -- НЕ
+        перезапускает drive (нет restart_autopilot_after). Все 8 камер
+        прогоняются подряд в рамках одного запуска drive. Вместо этого в
+        конце теста явно ждём возврата mrm_type к baseline-значению
+        (см. finally) -- чтобы следующая камера стартовала на чистом
+        состоянии.
         """
         allure.dynamic.title(
             f"Порча конфига {camera_name} (port -> {BROKEN_PORT}) -> "
@@ -212,3 +223,34 @@ class TestCameraConfigFault:
                     attachment_type=allure.attachment_type.TEXT,
                 )
                 time.sleep(REBOOT_WAIT_SECONDS)
+
+            with allure.step(
+                "Дождаться возврата mrm_type к исходному значению "
+                "(drive НЕ перезапускается -- следующая камера в этом же "
+                "прогоне должна стартовать на чистом состоянии)"
+            ):
+                recovery = mrm_monitor.wait_for_mrm_type_change(
+                    from_value="2",
+                    to_value=baseline["mrm_type"] or "0",
+                    timeout=60.0,
+                    poll_interval=0.5,
+                )
+                allure.attach(
+                    str(recovery),
+                    name="Результат ожидания восстановления mrm_type",
+                    attachment_type=allure.attachment_type.TEXT,
+                )
+                if not recovery["success"]:
+                    # Не роняем тест здесь -- основной assert (error_code
+                    # появился) уже отработал выше. Но громко предупреждаем:
+                    # если mrm_type не вернулся, baseline_codes-проверка
+                    # следующей камеры в этом же прогоне ещё может поймать
+                    # "грязный старт" через error_code, но НЕ поймает
+                    # ситуацию "mrm_type всё ещё 2 по другой причине" --
+                    # эту ситуацию нужно смотреть в логе вручную.
+                    print(
+                        f"[WARNING] mrm_type не вернулся к "
+                        f"{baseline['mrm_type']} за 60с после восстановления "
+                        f"{camera_name}. Следующий тест может начаться "
+                        f"на незавершившемся recovery -- проверьте вручную."
+                    )
