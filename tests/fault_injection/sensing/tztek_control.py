@@ -18,6 +18,8 @@ TZTEK -- устройство, обрабатывающее видеопоток
 тесте, чтобы вся последовательность действий была видна и понятна при
 отладке, а не спрятана внутри одной функции.
 """
+import subprocess
+
 import requests
 
 DEVICE_IP = "192.168.1.101"
@@ -26,6 +28,12 @@ HTTP_PORT = 8080
 BASE_URL = f"http://{DEVICE_IP}:{HTTP_PORT}"
 
 BROKEN_PORT = 7000  # фиксированный "плохой" порт, одинаковый для всех камер
+
+# После восстановления конфига через set_camera_config() TZTEK не всегда
+# полноценно поднимает поток обратно -- потребовалась полная перезагрузка
+# устройства (подтверждено на стенде 2026-08-31: без reboot тесты для
+# следующих камер по порядку начинали падать после первой).
+REBOOT_WAIT_SECONDS = 120
 
 
 def list_cameras() -> list[str]:
@@ -60,6 +68,21 @@ def set_camera_config(camera_name: str, config: dict) -> requests.Response:
         f"{BASE_URL}/config", params={"camera": camera_name}, json=config, timeout=5
     )
     return response
+
+
+def reboot_tztek() -> subprocess.CompletedProcess:
+    """
+    Перезагрузить TZTEK через SSH (sudo reboot now).
+
+    `sudo reboot now` обрывает саму SSH-сессию, из-за которой запущена
+    команда -- поэтому ненулевой returncode/обрыв соединения здесь
+    ОЖИДАЕМЫ и не являются признаком ошибки. Функция НЕ ждёт, пока
+    устройство реально поднимется обратно -- паузу (REBOOT_WAIT_SECONDS)
+    нужно выдерживать отдельно после вызова, см. использование в
+    test_cameras.py.
+    """
+    cmd = ["ssh", "-t", DEVICE_IP, "sudo reboot now"]
+    return subprocess.run(cmd, capture_output=True, text=True, timeout=15)
 
 
 if __name__ == "__main__":
