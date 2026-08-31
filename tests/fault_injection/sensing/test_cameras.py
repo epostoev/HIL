@@ -15,11 +15,16 @@ Fault Injection: отказ камеры через порчу конфига н
    заведомо неправильный (BROKEN_PORT=7000 вместо реального) -- камера
    перестаёт присылать поток по ожидаемому адресу, что в итоге долетает
    как ошибка в /safety/mrm_request.
-3. После теста -- POST оригинального конфига обратно (восстановление),
-   затем полная перезагрузка TZTEK по SSH (reboot_tztek()) с паузой
-   REBOOT_WAIT_SECONDS. Одного восстановления конфига оказалось
-   недостаточно -- без reboot следующие по порядку камеры начинали
-   падать после первого прогона (подтверждено на стенде 2026-08-31).
+3. После теста -- POST оригинального конфига обратно (восстановление).
+
+ВРЕМЕННО (с 2026-09-04): шаг reboot_tztek() ЗАКОММЕНТИРОВАН в теле теста
+по просьбе -- сначала хотим убедиться, что остальной флоу (без перезапуска
+drive, с ожиданием recovery mrm_type) работает сам по себе. Раньше
+(2026-08-31) было подтверждено, что БЕЗ reboot следующие по порядку камеры
+начинали падать после первого прогона -- то есть при повторном включении
+этого шага стоит помнить, что без него регресс, скорее всего, вернётся.
+Функция reboot_tztek() и REBOOT_WAIT_SECONDS оставлены в
+tztek_control.py нетронутыми, чтобы шаг можно было быстро вернуть.
 
 Все 8 камер прогоняются в РАМКАХ ОДНОГО запуска drive -- restart_autopilot_after
 НЕ используется (в отличие от test_lidars.py/test_radars.py и kill-тестов).
@@ -57,18 +62,16 @@ TZTEK перезагружен, поток должен возобновитьс
   системное свойство паттерна try/finally с внешним HTTP-вызовом, а не
   что-то специфичное для камер.
 """
-import time
-
 import allure
 import pytest
 
 from fault_injection.sensing.tztek_control import (
     BROKEN_PORT,
-    REBOOT_WAIT_SECONDS,
     get_camera_config,
-    reboot_tztek,
     set_camera_config,
 )
+# reboot_tztek, REBOOT_WAIT_SECONDS -- временно не используются, см.
+# docstring файла. import time тоже не нужен без time.sleep(REBOOT_WAIT_SECONDS).
 
 
 # (имя камеры, error_code)
@@ -205,24 +208,29 @@ class TestCameraConfigFault:
                     attachment_type=allure.attachment_type.TEXT,
                 )
 
-            with allure.step(
-                f"Перезагрузить TZTEK и подождать {REBOOT_WAIT_SECONDS}с"
-            ):
-                # Восстановления конфига одного недостаточно -- TZTEK не
-                # поднимает поток обратно без полной перезагрузки
-                # устройства (см. docstring файла). Выполняется ПОСЛЕ
-                # восстановления конфига -- если бы порядок был обратным,
-                # устройство могло бы подняться со сломанным конфигом,
-                # если он успел сохраниться на диск.
-                reboot_result = reboot_tztek()
-                allure.attach(
-                    f"returncode: {reboot_result.returncode}\n"
-                    f"stdout: {reboot_result.stdout}\n"
-                    f"stderr: {reboot_result.stderr}",
-                    name="reboot_tztek() result",
-                    attachment_type=allure.attachment_type.TEXT,
-                )
-                time.sleep(REBOOT_WAIT_SECONDS)
+            # ВРЕМЕННО ОТКЛЮЧЕНО (2026-09-04, по просьбе) -- см. docstring
+            # файла. Раскомментировать вместе с импортом reboot_tztek,
+            # REBOOT_WAIT_SECONDS и `import time`, если "грязный старт"
+            # вернётся у следующих по порядку камер без reboot.
+            #
+            # with allure.step(
+            #     f"Перезагрузить TZTEK и подождать {REBOOT_WAIT_SECONDS}с"
+            # ):
+            #     # Восстановления конфига одного недостаточно -- TZTEK не
+            #     # поднимает поток обратно без полной перезагрузки
+            #     # устройства. Выполняется ПОСЛЕ восстановления конфига --
+            #     # если бы порядок был обратным, устройство могло бы
+            #     # подняться со сломанным конфигом, если он успел
+            #     # сохраниться на диск.
+            #     reboot_result = reboot_tztek()
+            #     allure.attach(
+            #         f"returncode: {reboot_result.returncode}\n"
+            #         f"stdout: {reboot_result.stdout}\n"
+            #         f"stderr: {reboot_result.stderr}",
+            #         name="reboot_tztek() result",
+            #         attachment_type=allure.attachment_type.TEXT,
+            #     )
+            #     time.sleep(REBOOT_WAIT_SECONDS)
 
             with allure.step(
                 "Дождаться возврата mrm_type к исходному значению "
