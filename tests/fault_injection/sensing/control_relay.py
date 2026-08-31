@@ -24,6 +24,12 @@ RADAR_RELAY_CHANNELS = {
     3: "radar_roof_front_left",
 }
 
+# Каналы реле -> IMU (подтверждено 2026-09-04).
+IMU_RELAY_CHANNELS = {
+    8: "imu_ca",
+    9: "imu_ch",
+}
+
 
 def relay_on(channel: int):
     """
