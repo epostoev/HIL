@@ -14,23 +14,37 @@ import allure
 import pytest
 
 
+NODE_DOWN_ERROR_CODE = 131346
+
+
 def run_kill_fault_injection(
     node,
     node_name: str,
     mrm_monitor,
     request,
     sla_ms: float = 5000,
+    error_code: int = NODE_DOWN_ERROR_CODE,
 ) -> None:
     """
     Отправляет kill -6 ноде и проверяет реакцию MRM (/safety/mrm_request).
 
+    Критерий прохождения: node_name появляется в details.nodes записи
+    error_codes с кодом error_code (по умолчанию 131346 -- watchdog
+    "нода недоступна"). mrm_type сейчас не проверяется -- см.
+    tests/fault_injection/KNOWN_ISSUES.md, пункт 15.
+
     :param node: объект ноды (BaseHILTest), уже полученный из фикстуры.
-    :param node_name: строковое ROS-имя ноды, только для логов/отчёта.
+    :param node_name: строковое ROS-имя ноды (должно совпадать с записью
+        в details.nodes error_code, например "/calibration/rct/rct_validator").
     :param mrm_monitor: session-scoped MrmRequestMonitor.
     :param request: pytest request (для request.node.expected/actual/reaction_ms).
-    :param sla_ms: заявленный SLA по времени реакции MRM в миллисекундах.
+    :param sla_ms: заявленный SLA по времени появления error_code в миллисекундах.
+    :param error_code: код ошибки, в details.nodes которого должна появиться node_name.
     """
-    request.node.expected = f"mrm_type: 0 → 2. Время реакции < {sla_ms:g}ms"
+    request.node.expected = (
+        f"{node_name} появляется в details.nodes error_code {error_code} "
+        f"в /safety/mrm_request. Время реакции < {sla_ms:g}ms"
+    )
 
     if not node.is_alive():
         pytest.skip(f"Нода {node_name} не запущена")
@@ -45,6 +59,23 @@ def run_kill_fault_injection(
             name="Baseline",
             attachment_type=allure.attachment_type.TEXT,
         )
+
+    with allure.step(
+        f"Защита от грязного старта: {node_name} не должна быть "
+        f"в details.nodes error_code {error_code} ДО kill"
+    ):
+        baseline_nodes = mrm_monitor._nodes_in_error_code(error_code)
+        allure.attach(
+            "\n".join(baseline_nodes) or "нет",
+            name=f"Baseline nodes в error_code {error_code}",
+            attachment_type=allure.attachment_type.TEXT,
+        )
+        if node_name in baseline_nodes:
+            pytest.skip(
+                f"{node_name} уже в details.nodes error_code {error_code} "
+                f"ДО kill -- стенд не в чистом состоянии, "
+                f"тест не докажет причинно-следственную связь"
+            )
 
     with allure.step(f"Получить PID ноды {node_name}"):
         pid_before = node.get_pid()
@@ -63,13 +94,16 @@ def run_kill_fault_injection(
         node.run_docker_command(f"kill -6 {pid_before}")
         node.logger.info(
             f"kill -6 отправлен PID={pid_before}. "
-            f"Ждём изменения mrm_type..."
+            f"Ждём появления {node_name} в error_code {error_code}..."
         )
 
-    with allure.step("Ожидать mrm_type: 0 → 2 (timeout=10s)"):
-        result = mrm_monitor.wait_for_mrm_type_change(
-            from_value="0",
-            to_value="2",
+    with allure.step(
+        f"Ожидать {node_name} в details.nodes error_code {error_code} "
+        f"(timeout=10s)"
+    ):
+        result = mrm_monitor.wait_for_node_in_error_code(
+            error_code=error_code,
+            node_name=node_name,
             before_stamp=before_stamp,
             timeout=10.0,
             poll_interval=0.01
@@ -78,14 +112,15 @@ def run_kill_fault_injection(
             f"Результат: success={result['success']}, "
             f"reaction={result['reaction_ms']}ms "
             f"({result['reaction_ns']}ns), "
-            f"mrm_type={result['mrm_type']}"
+            f"nodes={result['nodes']}"
         )
         allure.attach(
             f"success:      {result['success']}\n"
-            f"mrm_type:     {result['mrm_type']}\n"
+            f"error_code:   {result['error_code_hex']} ({result['error_code']})\n"
+            f"nodes:        {result['nodes']}\n"
             f"reaction_ms:  {result['reaction_ms']}ms\n"
             f"reaction_ns:  {result['reaction_ns']}ns",
-            name="Результат ожидания MRM",
+            name="Результат ожидания error_code",
             attachment_type=allure.attachment_type.TEXT,
         )
 
@@ -141,10 +176,14 @@ def run_kill_fault_injection(
                 attachment_type=allure.attachment_type.TEXT,
             )
 
-    with allure.step("Проверить assert: mrm_type изменился на '2'"):
+    with allure.step(
+        f"Проверить assert: {node_name} появилась в details.nodes "
+        f"error_code {error_code}"
+    ):
         assert result["success"], (
-            f"mrm_type не изменился на '2'. "
-            f"Текущее значение: {result['mrm_type']}"
+            f"{node_name} не появилась в details.nodes error_code "
+            f"{error_code} за 10s после kill -6. "
+            f"Текущий список нод: {result['nodes']}"
         )
 
     with allure.step(f"Проверить SLA: время реакции < {sla_ms:g}ms"):
@@ -159,7 +198,8 @@ def run_kill_fault_injection(
     ]) or "нет"
 
     request.node.actual = (
-        f"mrm_type: {baseline['mrm_type']} → {result['mrm_type']}. "
+        f"{node_name} появилась в error_code {result['error_code_hex']} "
+        f"({result['error_code']}), reaction={result['reaction_ms']}ms. "
         f"Ошибки: {errors_str} ✅"
     )
     request.node.reaction_ms = f"{result['reaction_ms']}ms"

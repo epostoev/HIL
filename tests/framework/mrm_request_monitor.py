@@ -1,3 +1,4 @@
+import json
 import subprocess
 import threading
 import time
@@ -25,7 +26,7 @@ class MrmRequestMonitor:
             "bash", "-c",
             "source /rep/ros2/install/setup.bash && "
             "export ROS_DOMAIN_ID=1 && "
-            "ros2 topic echo /safety/mrm_request 2>/dev/null"
+            "ros2 topic echo --full-length /safety/mrm_request 2>/dev/null"
         ]
         self._proc = subprocess.Popen(
             cmd,
@@ -202,6 +203,88 @@ class MrmRequestMonitor:
             "error_code": error_code,
             "error_code_hex": f"0x{error_code:08X}",
             "details": None,
+            "stamp_before": before_stamp,
+            "stamp_after": None,
+        }
+
+    def _nodes_in_error_code(self, error_code: int) -> list[str]:
+        """
+        details записи с данным error_code имеет вид {"nodes": [...]}.
+        Возвращает список нод или [] если код не активен / не парсится.
+        """
+        match = next(
+            (c for c in self.get_error_codes()
+             if c["error_code"] == error_code),
+            None
+        )
+        if match is None:
+            return []
+        try:
+            return json.loads(match["details"]).get("nodes", [])
+        except (ValueError, AttributeError):
+            return []
+
+    def wait_for_node_in_error_code(
+        self,
+        error_code: int,
+        node_name: str,
+        before_stamp: str = None,
+        timeout: float = 10.0,
+        poll_interval: float = 0.01
+    ) -> dict:
+        """
+        Ждёт появления node_name в details.nodes записи с данным
+        error_code (details -- JSON {"nodes": [...]}).
+
+        В отличие от wait_for_error_code: сам факт наличия error_code в
+        списке НЕ считается успехом -- код может быть уже активен из-за
+        других, не связанных с этим тестом нод (watchdog агрегирует всех
+        недоступных нод в одну запись). Успех -- только когда node_name
+        реально появляется в списке.
+        """
+        if before_stamp is None:
+            with self._lock:
+                before_stamp = self._latest_stamp
+
+        before_sec, before_ns = self._parse_stamp(before_stamp)
+        start = time.time()
+
+        while time.time() - start < timeout:
+            with self._lock:
+                current_stamp = self._latest_stamp
+
+            if current_stamp != before_stamp:
+                nodes = self._nodes_in_error_code(error_code)
+
+                if node_name in nodes:
+                    after_sec, after_ns = self._parse_stamp(current_stamp)
+                    reaction_ns = (after_sec - before_sec) * 1_000_000_000 + \
+                        (after_ns - before_ns)
+                    reaction_ms = round(reaction_ns / 1_000_000, 3)
+
+                    return {
+                        "success": True,
+                        "reaction_ms": reaction_ms,
+                        "reaction_ns": reaction_ns,
+                        "error_code": error_code,
+                        "error_code_hex": f"0x{error_code:08X}",
+                        "nodes": nodes,
+                        "stamp_before": before_stamp,
+                        "stamp_after": current_stamp,
+                    }
+
+                before_stamp = current_stamp
+                before_sec, before_ns = self._parse_stamp(current_stamp)
+
+            time.sleep(poll_interval)
+
+        return {
+            "success": False,
+            "reaction_ms": None,
+            "reaction_ns": None,
+            "error_code": error_code,
+            "error_code_hex": f"0x{error_code:08X}",
+            "nodes": self._nodes_in_error_code(error_code),
             "stamp_before": before_stamp,
             "stamp_after": None,
         }
